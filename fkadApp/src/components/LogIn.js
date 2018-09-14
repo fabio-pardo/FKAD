@@ -13,7 +13,6 @@ class LogIn extends Component {
 
 const styles = {
 	logoStyle: {
-		margin: 10
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-between'
