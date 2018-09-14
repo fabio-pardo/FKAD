@@ -28,29 +28,32 @@ const InputLogIn = ({
 const styles = {
 	inputStyle: {
 		color: '#3982B6',
+		fontFamily: 'AppleGothic',
 		paddingRight: 5,
 		paddingLeft: 5,
 		fontSize: 17,
 		lineHeight: 23,
-		flex: 2
+		flex: 1,
+		alignSelf: 'stretch'
 	},
 	labelStyle: {
 		fontSize: 18,
-		paddingLeft: -1,
-		margin: -22,
-		flex: 1
+		marginTop: -25,
+		flex: 1,
+		color: '#3982B6',
+		fontFamily: 'AppleGothic'
 	},
 	containerStyle: {
-		height: 30,
-		width: 100,
+		height: 35,
 		backgroundColor: '#fff',
 		borderRadius: 2,
 		borderWidth: 1,
 		borderColor: '#3982B6',
-		flexDirection: 'row',
+		flexDirection: 'column',
 		justifyContent: 'center',
-		alignItems: 'center',
-		margin: 3
+		alignItems: 'flex-start',
+		marginTop: 30,
+		marginBottom: 10
 	}
 };
 
