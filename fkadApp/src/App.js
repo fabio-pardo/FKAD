@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 
-import { Button, Input, InputLogIn } from './components/common';
+import LogIn from './components/LogIn';
 
 class App extends Component {
 	render() {
 		return (
 			<View>
-				<Image source={require('./images/logo.png')} />
-				<Text>Hello</Text>
-				<Text>Hello</Text>
-				<Text>Hello</Text>
-				<Button
-					onPress={() => {
-						console.log('click');
-					}}
-				>
-					Send
-				</Button>
-				<Button>Click me</Button>
-				<Input />
-				<InputLogIn />
+				<LogIn />
 			</View>
 		);
 	}
