@@ -1,23 +1,44 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
+import { connect } from 'react-redux';
 import { InputLogIn, Button } from './common';
+import { emailChanged, passwordChanged } from '../actions';
 
 class LogIn extends Component {
+	onEmailChange(text) {
+		this.props.emailChanged(text);
+		console.log('email: ' + this.props.email);
+	}
+
+	onPasswordChange(text) {
+		this.props.passwordChanged(text);
+		console.log('password: ' + this.props.password);
+	}
+
 	render() {
 		return (
-			<View style={styles.containerStyle}>
-				<Image
-					style={styles.imageStyle}
-					source={require('../images/logo.png')}
-				/>
-				<View style={{ marginTop: 20 }}>
-					<InputLogIn label="Email" placeholder="user@email.com" />
-					<InputLogIn
-						label="Password"
-						secureTextEntry
-						placeholder="******"
+			<View style={{ backgroundColor: 'white', height: '100%' }}>
+				<View style={styles.containerStyle}>
+					<Image
+						style={styles.imageStyle}
+						source={require('../images/logo.png')}
 					/>
-					<Button>Log In</Button>
+					<View style={{ marginTop: 20 }}>
+						<InputLogIn
+							label="Email"
+							placeholder="user@email.com"
+							onChangeText={this.onEmailChange.bind(this)}
+							value={this.props.email}
+						/>
+						<InputLogIn
+							label="Password"
+							secureTextEntry
+							placeholder="******"
+							onChangeText={this.onPasswordChange.bind(this)}
+							value={this.props.password}
+						/>
+						<Button>Log In</Button>
+					</View>
 				</View>
 			</View>
 		);
@@ -46,12 +67,10 @@ const styles = {
 	}
 };
 
-export default LogIn;
+const mapStateToProps = state => {
+	return { email: state.auth.email, password: state.auth.password };
+};
 
-//<View style={styles.containerStyle}>
-// <View>
-// 	<Text style={styles.textStyle}>Log In</Text>
-// 	<InputLogIn label='Email'/>
-// 	<Text style={styles.textStyle}>Log In</Text>
-//</View>
-//</View>
+export default connect(mapStateToProps, { emailChanged, passwordChanged })(
+	LogIn
+);
