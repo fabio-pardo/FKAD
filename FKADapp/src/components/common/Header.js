@@ -1,26 +1,39 @@
 import React, { Component } from 'react';
 import Drawer from 'react-native-drawer';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
+import Menu from './Menu';
 
-const Header = ({ headerTitle }) => {
-	return (
-		<View>
-			<View style={styles.toolbar}>
-				<TouchableOpacity
-					onPress={() => {
-						console.log('menu');
-					}}
-				>
-					<Image
-						style={{ height: 55 }}
-						source={require('../../images/menuIcon.png')}
+class Header extends Component {
+	state = { showMenu: false };
+	render() {
+		return (
+			<View>
+				<View style={styles.toolbar}>
+					<TouchableOpacity
+						onPress={() => {
+							console.log(this.state.showMenu);
+							this.setState({ showMenu: !this.state.showMenu });
+						}}
+					>
+						<Image
+							style={{ height: 55 }}
+							source={require('../../images/menuIcon.png')}
+						/>
+					</TouchableOpacity>
+					<Text style={styles.toolbarTitle}>
+						{this.props.headerTitle}
+					</Text>
+					<Menu
+						visible={this.state.showMenu}
+						onPress={() => {
+							this.setState({ showMenu: !this.state.showMenu });
+						}}
 					/>
-				</TouchableOpacity>
-				<Text style={styles.toolbarTitle}>{headerTitle}</Text>
+				</View>
 			</View>
-		</View>
-	);
-};
+		);
+	}
+}
 
 const styles = {
 	toolbar: {
