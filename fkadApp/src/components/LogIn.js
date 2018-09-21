@@ -3,6 +3,7 @@ import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { InputLogIn, Button } from './common';
 import { emailChanged, passwordChanged } from '../actions';
+import { Actions } from 'react-native-router-flux';
 
 class LogIn extends Component {
 	onEmailChange(text) {
@@ -37,7 +38,13 @@ class LogIn extends Component {
 							onChangeText={this.onPasswordChange.bind(this)}
 							value={this.props.password}
 						/>
-						<Button>Log In</Button>
+						<Button
+							onPress={() => {
+								Actions.dashboard();
+							}}
+						>
+							Log In
+						</Button>
 					</View>
 				</View>
 			</View>

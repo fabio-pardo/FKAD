@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router, Actions, Stack } from 'react-native-router-flux';
 import LogIn from './components/LogIn';
+import Dashboard from './components/Dashboard';
 
 const RouterComponent = () => {
 	return (
@@ -8,6 +9,9 @@ const RouterComponent = () => {
 			<Stack key="root" hideNavBar>
 				<Stack key="auth" hideNavBar>
 					<Stack key="login" component={LogIn} initial />
+				</Stack>
+				<Stack key="main" hideNavBar>
+					<Stack key="dashboard" component={Dashboard} initial />
 				</Stack>
 			</Stack>
 		</Router>
