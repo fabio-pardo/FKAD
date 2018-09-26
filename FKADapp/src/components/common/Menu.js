@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Modal, Image, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 const Menu = ({ visible, onPress }) => {
 	return (
@@ -17,10 +18,18 @@ const Menu = ({ visible, onPress }) => {
 							source={require('../../images/menuIcon.png')}
 						/>
 					</TouchableOpacity>
-					<TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => {
+							Actions.dashboard();
+						}}
+					>
 						<Text style={styles.textStyle}>Dashboard</Text>
 					</TouchableOpacity>
-					<TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => {
+							Actions.createNewOrder();
+						}}
+					>
 						<Text style={styles.textStyle}>New Order</Text>
 					</TouchableOpacity>
 					<TouchableOpacity>
@@ -47,7 +56,7 @@ const styles = {
 		marginLeft: 5
 	},
 	containerStyle: {
-		width: '60%',
+		width: '50%',
 		height: '100%',
 		backgroundColor: '#3982B6'
 	}
