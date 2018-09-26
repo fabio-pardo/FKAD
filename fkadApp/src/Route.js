@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Actions, Stack } from 'react-native-router-flux';
 import LogIn from './components/LogIn';
 import Dashboard from './components/Dashboard';
+import CreateNewOrder from './components/newOrder/CreateNewOrder';
 
 const RouterComponent = () => {
 	return (
@@ -12,6 +13,7 @@ const RouterComponent = () => {
 				</Stack>
 				<Stack key="main" hideNavBar>
 					<Stack key="dashboard" component={Dashboard} initial />
+					<Stack key="createNewOrder" component={CreateNewOrder} />
 				</Stack>
 			</Stack>
 		</Router>
