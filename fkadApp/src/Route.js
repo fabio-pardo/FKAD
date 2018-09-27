@@ -3,6 +3,8 @@ import { Router, Actions, Stack } from 'react-native-router-flux';
 import LogIn from './components/LogIn';
 import Dashboard from './components/Dashboard';
 import CreateNewOrder from './components/newOrder/CreateNewOrder';
+import TimeAndPlace from './components/newOrder/TimeAndPlace';
+import DeliverTo from './components/newOrder/DeliverTo';
 
 const RouterComponent = () => {
 	return (
@@ -14,6 +16,8 @@ const RouterComponent = () => {
 				<Stack key="main" hideNavBar>
 					<Stack key="dashboard" component={Dashboard} initial />
 					<Stack key="createNewOrder" component={CreateNewOrder} />
+					<Stack key="timeAndPlace" component={TimeAndPlace} />
+					<Stack key="deliverTo" component={DeliverTo} />
 				</Stack>
 			</Stack>
 		</Router>
@@ -21,25 +25,3 @@ const RouterComponent = () => {
 };
 
 export default RouterComponent;
-// <Stack key="main">
-// 	<Stack
-// 		rightTitle="Add"
-// 		onRight={() => {
-// 			Actions.employeeCreate();
-// 		}}
-// 		key="employeeList"
-// 		component={EmployeeList}
-// 		title="Employees"
-// 		initial
-// 	/>
-// 	<Stack
-// 		key="employeeCreate"
-// 		component={EmployeeCreate}
-// 		title="Create Employee"
-// 	/>
-// 	<Stack
-// 		key="employeeEdit"
-// 		component={EmployeeEdit}
-// 		title="Edit Employee"
-// 	/>
-// </Stack>
