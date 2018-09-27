@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
 
-const Input = ({
+const InputThree = ({
 	placeholder,
 	label,
 	value,
@@ -12,7 +12,7 @@ const Input = ({
 	return (
 		<View style={containerStyle}>
 			<Text style={labelStyle}>{label}</Text>
-			<View style={{ margin: 1 }}>
+			<View>
 				<TextInput
 					secureTextEntry={secureTextEntry}
 					placeholder={placeholder}
@@ -54,8 +54,9 @@ const styles = {
 		justifyContent: 'center',
 		alignItems: 'flex-start',
 		marginTop: 20,
-		marginBottom: 10
+		marginBottom: 10,
+		width: '31%'
 	}
 };
 
-export { Input };
+export { InputThree };
