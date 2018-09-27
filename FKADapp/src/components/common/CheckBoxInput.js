@@ -2,25 +2,18 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import CheckBox from 'react-native-check-box';
 
-class CheckBoxInput extends Component {
-	state = { isChecked: false };
-	render() {
-		return (
-			<View style={styles.containerStyle}>
-				<Text style={styles.labelStyle}>{this.props.label}</Text>
-				<CheckBox
-					onClick={() => {
-						this.setState({
-							isChecked: !this.state.isChecked
-						});
-					}}
-					isChecked={this.state.isChecked}
-					checkBoxColor="#3982B6"
-				/>
-			</View>
-		);
-	}
-}
+const CheckBoxInput = ({ isChecked, onClick = () => {}, label }) => {
+	return (
+		<View style={styles.containerStyle}>
+			<Text style={styles.labelStyle}>{label}</Text>
+			<CheckBox
+				onClick={onClick}
+				isChecked={isChecked}
+				checkBoxColor="#3982B6"
+			/>
+		</View>
+	);
+};
 
 const styles = {
 	labelStyle: {

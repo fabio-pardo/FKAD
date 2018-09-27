@@ -12,6 +12,74 @@ import {
 } from '../common';
 
 class TimeAndPlace extends Component {
+	state = {
+		isCheckedToday: false,
+		isCheckedTomorrow: false,
+		isCheckedDoorway: false,
+		isCheckedInside: false,
+		isCheckedInKitchen: false,
+		isCheckedRefrigerate: false,
+		isCheckedFreeze: false
+	};
+
+	isInside() {
+		if (this.state.isCheckedInside) {
+			return (
+				<View style={styles.kitchenSytle}>
+					<CheckBoxInput
+						label="Items in the kitchen"
+						isChecked={this.state.isCheckedInKitchen}
+						onClick={() => {
+							this.setState({
+								isCheckedInKitchen: !this.state
+									.isCheckedInKitchen
+							});
+							if (this.state.isCheckedInKitchen) {
+								this.setState({
+									isCheckedRefrigerate: false
+								});
+								this.setState({
+									isCheckedFreeze: false
+								});
+							}
+						}}
+					/>
+					{this.isInKitchen()}
+				</View>
+			);
+		}
+		return;
+	}
+
+	isInKitchen() {
+		if (this.state.isCheckedInKitchen) {
+			return (
+				<View>
+					<CheckBoxInput
+						label="Refrigerate Items"
+						isChecked={this.state.isCheckedRefrigerate}
+						onClick={() => {
+							this.setState({
+								isCheckedRefrigerate: !this.state
+									.isCheckedRefrigerate
+							});
+						}}
+					/>
+					<CheckBoxInput
+						label="Freeze Items"
+						isChecked={this.state.isCheckedFreeze}
+						onClick={() => {
+							this.setState({
+								isCheckedFreeze: !this.state.isCheckedFreeze
+							});
+						}}
+					/>
+				</View>
+			);
+		}
+		return;
+	}
+
 	render() {
 		return (
 			<View style={{ backgroundColor: 'white' }}>
@@ -21,17 +89,64 @@ class TimeAndPlace extends Component {
 					<View style={{ marginTop: 15 }}>
 						<Text style={styles.textStyle}>Day</Text>
 						<View style={styles.todayTomorrowStyle}>
-							<CheckBoxInput label="Today" />
-							<CheckBoxInput label="Tomorrow" />
+							<CheckBoxInput
+								label="Today"
+								isChecked={this.state.isCheckedToday}
+								onClick={() => {
+									this.setState({
+										isCheckedToday: true
+									});
+									this.setState({
+										isCheckedTomorrow: false
+									});
+								}}
+							/>
+							<CheckBoxInput
+								label="Tomorrow"
+								isChecked={this.state.isCheckedTomorrow}
+								onClick={() => {
+									this.setState({
+										isCheckedTomorrow: true
+									});
+									this.setState({
+										isCheckedToday: false
+									});
+								}}
+							/>
 						</View>
 						<Text style={styles.textStyle}>Time: </Text>
-						<DropDown label=' Select Time ' options={times} />
+						<DropDown label=" Select Time " options={times} />
 						<Text style={styles.textStyle}>Place Order At: </Text>
 						<View style={styles.todayTomorrowStyle}>
-							<CheckBoxInput label="Doorway" />
-							<CheckBoxInput label="Inside" />
+							<CheckBoxInput
+								label="Doorway"
+								isChecked={this.state.isCheckedDoorway}
+								onClick={() => {
+									this.setState({
+										isCheckedDoorway: true
+									});
+									this.setState({
+										isCheckedInside: false
+									});
+								}}
+							/>
+							<CheckBoxInput
+								label="Inside"
+								isChecked={this.state.isCheckedInside}
+								onClick={() => {
+									this.setState({
+										isCheckedInside: true
+									});
+									this.setState({
+										isCheckedDoorway: false
+									});
+								}}
+							/>
 						</View>
 					</View>
+
+					{this.isInside()}
+
 					<View style={styles.buttonStyle}>
 						<Button
 							onPress={() => {
@@ -77,6 +192,10 @@ const styles = {
 	todayTomorrowStyle: {
 		flexDirection: 'row',
 		justifyContent: 'flex-start'
+	},
+	kitchenSytle: {
+		marginTop: 10,
+		margin: 3
 	}
 };
 
