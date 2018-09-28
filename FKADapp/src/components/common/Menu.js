@@ -4,8 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import { Confirm } from './Confirm';
 
 class Menu extends Component {
-	state = { showModal: false }
-
+	state = { showModal: false };
 
 	onLogoutAccept() {
 		//Should sign out UID from AWS
@@ -17,6 +16,7 @@ class Menu extends Component {
 	onLogoutDecline() {
 		//BUG: MENU Doesn't Close on LogOutDeny (It Should)
 		this.setState({ showModal: false });
+		this.props.onPress();
 	}
 
 	hideNavBar() {
@@ -71,9 +71,13 @@ class Menu extends Component {
 						>
 							<Text style={styles.textStyle}>Settings</Text>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={() => {
-							this.setState({ showModal: !this.state.showModal })
-						}}>
+						<TouchableOpacity
+							onPress={() => {
+								this.setState({
+									showModal: !this.state.showModal
+								});
+							}}
+						>
 							<Text style={styles.textStyle}>Log Out</Text>
 						</TouchableOpacity>
 
@@ -89,7 +93,7 @@ class Menu extends Component {
 			</Modal>
 		);
 	}
-};
+}
 
 const styles = {
 	textStyle: {
