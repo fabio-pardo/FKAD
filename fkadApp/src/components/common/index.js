@@ -6,3 +6,4 @@ export * from './InputThree';
 export * from './InputTwo';
 export * from './CheckBoxInput';
 export * from './DropDown';
+export * from './Items';

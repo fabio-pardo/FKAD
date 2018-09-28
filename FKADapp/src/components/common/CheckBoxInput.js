@@ -25,7 +25,6 @@ const styles = {
 	containerStyle: {
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
-		marginLeft: 5,
 		marginRight: 5
 	}
 };
