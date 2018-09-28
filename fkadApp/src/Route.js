@@ -6,6 +6,7 @@ import CreateNewOrder from './components/newOrder/CreateNewOrder';
 import TimeAndPlace from './components/newOrder/TimeAndPlace';
 import DeliverTo from './components/newOrder/DeliverTo';
 import OrderSummery from './components/newOrder/OrderSummery';
+import Congratulations from './components/newOrder/Congratulations';
 
 const RouterComponent = () => {
 	return (
@@ -20,6 +21,7 @@ const RouterComponent = () => {
 					<Stack key="timeAndPlace" component={TimeAndPlace} />
 					<Stack key="deliverTo" component={DeliverTo} />
 					<Stack key="orderSummery" component={OrderSummery} />
+					<Stack key="congratulations" component={Congratulations} />
 				</Stack>
 			</Stack>
 		</Router>
