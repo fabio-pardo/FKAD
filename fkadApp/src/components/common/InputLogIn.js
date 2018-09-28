@@ -6,7 +6,8 @@ const InputLogIn = ({
 	label,
 	value,
 	onChangeText,
-	secureTextEntry
+	secureTextEntry,
+	autoCapitalize
 }) => {
 	const { inputStyle, labelStyle, containerStyle } = styles;
 
@@ -20,6 +21,7 @@ const InputLogIn = ({
 				style={inputStyle}
 				value={value}
 				onChangeText={onChangeText}
+				autoCapitalize={false}
 			/>
 		</View>
 	);

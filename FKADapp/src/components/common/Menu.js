@@ -19,11 +19,10 @@ class Menu extends Component {
 		//Should return to main menu
 		this.setState({ showModal: false });
 		Actions.login();
-		//BUG: Menu Doesn't Close On LogOutAccept on iOS (It Should)
+		//BUG: Menu closes on logoutAccept but slowly, possibly fade bug
 	}
 
 	onLogoutDecline() {
-		//BUG: MENU Doesn't Close on LogOutDeny on iOS (It Should)
 		this.setState({ showModal: false });
 	}
 
