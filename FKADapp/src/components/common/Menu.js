@@ -9,6 +9,7 @@ class Menu extends Component {
 	onLogoutAccept() {
 		//Should sign out UID from AWS
 		//Should return to main menu
+		this.setState({ showModal: false });
 		Actions.login();
 		//BUG: Menu Doesn't Close On LogOutAccept on iOS (It Should)
 	}
@@ -16,7 +17,6 @@ class Menu extends Component {
 	onLogoutDecline() {
 		//BUG: MENU Doesn't Close on LogOutDeny on iOS (It Should)
 		this.setState({ showModal: false });
-		this.props.onPress();
 	}
 
 	hideNavBar() {
