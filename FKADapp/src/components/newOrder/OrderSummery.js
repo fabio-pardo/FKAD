@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
-import { Header } from '../common';
+import { Actions } from 'react-native-router-flux';
+import { Header, Button } from '../common';
 
 class OrderSummery extends Component {
 	render() {
@@ -67,6 +68,22 @@ class OrderSummery extends Component {
 						<Text style={styles.textStyle}>Name</Text>
 						<Text style={styles.textStyle}>Full Address</Text>
 					</View>
+					<View style={styles.buttonStyle}>
+						<Button
+							onPress={() => {
+								Actions.pop();
+							}}
+						>
+							&#8826;&#8826; Back
+						</Button>
+						<Button
+							onPress={() => {
+								Actions.congratulations();
+							}}
+						>
+							Set Order
+						</Button>
+					</View>
 				</View>
 			</View>
 		);
@@ -107,6 +124,11 @@ const styles = {
 	dayAndTimeStyle: {
 		flexDirection: 'row',
 		justifyContent: 'flex-start'
+	},
+	buttonStyle: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		marginTop: 30
 	}
 };
 
