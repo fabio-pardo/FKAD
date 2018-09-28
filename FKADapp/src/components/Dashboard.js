@@ -6,7 +6,7 @@ import { Header } from './common';
 class Dashboard extends Component {
 	render() {
 		return (
-			<View>
+			<View style={{backgroundColor: 'white'}}>
 				<Header headerTitle="Dashboard" />
 			</View>
 		);

@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Modal, Image, TouchableOpacity } from 'react-native';
+import {
+	View,
+	Text,
+	Modal,
+	Image,
+	TouchableOpacity,
+	StatusBar,
+	Platform
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Confirm } from './Confirm';
 
@@ -36,8 +44,15 @@ class Menu extends Component {
 				<TouchableOpacity onPress={onPress}>
 					<View style={styles.containerStyle}>
 						<TouchableOpacity onPress={onPress}>
+							<StatusBar
+			        barStyle = "dark-content"
+			        hidden = {false}
+			        translucent = {true}
+							backgroundColor = "#ADCBE0"
+			        networkActivityIndicatorVisible = {true}
+			        />
 							<Image
-								style={{ height: 55 }}
+								style={styles.imageStyle}
 								source={require('../../images/menuIcon.png')}
 							/>
 						</TouchableOpacity>
@@ -101,13 +116,18 @@ const styles = {
 		fontFamily: 'AppleGothic',
 		color: 'white',
 		padding: 5,
-		marginLeft: 5
+		marginLeft: 5,
+		marginTop: (Platform.OS == 'ios') ? 20 : 0
 	},
 	containerStyle: {
 		width: '50%',
 		height: '100%',
 		backgroundColor: '#3982B6'
+	},
+	imageStyle: {
+		marginTop: (Platform.OS == 'ios') ? 20 : 0, height: 55
 	}
+
 };
 
 export default Menu;
