@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Actions, Stack } from 'react-native-router-flux';
+import { Router, Actions, Stack, Scene } from 'react-native-router-flux';
 import LogIn from './components/LogIn';
 import Dashboard from './components/Dashboard';
 import CreateNewOrder from './components/newOrder/CreateNewOrder';
@@ -13,15 +13,15 @@ const RouterComponent = () => {
 		<Router>
 			<Stack key="root" hideNavBar>
 				<Stack key="auth" hideNavBar>
-					<Stack key="login" component={LogIn} initial />
+					<Scene key="login" component={LogIn} initial />
 				</Stack>
 				<Stack key="main" hideNavBar>
-					<Stack key="dashboard" component={Dashboard} initial />
-					<Stack key="createNewOrder" component={CreateNewOrder} />
-					<Stack key="timeAndPlace" component={TimeAndPlace} />
-					<Stack key="deliverTo" component={DeliverTo} />
-					<Stack key="orderSummery" component={OrderSummery} />
-					<Stack key="congratulations" component={Congratulations} />
+					<Scene key="dashboard" component={Dashboard} initial />
+					<Scene key="createNewOrder" component={CreateNewOrder} />
+					<Scene key="timeAndPlace" component={TimeAndPlace} />
+					<Scene key="deliverTo" component={DeliverTo} />
+					<Scene key="orderSummery" component={OrderSummery} />
+					<Scene key="congratulations" component={Congratulations} />
 				</Stack>
 			</Stack>
 		</Router>

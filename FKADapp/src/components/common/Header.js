@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 import Drawer from 'react-native-drawer';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import {
+	View,
+	Text,
+	Image,
+	TouchableOpacity,
+	StatusBar,
+	Platform
+ } from 'react-native';
 import Menu from './Menu';
 
 class Header extends Component {
 	state = { showMenu: false };
 	render() {
 		return (
-			<View>
+			<View style={styles.statusBarMargin}>
+				<StatusBar
+        barStyle = "dark-content"
+        hidden = {false}
+        translucent = {true}
+				backgroundColor = "#ADCBE0"
+        networkActivityIndicatorVisible = {true}
+        />
 				<View style={styles.toolbar}>
 					<TouchableOpacity
 						onPress={() => {
@@ -48,6 +62,9 @@ const styles = {
 		textAlign: 'center',
 		paddingTop: 3,
 		flex: 1 //Step 3
+	},
+	statusBarMargin: {
+		marginTop: (Platform.OS == 'ios') ? 20 : 0
 	}
 };
 
