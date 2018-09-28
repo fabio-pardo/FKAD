@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import {
 	Header,
 	Button,
+	Items,
 	Input,
 	InputThree,
 	CheckBoxInput,
@@ -54,26 +55,43 @@ class TimeAndPlace extends Component {
 	isInKitchen() {
 		if (this.state.isCheckedInKitchen) {
 			return (
-				<View>
-					<CheckBoxInput
-						label="Refrigerate Items"
-						isChecked={this.state.isCheckedRefrigerate}
-						onClick={() => {
-							this.setState({
-								isCheckedRefrigerate: !this.state
-									.isCheckedRefrigerate
-							});
-						}}
-					/>
-					<CheckBoxInput
-						label="Freeze Items"
-						isChecked={this.state.isCheckedFreeze}
-						onClick={() => {
-							this.setState({
-								isCheckedFreeze: !this.state.isCheckedFreeze
-							});
-						}}
-					/>
+				<View style={{ marginLeft: 10 }}>
+					<View style={{ marginTop: 10 }}>
+						<CheckBoxInput
+							label="Refrigerate Items"
+							isChecked={this.state.isCheckedRefrigerate}
+							onClick={() => {
+								this.setState({
+									isCheckedRefrigerate: !this.state
+										.isCheckedRefrigerate
+								});
+							}}
+						/>
+
+						{this.newRefrigerateItem()}
+					</View>
+					<View style={{ marginTop: 10 }}>
+						<CheckBoxInput
+							label="Freeze Items"
+							isChecked={this.state.isCheckedFreeze}
+							onClick={() => {
+								this.setState({
+									isCheckedFreeze: !this.state.isCheckedFreeze
+								});
+							}}
+						/>
+					</View>
+				</View>
+			);
+		}
+		return;
+	}
+
+	newRefrigerateItem() {
+		if (this.state.isCheckedRefrigerate) {
+			return (
+				<View style={{ margin: 5, marginRight: 20 }}>
+					<Items />
 				</View>
 			);
 		}
@@ -82,88 +100,92 @@ class TimeAndPlace extends Component {
 
 	render() {
 		return (
-			<View style={{ backgroundColor: 'white' }}>
+			<View>
 				<Header headerTitle="New Order" />
-				<View style={styles.containerStyle}>
-					<Text style={styles.textStyle}>Time and Place:</Text>
-					<View style={{ marginTop: 15 }}>
-						<Text style={styles.textStyle}>Day</Text>
-						<View style={styles.todayTomorrowStyle}>
-							<CheckBoxInput
-								label="Today"
-								isChecked={this.state.isCheckedToday}
-								onClick={() => {
-									this.setState({
-										isCheckedToday: true
-									});
-									this.setState({
-										isCheckedTomorrow: false
-									});
-								}}
-							/>
-							<CheckBoxInput
-								label="Tomorrow"
-								isChecked={this.state.isCheckedTomorrow}
-								onClick={() => {
-									this.setState({
-										isCheckedTomorrow: true
-									});
-									this.setState({
-										isCheckedToday: false
-									});
-								}}
-							/>
+				<ScrollView style={{ backgroundColor: 'white' }}>
+					<View style={styles.containerStyle}>
+						<Text style={styles.textStyle}>Time and Place:</Text>
+						<View style={{ marginTop: -5 }}>
+							<Text style={styles.textStyle}>Day</Text>
+							<View style={styles.todayTomorrowStyle}>
+								<CheckBoxInput
+									label="Today"
+									isChecked={this.state.isCheckedToday}
+									onClick={() => {
+										this.setState({
+											isCheckedToday: true
+										});
+										this.setState({
+											isCheckedTomorrow: false
+										});
+									}}
+								/>
+								<CheckBoxInput
+									label="Tomorrow"
+									isChecked={this.state.isCheckedTomorrow}
+									onClick={() => {
+										this.setState({
+											isCheckedTomorrow: true
+										});
+										this.setState({
+											isCheckedToday: false
+										});
+									}}
+								/>
+							</View>
+							<Text style={styles.textStyle}>Time: </Text>
+							<DropDown label=" Select Time " options={times} />
+							<Text style={styles.textStyle}>
+								Place Order At:{' '}
+							</Text>
+							<View style={styles.todayTomorrowStyle}>
+								<CheckBoxInput
+									label="Doorway"
+									isChecked={this.state.isCheckedDoorway}
+									onClick={() => {
+										this.setState({
+											isCheckedDoorway: true
+										});
+										this.setState({
+											isCheckedInside: false
+										});
+									}}
+								/>
+								<CheckBoxInput
+									label="Inside"
+									isChecked={this.state.isCheckedInside}
+									onClick={() => {
+										this.setState({
+											isCheckedInside: true
+										});
+										this.setState({
+											isCheckedDoorway: false
+										});
+									}}
+								/>
+							</View>
 						</View>
-						<Text style={styles.textStyle}>Time: </Text>
-						<DropDown label=" Select Time " options={times} />
-						<Text style={styles.textStyle}>Place Order At: </Text>
-						<View style={styles.todayTomorrowStyle}>
-							<CheckBoxInput
-								label="Doorway"
-								isChecked={this.state.isCheckedDoorway}
-								onClick={() => {
-									this.setState({
-										isCheckedDoorway: true
-									});
-									this.setState({
-										isCheckedInside: false
-									});
+
+						{this.isInside()}
+
+						<View style={styles.buttonStyle}>
+							<Button
+								onPress={() => {
+									Actions.pop();
 								}}
-							/>
-							<CheckBoxInput
-								label="Inside"
-								isChecked={this.state.isCheckedInside}
-								onClick={() => {
-									this.setState({
-										isCheckedInside: true
-									});
-									this.setState({
-										isCheckedDoorway: false
-									});
+							>
+								&#8826;&#8826; Back
+							</Button>
+							<Button
+								onPress={() => {
+									Actions.deliverTo();
 								}}
-							/>
+							>
+								Next &#8827;&#8827;
+							</Button>
 						</View>
 					</View>
-
-					{this.isInside()}
-
-					<View style={styles.buttonStyle}>
-						<Button
-							onPress={() => {
-								Actions.pop();
-							}}
-						>
-							&#8826;&#8826; Back
-						</Button>
-						<Button
-							onPress={() => {
-								Actions.deliverTo();
-							}}
-						>
-							Next &#8827;&#8827;
-						</Button>
-					</View>
-				</View>
+				</ScrollView>
 			</View>
 		);
 	}
