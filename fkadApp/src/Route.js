@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router, Actions, Stack, Scene } from 'react-native-router-flux';
 import LogIn from './components/LogIn';
+import SignUp from './components/SignUp'
 import Dashboard from './components/Dashboard';
 import CreateNewOrder from './components/newOrder/CreateNewOrder';
 import TimeAndPlace from './components/newOrder/TimeAndPlace';
@@ -14,6 +15,7 @@ const RouterComponent = () => {
 			<Stack key="root" hideNavBar>
 				<Stack key="auth" hideNavBar>
 					<Scene key="login" component={LogIn} initial />
+					<Scene key="signup" component={SignUp} />
 				</Stack>
 				<Stack key="main" hideNavBar>
 					<Scene key="dashboard" component={Dashboard} initial />
