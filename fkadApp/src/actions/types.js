@@ -6,4 +6,10 @@ export const LOGIN_USER = 'login_user';
 
 export const STORE_NAME = 'store_name';
 export const ADDRESS_CHANGED = 'address_changed';
-export const REFRIGERATE_ITEMS_CHANGE = 'refrigerate_item_change';
+export const ORDER_NUMBER_CHANGED = 'order_number_changed';
+export const DAY_CHANGED = 'day_changed';
+export const TIME_CHANGED = 'time_changed';
+export const PLACE_CHANGED = 'place_changed';
+export const KITCHEN_CHANGED = 'kitchen_changed';
+export const REFRIGERATE_CHANGED = 'refrigerate_changed';
+export const FREEZE_CHANGED = 'freeze_changed';

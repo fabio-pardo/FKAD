@@ -3,22 +3,29 @@ import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
-import { storeChanged, addressChanged } from '../../actions';
+import {
+	storeChanged,
+	addressChanged,
+	orderNumberChanged
+} from '../../actions';
 import { Header, Button, Input, InputThree } from '../common';
 
 class CreateNewOrder extends Component {
 	onStoreChange(text) {
 		this.props.storeChanged(text);
-		console.log('store name: ' + this.props.store);
 	}
 
-	// onAddressChange(type, text) {
-	// 	console.log(type);
-	// 	this.props.addressChanged({ type, text });
-	// 	cosole.log('address: ' + this.props.address);
-	// }
+	onAddressChange(type, text) {
+		this.props.addressChanged({ type, text });
+	}
+
+	onOrderNumberChange(text) {
+		this.props.orderNumberChanged(text);
+	}
 
 	render() {
+		const { storeName, address, orderNumber } = this.props.pickup;
+
 		return (
 			<View style={{ backgroundColor: 'white' }}>
 				<Header headerTitle="New Order" />
@@ -28,15 +35,15 @@ class CreateNewOrder extends Component {
 						<Input
 							label="Grocery Place Name"
 							onChangeText={this.onStoreChange.bind(this)}
-							value={this.props.store}
+							value={storeName}
 						/>
 						<Input
 							label="Street Address"
-							// onChangeText={this.onAddressChange.bind(
-							// 	this,
-							// 	(type = 'street')
-							// )}
-							// value={this.props.street}
+							onChangeText={this.onAddressChange.bind(
+								this,
+								(type = 'street')
+							)}
+							value={address.street}
 						/>
 						<View
 							style={{
@@ -46,23 +53,34 @@ class CreateNewOrder extends Component {
 						>
 							<InputThree
 								label="City"
-								// onChangeText={this.onAddressChange.bind(
-								// 	this,
-								// 	(type = 'city')
-								// )}
-								// value={this.props.city}
+								onChangeText={this.onAddressChange.bind(
+									this,
+									(type = 'city')
+								)}
+								value={address.city}
 							/>
 							<InputThree
 								label="State"
-								// onChangeText={this.onAddressChange.bind(
-								// 	this,
-								// 	(type = 'state')
-								// )}
-								// value={this.props.state}
+								onChangeText={this.onAddressChange.bind(
+									this,
+									(type = 'state')
+								)}
+								value={address.state}
 							/>
-							<InputThree label="Zipcode" />
+							<InputThree
+								label="Zipcode"
+								onChangeText={this.onAddressChange.bind(
+									this,
+									(type = 'zipcode')
+								)}
+								value={address.zipcode}
+							/>
 						</View>
-						<Input label="Order Number" />
+						<Input
+							label="Order Number"
+							onChangeText={this.onOrderNumberChange.bind(this)}
+							value={orderNumber}
+						/>
 					</View>
 					<View style={styles.buttonStyle}>
 						<Button
@@ -99,13 +117,12 @@ const styles = {
 
 const mapStateToProps = state => {
 	return {
-		store: state.newOrder.pickup.storeName,
-		street: state.newOrder.pickup.address.street,
-		city: state.newOrder.pickup.address.city,
-		state: state.newOrder.pickup.address.state
+		pickup: state.newOrder.pickup
 	};
 };
 
-export default connect(mapStateToProps, { storeChanged, addressChanged })(
-	CreateNewOrder
-);
+export default connect(mapStateToProps, {
+	storeChanged,
+	addressChanged,
+	orderNumberChanged
+})(CreateNewOrder);

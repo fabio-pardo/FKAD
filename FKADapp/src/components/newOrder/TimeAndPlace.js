@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
+import {
+	dayChanged,
+	timeChanged,
+	placeChanged,
+	inKitchenChanged,
+	refrigerateChanged,
+	freezeChanged
+} from '../../actions';
 import {
 	Header,
 	Button,
@@ -14,36 +23,23 @@ import {
 
 class TimeAndPlace extends Component {
 	state = {
-		isCheckedToday: false,
-		isCheckedTomorrow: false,
-		isCheckedDoorway: false,
-		isCheckedInside: false,
 		isCheckedInKitchen: false,
 		isCheckedRefrigerate: false,
 		isCheckedFreeze: false
 	};
 
 	isInside() {
-		if (this.state.isCheckedInside) {
+		const { place } = this.props.dayAndTime;
+		if (place.inside) {
 			return (
 				<View style={styles.kitchenSytle}>
 					<CheckBoxInput
 						label="Items in the kitchen"
-						isChecked={this.state.isCheckedInKitchen}
-						onClick={() => {
-							this.setState({
-								isCheckedInKitchen: !this.state
-									.isCheckedInKitchen
-							});
-							if (this.state.isCheckedInKitchen) {
-								this.setState({
-									isCheckedRefrigerate: false
-								});
-								this.setState({
-									isCheckedFreeze: false
-								});
-							}
-						}}
+						isChecked={place.kitchen}
+						onClick={this.onKitchenChange.bind(
+							this,
+							(value = !place.kitchen)
+						)}
 					/>
 					{this.isInKitchen()}
 				</View>
@@ -53,33 +49,25 @@ class TimeAndPlace extends Component {
 	}
 
 	isInKitchen() {
-		if (this.state.isCheckedInKitchen) {
+		const { place } = this.props.dayAndTime;
+		if (place.kitchen) {
 			return (
 				<View style={{ marginLeft: 10 }}>
 					<View style={{ marginTop: 10 }}>
 						<CheckBoxInput
 							label="Refrigerate Items"
-							isChecked={this.state.isCheckedRefrigerate}
-							onClick={() => {
-								this.setState({
-									isCheckedRefrigerate: !this.state
-										.isCheckedRefrigerate
-								});
-							}}
+							isChecked={place.refrigerate.state}
+							onClick={this.onRefrigerateChange.bind(this)}
 						/>
-
-						{this.newRefrigerateItem()}
+						{this.RefrigerateItems()}
 					</View>
 					<View style={{ marginTop: 10 }}>
 						<CheckBoxInput
 							label="Freeze Items"
-							isChecked={this.state.isCheckedFreeze}
-							onClick={() => {
-								this.setState({
-									isCheckedFreeze: !this.state.isCheckedFreeze
-								});
-							}}
+							isChecked={place.freeze.state}
+							onClick={this.onFreezeChange.bind(this)}
 						/>
+						{this.FreezeItems()}
 					</View>
 				</View>
 			);
@@ -87,22 +75,60 @@ class TimeAndPlace extends Component {
 		return;
 	}
 
-	newRefrigerateItem() {
-		if (this.state.isCheckedRefrigerate) {
-			return (
-				<View style={{ margin: 5, marginRight: 20 }}>
-					<Items />
-				</View>
-			);
+	RefrigerateItems() {
+		const { refrigerate } = this.props.dayAndTime.place;
+		if (refrigerate.state) {
+			return this.addItem();
 		}
 		return;
 	}
 
+	FreezeItems() {
+		const { freeze } = this.props.dayAndTime.place;
+		if (freeze.state) {
+			return this.addItem();
+		}
+		return;
+	}
+
+	addItem() {
+		return (
+			<View style={{ margin: 5, marginRight: 20 }}>
+				<Items />
+			</View>
+		);
+	}
+
+	onDayChange(today, tomorrow) {
+		this.props.dayChanged({ today, tomorrow });
+	}
+
+	onTimeChange(idx, value) {
+		this.props.timeChanged(value);
+	}
+
+	onPlaceChange(doorway, inside) {
+		this.props.placeChanged({ doorway, inside });
+	}
+
+	onKitchenChange(value) {
+		this.props.inKitchenChanged(value);
+	}
+
+	onRefrigerateChange() {
+		this.props.refrigerateChanged();
+	}
+
+	onFreezeChange() {
+		this.props.freezeChanged();
+	}
+
 	render() {
+		const { day, time, place } = this.props.dayAndTime;
 		return (
 			<View>
 				<Header headerTitle="New Order" />
-				<ScrollView style={{ backgroundColor: 'white' }}>
+				<View style={{ backgroundColor: 'white' }}>
 					<View style={styles.containerStyle}>
 						<Text style={styles.textStyle}>Time and Place:</Text>
 						<View style={{ marginTop: -5 }}>
@@ -110,58 +136,50 @@ class TimeAndPlace extends Component {
 							<View style={styles.todayTomorrowStyle}>
 								<CheckBoxInput
 									label="Today"
-									isChecked={this.state.isCheckedToday}
-									onClick={() => {
-										this.setState({
-											isCheckedToday: true
-										});
-										this.setState({
-											isCheckedTomorrow: false
-										});
-									}}
+									isChecked={day.today}
+									onClick={this.onDayChange.bind(
+										this,
+										(today = true),
+										(tomorrow = false)
+									)}
 								/>
 								<CheckBoxInput
 									label="Tomorrow"
-									isChecked={this.state.isCheckedTomorrow}
-									onClick={() => {
-										this.setState({
-											isCheckedTomorrow: true
-										});
-										this.setState({
-											isCheckedToday: false
-										});
-									}}
+									isChecked={day.tomorrow}
+									onClick={this.onDayChange.bind(
+										this,
+										(today = false),
+										(tomorrow = true)
+									)}
 								/>
 							</View>
 							<Text style={styles.textStyle}>Time: </Text>
-							<DropDown label=" Select Time " options={times} />
+							<DropDown
+								label=" Select Time "
+								options={times}
+								onSelect={this.onTimeChange.bind(this)}
+							/>
 							<Text style={styles.textStyle}>
 								Place Order At:{' '}
 							</Text>
 							<View style={styles.todayTomorrowStyle}>
 								<CheckBoxInput
 									label="Doorway"
-									isChecked={this.state.isCheckedDoorway}
-									onClick={() => {
-										this.setState({
-											isCheckedDoorway: true
-										});
-										this.setState({
-											isCheckedInside: false
-										});
-									}}
+									isChecked={place.doorway}
+									onClick={this.onPlaceChange.bind(
+										this,
+										(doorway = true),
+										(inside = false)
+									)}
 								/>
 								<CheckBoxInput
 									label="Inside"
-									isChecked={this.state.isCheckedInside}
-									onClick={() => {
-										this.setState({
-											isCheckedInside: true
-										});
-										this.setState({
-											isCheckedDoorway: false
-										});
-									}}
+									isChecked={place.inside}
+									onClick={this.onPlaceChange.bind(
+										this,
+										(doorway = false),
+										(inside = true)
+									)}
 								/>
 							</View>
 						</View>
@@ -185,7 +203,7 @@ class TimeAndPlace extends Component {
 							</Button>
 						</View>
 					</View>
-				</ScrollView>
+				</View>
 			</View>
 		);
 	}
@@ -194,6 +212,7 @@ class TimeAndPlace extends Component {
 const styles = {
 	containerStyle: {
 		margin: 10,
+		marginTop: 5,
 		height: '100%'
 	},
 	textStyle: {
@@ -248,4 +267,17 @@ const times = [
 	'11:00 pm'
 ];
 
-export default TimeAndPlace;
+const mapStateToProps = state => {
+	return {
+		dayAndTime: state.newOrder.dayAndTime
+	};
+};
+
+export default connect(mapStateToProps, {
+	dayChanged,
+	timeChanged,
+	placeChanged,
+	inKitchenChanged,
+	refrigerateChanged,
+	freezeChanged
+})(TimeAndPlace);
