@@ -45,6 +45,13 @@ class LogIn extends Component {
 						>
 							Log In
 						</Button>
+						<Button
+							onPress={() => {
+								Actions.signup();
+							}}
+						>
+							Sign Up
+						</Button>
 					</View>
 				</View>
 			</View>
