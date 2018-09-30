@@ -7,7 +7,7 @@ import {
 	TouchableOpacity,
 	StatusBar,
 	Platform
- } from 'react-native';
+} from 'react-native';
 import Menu from './Menu';
 
 class Header extends Component {
@@ -16,12 +16,12 @@ class Header extends Component {
 		return (
 			<View style={styles.statusBarMargin}>
 				<StatusBar
-        barStyle = "dark-content"
-        hidden = {false}
-        translucent = {true}
-				backgroundColor = "#ADCBE0"
-        networkActivityIndicatorVisible = {true}
-        />
+					barStyle="dark-content"
+					hidden={false}
+					translucent={true}
+					backgroundColor="#ADCBE0"
+					networkActivityIndicatorVisible={true}
+				/>
 				<View style={styles.toolbar}>
 					<TouchableOpacity
 						onPress={() => {
@@ -63,7 +63,7 @@ const styles = {
 		flex: 1 //Step 3
 	},
 	statusBarMargin: {
-		marginTop: (Platform.OS == 'ios') ? 20 : 0
+		marginTop: Platform.OS == 'ios' ? 20 : 0
 	}
 };
 
