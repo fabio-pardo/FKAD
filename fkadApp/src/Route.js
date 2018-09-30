@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Actions, Stack } from 'react-native-router-flux';
+import { Router, Actions, Stack, Scene } from 'react-native-router-flux';
 import LogIn from './components/LogIn';
 import Dashboard from './components/Dashboard';
 import CreateNewOrder from './components/newOrder/CreateNewOrder';
