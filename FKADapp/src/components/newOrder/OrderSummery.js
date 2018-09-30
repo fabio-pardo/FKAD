@@ -3,6 +3,8 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
+import { setOrder } from '../../actions';
+
 import { Header, Button } from '../common';
 
 class OrderSummery extends Component {
@@ -62,6 +64,11 @@ class OrderSummery extends Component {
 			);
 		}
 		return <Text style={styles.textStyle}>Items in the Freezer: none</Text>;
+	}
+
+	onSetOrder() {
+		this.props.setOrder();
+		Actions.congratulations();
 	}
 
 	render() {
@@ -144,7 +151,7 @@ class OrderSummery extends Component {
 							{dropoff.address.street},
 						</Text>
 						<Text style={styles.textStyle}>
-							{dropoff.address.city}, {dropoff.address.state}, 
+							{dropoff.address.city}, {dropoff.address.state},
 							{dropoff.address.zipcode}
 						</Text>
 					</View>
@@ -156,11 +163,7 @@ class OrderSummery extends Component {
 						>
 							&#8826;&#8826; Back
 						</Button>
-						<Button
-							onPress={() => {
-								Actions.congratulations();
-							}}
-						>
+						<Button onPress={this.onSetOrder.bind(this)}>
 							Set Order
 						</Button>
 					</View>
@@ -220,4 +223,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, {})(OrderSummery);
+export default connect(mapStateToProps, { setOrder })(OrderSummery);

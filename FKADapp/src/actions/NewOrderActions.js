@@ -14,7 +14,8 @@ import {
 	DROPPOFF_CLIENT,
 	DROPPOFF_CLIENT_NAME,
 	DROPPOFF_ADDRESS,
-	DROPOFF_ADDRESS_CHANGED
+	DROPOFF_ADDRESS_CHANGED,
+	SET_ORDER
 } from './types';
 
 export const addItem = items => {
@@ -108,5 +109,11 @@ export const dropoffAddressInfoChanged = ({ type, text }) => {
 	return {
 		type: DROPOFF_ADDRESS_CHANGED,
 		payload: { type, text }
+	};
+};
+
+export const setOrder = () => {
+	return {
+		type: SET_ORDER
 	};
 };

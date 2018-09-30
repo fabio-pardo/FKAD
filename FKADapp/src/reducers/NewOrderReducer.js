@@ -12,7 +12,8 @@ import {
 	DROPPOFF_CLIENT,
 	DROPPOFF_CLIENT_NAME,
 	DROPPOFF_ADDRESS,
-	DROPOFF_ADDRESS_CHANGED
+	DROPOFF_ADDRESS_CHANGED,
+	SET_ORDER
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -267,6 +268,9 @@ export default (state = INITIAL_STATE, action) => {
 					}
 				}
 			};
+		case SET_ORDER:
+			//send new order to database and initialize new order state
+			return INITIAL_STATE;
 		default:
 			return state;
 	}
