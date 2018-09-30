@@ -25,7 +25,6 @@ class Header extends Component {
 				<View style={styles.toolbar}>
 					<TouchableOpacity
 						onPress={() => {
-							console.log(this.state.showMenu);
 							this.setState({ showMenu: !this.state.showMenu });
 						}}
 					>
