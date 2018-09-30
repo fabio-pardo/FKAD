@@ -7,6 +7,7 @@ import TimeAndPlace from './components/newOrder/TimeAndPlace';
 import DropOff from './components/newOrder/DropOff';
 import OrderSummery from './components/newOrder/OrderSummery';
 import Congratulations from './components/newOrder/Congratulations';
+import MyOrdersList from './components/myOrders/MyOrdersList';
 
 const RouterComponent = () => {
 	return (
@@ -16,12 +17,27 @@ const RouterComponent = () => {
 					<Scene key="login" component={LogIn} initial />
 				</Stack>
 				<Stack key="main" hideNavBar>
-					<Scene key="dashboard" component={Dashboard} initial />
-					<Scene key="createNewOrder" component={CreateNewOrder} />
-					<Scene key="timeAndPlace" component={TimeAndPlace} />
-					<Scene key="dropOff" component={DropOff} />
-					<Scene key="orderSummery" component={OrderSummery} />
-					<Scene key="congratulations" component={Congratulations} />
+					<Stack key="newOrder" hideNavBar>
+						<Scene key="dashboard" component={Dashboard} initial />
+						<Scene
+							key="createNewOrder"
+							component={CreateNewOrder}
+						/>
+						<Scene key="timeAndPlace" component={TimeAndPlace} />
+						<Scene key="dropOff" component={DropOff} />
+						<Scene key="orderSummery" component={OrderSummery} />
+						<Scene
+							key="congratulations"
+							component={Congratulations}
+						/>
+					</Stack>
+					<Stack key="myOrders" hideNavBar>
+						<Scene
+							key="myOrdersList"
+							component={MyOrdersList}
+							initial
+						/>
+					</Stack>
 				</Stack>
 			</Stack>
 		</Router>
