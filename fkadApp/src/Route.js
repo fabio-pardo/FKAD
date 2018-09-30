@@ -8,6 +8,7 @@ import DropOff from './components/newOrder/DropOff';
 import OrderSummery from './components/newOrder/OrderSummery';
 import Congratulations from './components/newOrder/Congratulations';
 import MyOrdersList from './components/myOrders/MyOrdersList';
+import ViewOrder from './components/myOrders/ViewOrder';
 
 const RouterComponent = () => {
 	return (
@@ -37,6 +38,7 @@ const RouterComponent = () => {
 							component={MyOrdersList}
 							initial
 						/>
+						<Scene key="viewOrder" component={ViewOrder} />
 					</Stack>
 				</Stack>
 			</Stack>

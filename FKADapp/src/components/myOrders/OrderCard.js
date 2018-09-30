@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Button } from '../common';
+import { Actions } from 'react-native-router-flux';
 
-const OrderCard = ({order}) => {
+const OrderCard = ({ order }) => {
 	return (
 		<View
 			style={{
@@ -18,7 +19,13 @@ const OrderCard = ({order}) => {
 				<Text style={styles.textStyle}>Time: {order.time}</Text>
 				<Text style={styles.textStyle}>Status: {order.status}</Text>
 			</View>
-			<Button>View</Button>
+			<Button
+				onPress={() => {
+					Actions.viewOrder(order);
+				}}
+			>
+				View
+			</Button>
 		</View>
 	);
 };
