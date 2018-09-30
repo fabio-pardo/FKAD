@@ -13,15 +13,15 @@ const RouterComponent = () => {
 		<Router>
 			<Stack key="root" hideNavBar>
 				<Stack key="auth" hideNavBar>
-					<Stack key="login" component={LogIn} initial />
+					<Scene key="login" component={LogIn} initial />
 				</Stack>
 				<Stack key="main" hideNavBar>
-					<Stack key="dashboard" component={Dashboard} initial />
-					<Stack key="createNewOrder" component={CreateNewOrder} />
-					<Stack key="timeAndPlace" component={TimeAndPlace} />
-					<Stack key="dropOff" component={DropOff} />
-					<Stack key="orderSummery" component={OrderSummery} />
-					<Stack key="congratulations" component={Congratulations} />
+					<Scene key="dashboard" component={Dashboard} initial />
+					<Scene key="createNewOrder" component={CreateNewOrder} />
+					<Scene key="timeAndPlace" component={TimeAndPlace} />
+					<Scene key="dropOff" component={DropOff} />
+					<Scene key="orderSummery" component={OrderSummery} />
+					<Scene key="congratulations" component={Congratulations} />
 				</Stack>
 			</Stack>
 		</Router>
