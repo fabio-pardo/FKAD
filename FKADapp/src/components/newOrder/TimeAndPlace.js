@@ -22,14 +22,10 @@ import {
 } from '../common';
 
 class TimeAndPlace extends Component {
-	state = {
-		isCheckedInKitchen: false,
-		isCheckedRefrigerate: false,
-		isCheckedFreeze: false
-	};
+	state = { error: false };
 
 	isInside() {
-		const { place } = this.props.dayAndTime;
+		const { place } = this.props.timeAndPlace;
 		if (place.inside) {
 			return (
 				<View style={styles.kitchenSytle}>
@@ -49,7 +45,7 @@ class TimeAndPlace extends Component {
 	}
 
 	isInKitchen() {
-		const { place } = this.props.dayAndTime;
+		const { place } = this.props.timeAndPlace;
 		if (place.kitchen) {
 			return (
 				<View style={{ marginLeft: 10 }}>
@@ -76,7 +72,7 @@ class TimeAndPlace extends Component {
 	}
 
 	RefrigerateItems() {
-		const { refrigerate } = this.props.dayAndTime.place;
+		const { refrigerate } = this.props.timeAndPlace.place;
 		if (refrigerate.state) {
 			return this.addItem();
 		}
@@ -84,7 +80,7 @@ class TimeAndPlace extends Component {
 	}
 
 	FreezeItems() {
-		const { freeze } = this.props.dayAndTime.place;
+		const { freeze } = this.props.timeAndPlace.place;
 		if (freeze.state) {
 			return this.addItem();
 		}
@@ -123,8 +119,31 @@ class TimeAndPlace extends Component {
 		this.props.freezeChanged();
 	}
 
+	isComplete() {
+		const { day, time, place } = this.props.timeAndPlace;
+		if (
+			((day.today && !day.tomorrow) || (!day.today && day.tomorrow)) &&
+			time &&
+			((place.doorway && !place.inside) ||
+				(!place.doorway && place.inside))
+		)
+			return true;
+		return false;
+	}
+
+	renderError() {
+		if (this.state.error) {
+			return (
+				<Text style={styles.errorStyle}>
+					All fields must be completed
+				</Text>
+			);
+		}
+		return;
+	}
+
 	render() {
-		const { day, time, place } = this.props.dayAndTime;
+		const { day, time, place } = this.props.timeAndPlace;
 		return (
 			<View>
 				<Header headerTitle="New Order" />
@@ -185,7 +204,9 @@ class TimeAndPlace extends Component {
 						</View>
 
 						{this.isInside()}
-
+						<View style={{ marginTop: 5, marginBottom: -10 }}>
+							{this.renderError()}
+						</View>
 						<View style={styles.buttonStyle}>
 							<Button
 								onPress={() => {
@@ -196,7 +217,10 @@ class TimeAndPlace extends Component {
 							</Button>
 							<Button
 								onPress={() => {
-									Actions.deliverTo();
+									if (this.isComplete()) {
+										this.setState({ error: false });
+										Actions.dropOff();
+									} else this.setState({ error: true });
 								}}
 							>
 								Next &#8827;&#8827;
@@ -237,6 +261,12 @@ const styles = {
 	kitchenSytle: {
 		marginTop: 10,
 		margin: 3
+	},
+	errorStyle: {
+		fontSize: 18,
+		fontFamily: 'AppleGothic',
+		color: '#B64F39',
+		textAlign: 'center'
 	}
 };
 
@@ -269,7 +299,7 @@ const times = [
 
 const mapStateToProps = state => {
 	return {
-		dayAndTime: state.newOrder.dayAndTime
+		timeAndPlace: state.newOrder.timeAndPlace
 	};
 };
 

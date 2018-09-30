@@ -13,3 +13,7 @@ export const PLACE_CHANGED = 'place_changed';
 export const KITCHEN_CHANGED = 'kitchen_changed';
 export const REFRIGERATE_CHANGED = 'refrigerate_changed';
 export const FREEZE_CHANGED = 'freeze_changed';
+export const DROPPOFF_CLIENT = 'dropoff_client';
+export const DROPPOFF_CLIENT_NAME = 'dropoff_client_name';
+export const DROPPOFF_ADDRESS = 'dropoff_address';
+export const DROPOFF_ADDRESS_CHANGED = 'dropoff_address_changed';

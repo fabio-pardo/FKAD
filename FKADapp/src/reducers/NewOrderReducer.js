@@ -8,7 +8,11 @@ import {
 	PLACE_CHANGED,
 	KITCHEN_CHANGED,
 	REFRIGERATE_CHANGED,
-	FREEZE_CHANGED
+	FREEZE_CHANGED,
+	DROPPOFF_CLIENT,
+	DROPPOFF_CLIENT_NAME,
+	DROPPOFF_ADDRESS,
+	DROPOFF_ADDRESS_CHANGED
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -22,7 +26,7 @@ const INITIAL_STATE = {
 		},
 		orderNumber: ''
 	},
-	dayAndTime: {
+	timeAndPlace: {
 		day: {
 			today: false,
 			tomorrow: false
@@ -42,7 +46,18 @@ const INITIAL_STATE = {
 			}
 		}
 	},
-	items: []
+	dropoff: {
+		clientIsAccountOwner: false,
+		clientName: '',
+		clientLastName: '',
+		address: {
+			useAccountAddress: false,
+			street: '',
+			city: '',
+			state: '',
+			zipcode: ''
+		}
+	}
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -71,10 +86,10 @@ export default (state = INITIAL_STATE, action) => {
 		case DAY_CHANGED:
 			return {
 				...state,
-				dayAndTime: {
-					...state.dayAndTime,
+				timeAndPlace: {
+					...state.timeAndPlace,
 					day: {
-						...state.dayAndTime.day,
+						...state.timeAndPlace.day,
 						today: action.payload.today,
 						tomorrow: action.payload.tomorrow
 					}
@@ -83,25 +98,25 @@ export default (state = INITIAL_STATE, action) => {
 		case TIME_CHANGED:
 			return {
 				...state,
-				dayAndTime: { ...state.dayAndTime, time: action.payload }
+				timeAndPlace: { ...state.timeAndPlace, time: action.payload }
 			};
 		case PLACE_CHANGED:
 			if (action.payload.inside === false) {
 				return {
 					...state,
-					dayAndTime: {
-						...state.dayAndTime,
+					timeAndPlace: {
+						...state.timeAndPlace,
 						place: {
-							...state.dayAndTime.place,
+							...state.timeAndPlace.place,
 							doorway: action.payload.doorway,
 							inside: action.payload.inside,
 							kitchen: false,
 							refrigerate: {
-								...state.dayAndTime.place.refrigerate,
+								...state.timeAndPlace.place.refrigerate,
 								state: false
 							},
 							freeze: {
-								...state.dayAndTime.place.freeze,
+								...state.timeAndPlace.place.freeze,
 								state: false
 							}
 						}
@@ -110,10 +125,10 @@ export default (state = INITIAL_STATE, action) => {
 			}
 			return {
 				...state,
-				dayAndTime: {
-					...state.dayAndTime,
+				timeAndPlace: {
+					...state.timeAndPlace,
 					place: {
-						...state.dayAndTime.place,
+						...state.timeAndPlace.place,
 						doorway: action.payload.doorway,
 						inside: action.payload.inside
 					}
@@ -123,17 +138,17 @@ export default (state = INITIAL_STATE, action) => {
 			if (action.payload === false) {
 				return {
 					...state,
-					dayAndTime: {
-						...state.dayAndTime,
+					timeAndPlace: {
+						...state.timeAndPlace,
 						place: {
-							...state.dayAndTime.place,
+							...state.timeAndPlace.place,
 							kitchen: action.payload,
 							refrigerate: {
-								...state.dayAndTime.place.refrigerate,
+								...state.timeAndPlace.place.refrigerate,
 								state: false
 							},
 							freeze: {
-								...state.dayAndTime.place.freeze,
+								...state.timeAndPlace.place.freeze,
 								state: false
 							}
 						}
@@ -142,10 +157,10 @@ export default (state = INITIAL_STATE, action) => {
 			}
 			return {
 				...state,
-				dayAndTime: {
-					...state.dayAndTime,
+				timeAndPlace: {
+					...state.timeAndPlace,
 					place: {
-						...state.dayAndTime.place,
+						...state.timeAndPlace.place,
 						kitchen: action.payload
 					}
 				}
@@ -153,13 +168,13 @@ export default (state = INITIAL_STATE, action) => {
 		case REFRIGERATE_CHANGED:
 			return {
 				...state,
-				dayAndTime: {
-					...state.dayAndTime,
+				timeAndPlace: {
+					...state.timeAndPlace,
 					place: {
-						...state.dayAndTime.place,
+						...state.timeAndPlace.place,
 						refrigerate: {
-							...state.dayAndTime.place.refrigerate,
-							state: !state.dayAndTime.place.refrigerate.state
+							...state.timeAndPlace.place.refrigerate,
+							state: !state.timeAndPlace.place.refrigerate.state
 						}
 					}
 				}
@@ -167,14 +182,88 @@ export default (state = INITIAL_STATE, action) => {
 		case FREEZE_CHANGED:
 			return {
 				...state,
-				dayAndTime: {
-					...state.dayAndTime,
+				timeAndPlace: {
+					...state.timeAndPlace,
 					place: {
-						...state.dayAndTime.place,
+						...state.timeAndPlace.place,
 						freeze: {
-							...state.dayAndTime.place.freeze,
-							state: !state.dayAndTime.place.freeze.state
+							...state.timeAndPlace.place.freeze,
+							state: !state.timeAndPlace.place.freeze.state
 						}
+					}
+				}
+			};
+		case DROPPOFF_CLIENT:
+			if (!state.dropoff.clientIsAccountOwner) {
+				return {
+					...state,
+					dropoff: {
+						...state.dropoff,
+						clientIsAccountOwner: !state.dropoff
+							.clientIsAccountOwner,
+						clientName: 'Account Name',
+						clientLastName: 'Account LastName'
+					}
+				};
+			}
+			return {
+				...state,
+				dropoff: {
+					...state.dropoff,
+					clientIsAccountOwner: !state.dropoff.clientIsAccountOwner,
+					clientName: '',
+					clientLastName: ''
+				}
+			};
+		case DROPPOFF_CLIENT_NAME:
+			return {
+				...state,
+				dropoff: {
+					...state.dropoff,
+					[action.payload.type]: action.payload.text
+				}
+			};
+		case DROPPOFF_ADDRESS:
+			if (!state.dropoff.address.useAccountAddress) {
+				return {
+					...state,
+					dropoff: {
+						...state.dropoff,
+						address: {
+							...state.dropoff.address,
+							useAccountAddress: !state.dropoff.address
+								.useAccountAddress,
+							street: 'Account Street',
+							city: 'Account City',
+							state: 'Account State',
+							zipcode: 'Account Zipcode'
+						}
+					}
+				};
+			}
+			return {
+				...state,
+				dropoff: {
+					...state.dropoff,
+					address: {
+						...state.dropoff.address,
+						useAccountAddress: !state.dropoff.address
+							.useAccountAddress,
+						street: '',
+						city: '',
+						state: '',
+						zipcode: ''
+					}
+				}
+			};
+		case DROPOFF_ADDRESS_CHANGED:
+			return {
+				...state,
+				dropoff: {
+					...state.dropoff,
+					address: {
+						...state.dropoff.address,
+						[action.payload.type]: action.payload.text
 					}
 				}
 			};

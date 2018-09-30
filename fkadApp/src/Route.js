@@ -4,7 +4,7 @@ import LogIn from './components/LogIn';
 import Dashboard from './components/Dashboard';
 import CreateNewOrder from './components/newOrder/CreateNewOrder';
 import TimeAndPlace from './components/newOrder/TimeAndPlace';
-import DeliverTo from './components/newOrder/DeliverTo';
+import DropOff from './components/newOrder/DropOff';
 import OrderSummery from './components/newOrder/OrderSummery';
 import Congratulations from './components/newOrder/Congratulations';
 
@@ -19,7 +19,7 @@ const RouterComponent = () => {
 					<Stack key="dashboard" component={Dashboard} initial />
 					<Stack key="createNewOrder" component={CreateNewOrder} />
 					<Stack key="timeAndPlace" component={TimeAndPlace} />
-					<Stack key="deliverTo" component={DeliverTo} />
+					<Stack key="dropOff" component={DropOff} />
 					<Stack key="orderSummery" component={OrderSummery} />
 					<Stack key="congratulations" component={Congratulations} />
 				</Stack>

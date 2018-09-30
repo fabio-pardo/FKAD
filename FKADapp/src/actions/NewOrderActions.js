@@ -10,7 +10,11 @@ import {
 	PLACE_CHANGED,
 	KITCHEN_CHANGED,
 	REFRIGERATE_CHANGED,
-	FREEZE_CHANGED
+	FREEZE_CHANGED,
+	DROPPOFF_CLIENT,
+	DROPPOFF_CLIENT_NAME,
+	DROPPOFF_ADDRESS,
+	DROPOFF_ADDRESS_CHANGED
 } from './types';
 
 export const addItem = items => {
@@ -78,5 +82,31 @@ export const refrigerateChanged = () => {
 export const freezeChanged = () => {
 	return {
 		type: FREEZE_CHANGED
+	};
+};
+
+export const dropoffClientChanged = () => {
+	return {
+		type: DROPPOFF_CLIENT
+	};
+};
+
+export const dropoffNameAndLastChanged = ({ type, text }) => {
+	return {
+		type: DROPPOFF_CLIENT_NAME,
+		payload: { type, text }
+	};
+};
+
+export const dropoffAddressChanged = () => {
+	return {
+		type: DROPPOFF_ADDRESS
+	};
+};
+
+export const dropoffAddressInfoChanged = ({ type, text }) => {
+	return {
+		type: DROPOFF_ADDRESS_CHANGED,
+		payload: { type, text }
 	};
 };

@@ -11,6 +11,7 @@ import {
 import { Header, Button, Input, InputThree } from '../common';
 
 class CreateNewOrder extends Component {
+	state = { error: false };
 	onStoreChange(text) {
 		this.props.storeChanged(text);
 	}
@@ -21,6 +22,31 @@ class CreateNewOrder extends Component {
 
 	onOrderNumberChange(text) {
 		this.props.orderNumberChanged(text);
+	}
+
+	isComplete() {
+		const { storeName, address, orderNumber } = this.props.pickup;
+		if (
+			storeName &&
+			orderNumber &&
+			address.street &&
+			address.city &&
+			address.state &&
+			address.zipcode
+		)
+			return true;
+		return false;
+	}
+
+	renderError() {
+		if (this.state.error) {
+			return (
+				<Text style={styles.errorStyle}>
+					All fields must be completed
+				</Text>
+			);
+		}
+		return;
 	}
 
 	render() {
@@ -83,9 +109,13 @@ class CreateNewOrder extends Component {
 						/>
 					</View>
 					<View style={styles.buttonStyle}>
+						{this.renderError()}
 						<Button
 							onPress={() => {
-								Actions.timeAndPlace();
+								if (this.isComplete()) {
+									this.setState({ error: false });
+									Actions.timeAndPlace();
+								} else this.setState({ error: true });
 							}}
 						>
 							Next &#8827;&#8827;
@@ -109,9 +139,15 @@ const styles = {
 		color: '#3982B6'
 	},
 	buttonStyle: {
-		flexDirection: 'row',
-		justifyContent: 'space-around',
+		flexDirection: 'column',
+		justifyContent: 'flex-end',
 		marginTop: 30
+	},
+	errorStyle: {
+		fontSize: 18,
+		fontFamily: 'AppleGothic',
+		color: '#B64F39',
+		textAlign: 'center'
 	}
 };
 
