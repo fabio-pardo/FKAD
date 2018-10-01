@@ -82,6 +82,7 @@ class Menu extends Component {
 						<TouchableOpacity
 							onPress={() => {
 								this.hideNavBar();
+								Actions.settings();
 							}}
 						>
 							<Text style={styles.textStyle}>Settings</Text>

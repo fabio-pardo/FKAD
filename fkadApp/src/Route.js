@@ -9,6 +9,12 @@ import OrderSummery from './components/newOrder/OrderSummery';
 import Congratulations from './components/newOrder/Congratulations';
 import MyOrdersList from './components/myOrders/MyOrdersList';
 import ViewOrder from './components/myOrders/ViewOrder';
+import Settings from './components/settings/Settings';
+import PersonalInfo from './components/settings/PersonalInfo';
+import PersonalInfoEdit from './components/settings/PersonalInfoEdit';
+import KeyBox from './components/settings/KeyBox';
+import KeyBoxEdit from './components/settings/KeyBoxEdit';
+import Notifications from './components/settings/Notifications';
 
 const RouterComponent = () => {
 	return (
@@ -39,6 +45,21 @@ const RouterComponent = () => {
 							initial
 						/>
 						<Scene key="viewOrder" component={ViewOrder} />
+					</Stack>
+					<Stack key="settings" hideNavBar>
+						<Scene
+							key="settingsList"
+							component={Settings}
+							initial
+						/>
+						<Scene key="personalInfo" component={PersonalInfo} />
+						<Scene
+							key="personalInfoEdit"
+							component={PersonalInfoEdit}
+						/>
+						<Scene key="keyBox" component={KeyBox} />
+						<Scene key="keyBoxEdit" component={KeyBoxEdit} />
+						<Scene key="notifications" component={Notifications} />
 					</Stack>
 				</Stack>
 			</Stack>
