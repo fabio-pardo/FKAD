@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { Header, Button } from '../common';
 
 const Congratulations = () => {
@@ -21,7 +22,13 @@ const Congratulations = () => {
 						approved.
 					</Text>
 				</View>
-				<Button>My Orders</Button>
+				<Button
+					onPress={() => {
+						Actions.myOrders();
+					}}
+				>
+					My Orders
+				</Button>
 			</View>
 		</View>
 	);

@@ -10,7 +10,10 @@ const OrderCard = ({ order }) => {
 				backgroundColor:
 					order.status == 'On Time' ? '#D5E5F0' : 'white',
 				padding: 15,
-				paddingLeft: 20
+				paddingLeft: 20,
+				borderBottomColor: '#88B4D3',
+				borderBottomWidth: 1,
+				elevation: 1
 			}}
 		>
 			<Text style={styles.textStyle}>Order {order.id}</Text>
@@ -33,7 +36,7 @@ const OrderCard = ({ order }) => {
 const styles = {
 	textStyle: {
 		color: '#3982B6',
-		fontSize: 23,
+		fontSize: 20,
 		fontFamily: 'AppleGothic'
 	}
 };

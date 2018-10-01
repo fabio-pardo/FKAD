@@ -16,10 +16,8 @@ class Header extends Component {
 		return (
 			<View style={styles.statusBarMargin}>
 				<StatusBar
-					barStyle="dark-content"
 					hidden={false}
 					translucent={true}
-					backgroundColor="#ADCBE0"
 					networkActivityIndicatorVisible={true}
 				/>
 				<View style={styles.toolbar}>
@@ -63,7 +61,10 @@ const styles = {
 		flex: 1 //Step 3
 	},
 	statusBarMargin: {
-		marginTop: Platform.OS == 'ios' ? 20 : 0
+		elevation: 3,
+		borderBottomColor: '#3982B6',
+		borderBottomWidth: 1,
+		marginTop: 20
 	}
 };
 
