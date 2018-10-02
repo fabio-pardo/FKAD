@@ -44,12 +44,12 @@ class Menu extends Component {
 					<View style={styles.containerStyle}>
 						<TouchableOpacity onPress={onPress}>
 							<StatusBar
-			        barStyle = "dark-content"
-			        hidden = {false}
-			        translucent = {true}
-							backgroundColor = "#ADCBE0"
-			        networkActivityIndicatorVisible = {true}
-			        />
+								barStyle="dark-content"
+								hidden={false}
+								translucent={true}
+								backgroundColor="#ADCBE0"
+								networkActivityIndicatorVisible={true}
+							/>
 							<Image
 								style={styles.imageStyle}
 								source={require('../../images/menuIcon.png')}
@@ -58,10 +58,10 @@ class Menu extends Component {
 						<TouchableOpacity
 							onPress={() => {
 								this.hideNavBar();
-								Actions.dashboard();
+								Actions.myOrdersList();
 							}}
 						>
-							<Text style={styles.textStyle}>Dashboard</Text>
+							<Text style={styles.textStyle}>My Orders</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
 							onPress={() => {
@@ -74,13 +74,7 @@ class Menu extends Component {
 						<TouchableOpacity
 							onPress={() => {
 								this.hideNavBar();
-							}}
-						>
-							<Text style={styles.textStyle}>My Orders</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => {
-								this.hideNavBar();
+								Actions.settings();
 							}}
 						>
 							<Text style={styles.textStyle}>Settings</Text>
@@ -116,7 +110,7 @@ const styles = {
 		color: 'white',
 		padding: 5,
 		marginLeft: 5,
-		marginTop: (Platform.OS == 'ios') ? 20 : 0
+		marginTop: Platform.OS == 'ios' ? 20 : 0
 	},
 	containerStyle: {
 		width: '50%',
@@ -124,9 +118,9 @@ const styles = {
 		backgroundColor: '#3982B6'
 	},
 	imageStyle: {
-		marginTop: (Platform.OS == 'ios') ? 20 : 0, height: 55
+		marginTop: Platform.OS == 'ios' ? 20 : 0,
+		height: 55
 	}
-
 };
 
 export default Menu;
