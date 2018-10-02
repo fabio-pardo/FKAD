@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Modal } from 'react-native';
 import { Content, Container } from 'native-base';
 import {
-  InputLogIn,
-  Input,
-  InputTwo,
-  InputThree,
   HeaderWithoutMenu,
   InputV2,
   Button
