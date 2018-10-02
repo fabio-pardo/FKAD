@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
-class DropDown extends Component {
-	render() {
-		return (
-			<View style={styles.containerStyle}>
-				<ModalDropdown
-					options={this.props.options}
-					defaultValue={this.props.label}
-					textStyle={styles.textStyle}
-					dropdownTextStyle={styles.optionsStyle}
-					dropdownTextHighlightStyle={styles.optionSelectedStyle}
-				/>
-				<Text style={styles.labelStyle}>&#8897;</Text>
-			</View>
-		);
-	}
-}
+const DropDown = ({ label, options, onSelect }) => {
+	return (
+		<View style={styles.containerStyle}>
+			<ModalDropdown
+				options={options}
+				defaultValue={label}
+				textStyle={styles.textStyle}
+				dropdownTextStyle={styles.optionsStyle}
+				dropdownTextHighlightStyle={styles.optionSelectedStyle}
+				onSelect={onSelect}
+			/>
+			<Text style={styles.labelStyle}>&#8897;</Text>
+		</View>
+	);
+};
 
 const styles = {
 	textStyle: {
