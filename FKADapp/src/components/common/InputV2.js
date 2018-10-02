@@ -22,7 +22,7 @@ const InputV2 = ({
 				style={style}
 				value={value}
 				onChangeText={onChangeText}
-				autoCapitalize={false}
+				autoCapitalize='none'
 			/>
 		</View>
 	);

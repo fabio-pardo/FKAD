@@ -15,8 +15,9 @@ class SignUp extends Component {
   render() {
     const {
       singleInputStyle,
-      twoInputViewStyle,
       twoInputStyle,
+      threeInputStyle,
+      rowInputViewStyle,
     } = styles;
 
     return(
@@ -24,7 +25,7 @@ class SignUp extends Component {
         <View style={{backgroundColor: 'white', height: '100%'}}>
           <HeaderWithoutMenu headerTitle="SignUp" />
           <Content style={{margin: 20}}>
-            <View style={twoInputViewStyle}>
+            <View style={rowInputViewStyle}>
               <InputV2
                 label='First Name' style={twoInputStyle}
               />
@@ -33,11 +34,19 @@ class SignUp extends Component {
               />
             </View>
             <View>
-              <InputV2 label='Email' style={singleInputStyle} />
+              <InputV2 label='G-Mail' style={singleInputStyle} />
               <InputV2 label='Phone Number' style={singleInputStyle} />
               <InputV2 label='Street Address' style={singleInputStyle} />
             </View>
-
+            <View style={rowInputViewStyle}>
+              <InputV2 label='City' style={threeInputStyle} />
+              <InputV2 label='State' style={threeInputStyle} />
+              <InputV2 label='Zip' style={threeInputStyle} />
+            </View>
+            <View>
+              <InputV2 label='Enter Password' style={singleInputStyle} />
+              <InputV2 label='Confirm Password' style={singleInputStyle} />
+            </View>
           </Content>
         </View>
       </Container>
@@ -47,7 +56,7 @@ class SignUp extends Component {
 }
 
 const styles = {
-  twoInputViewStyle:{
+  rowInputViewStyle:{
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -73,13 +82,21 @@ const styles = {
 		fontSize: 17,
 		lineHeight: 23,
 		flex: 1,
-		width: 150,
+		width: 160,
 		alignSelf: 'stretch'
 	},
-  threeInputStyle
-
-
-
+  threeInputStyle: {
+    color: 'white',
+		backgroundColor: '#ADCBE0',
+		fontFamily: 'AppleGothic',
+		paddingRight: 5,
+		paddingLeft: 5,
+		fontSize: 17,
+		lineHeight: 23,
+		flex: 1,
+		width: 100,
+		alignSelf: 'stretch'
+  }
 }
 
 export default SignUp;
