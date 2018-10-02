@@ -44,7 +44,7 @@ class SignUp extends Component {
         <Modal
           visible={visible}
           transparent
-          animationType="fade"
+          animationType="slide"
           onRequestClose={() => {}}
         >
           <View style={{ backgroundColor: 'white', height: '100%' }}>
