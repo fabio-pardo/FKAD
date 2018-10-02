@@ -7,7 +7,8 @@ import {
   InputTwo,
   InputThree,
   HeaderWithoutMenu,
-  InputV2
+  InputV2,
+  Button
 } from './common';
 
 class SignUp extends Component {
@@ -24,7 +25,7 @@ class SignUp extends Component {
       <Container>
         <View style={{backgroundColor: 'white', height: '100%'}}>
           <HeaderWithoutMenu headerTitle="SignUp" />
-          <Content style={{margin: 20}}>
+          <Content style={{margin: 20, marginTop: 0}}>
             <View style={rowInputViewStyle}>
               <InputV2
                 label='First Name' style={twoInputStyle}
@@ -47,6 +48,7 @@ class SignUp extends Component {
               <InputV2 label='Enter Password' style={singleInputStyle} />
               <InputV2 label='Confirm Password' style={singleInputStyle} />
             </View>
+            <Button>Confirm</Button>
           </Content>
         </View>
       </Container>
