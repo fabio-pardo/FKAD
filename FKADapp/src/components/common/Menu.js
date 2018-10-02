@@ -58,10 +58,10 @@ class Menu extends Component {
 						<TouchableOpacity
 							onPress={() => {
 								this.hideNavBar();
-								Actions.dashboard();
+								Actions.myOrdersList();
 							}}
 						>
-							<Text style={styles.textStyle}>Dashboard</Text>
+							<Text style={styles.textStyle}>My Orders</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
 							onPress={() => {
@@ -70,14 +70,6 @@ class Menu extends Component {
 							}}
 						>
 							<Text style={styles.textStyle}>New Order</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => {
-								this.hideNavBar();
-								Actions.myOrdersList();
-							}}
-						>
-							<Text style={styles.textStyle}>My Orders</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
 							onPress={() => {

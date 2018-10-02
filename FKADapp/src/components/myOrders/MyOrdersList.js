@@ -39,7 +39,7 @@ const orders = [
 		id: 1,
 		day: '01.20.2018',
 		time: '12:00 pm',
-		status: 'On Time'
+		status: 'Complete'
 	},
 	{
 		id: 2,

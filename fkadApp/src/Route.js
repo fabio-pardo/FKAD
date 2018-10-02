@@ -25,7 +25,6 @@ const RouterComponent = () => {
 				</Stack>
 				<Stack key="main" hideNavBar>
 					<Stack key="newOrder" hideNavBar>
-						<Scene key="dashboard" component={Dashboard} initial />
 						<Scene
 							key="createNewOrder"
 							component={CreateNewOrder}

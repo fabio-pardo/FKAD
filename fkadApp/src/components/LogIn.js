@@ -40,7 +40,7 @@ class LogIn extends Component {
 						/>
 						<Button
 							onPress={() => {
-								Actions.dashboard();
+								Actions.myOrders();
 							}}
 						>
 							Log In
