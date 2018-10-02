@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
 
-const InputLogIn = ({
+const InputV2 = ({
 	placeholder,
 	label,
 	value,
 	onChangeText,
 	secureTextEntry,
-	autoCapitalize
+	autoCapitalize,
+	style
 }) => {
 	const { inputStyle, labelStyle, containerStyle } = styles;
 
@@ -18,10 +19,10 @@ const InputLogIn = ({
 				secureTextEntry={secureTextEntry}
 				placeholder={placeholder}
 				autoCorrect={false}
-				style={inputStyle}
+				style={style}
 				value={value}
 				onChangeText={onChangeText}
-				autoCapitalize='none'
+				autoCapitalize={false}
 			/>
 		</View>
 	);
@@ -29,18 +30,21 @@ const InputLogIn = ({
 
 const styles = {
 	inputStyle: {
-		color: '#3982B6',
+		color: 'white',
+		backgroundColor: '#ADCBE0',
 		fontFamily: 'AppleGothic',
 		paddingRight: 5,
 		paddingLeft: 5,
 		fontSize: 17,
 		lineHeight: 23,
 		flex: 1,
+		width: '100%',
 		alignSelf: 'stretch'
 	},
 	labelStyle: {
 		fontSize: 18,
-		marginTop: -25,
+		marginTop: -20,
+		marginBottom: -10,
 		flex: 1,
 		color: '#3982B6',
 		fontFamily: 'AppleGothic'
@@ -49,7 +53,7 @@ const styles = {
 		height: 35,
 		backgroundColor: '#fff',
 		borderRadius: 2,
-		borderWidth: 1,
+		// borderWidth: 1,
 		borderColor: '#3982B6',
 		flexDirection: 'column',
 		justifyContent: 'center',
@@ -59,4 +63,4 @@ const styles = {
 	}
 };
 
-export { InputLogIn };
+export { InputV2 };

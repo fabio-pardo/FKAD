@@ -10,3 +10,4 @@ export * from './DropDown';
 export * from './Items';
 export * from './CardSection';
 export * from './Confirm';
+export * from './InputV2';
