@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import Drawer from 'react-native-drawer';
-import {
-	View,
-	// Text,
-	Image,
-	TouchableOpacity,
-	StatusBar,
-	Platform,
-} from 'react-native';
+import { Platform } from 'react-native';
 import {
   Header,
   Left,
@@ -18,47 +10,20 @@ import {
   Title
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import Menu from './Menu';
-// import {Button} from './Button';
+import Confirm from './Confirm';
 
 
-class HeaderWithoutMenu extends Component {
-	state = { showMenu: false };
-	render() {
+const HeaderWithoutMenu = ({ rightButtonTitle }) => {
 		return (
       <Header style={styles.toolbar}>
-        <Left/>
+        <Left />
         <Body>
           <Title style={styles.toolbarTitle}>Sign Up</Title>
         </Body>
-        <Right>
-          <Button transparent onPress={() => {
-            Actions.pop();
-          }}>
-            <Text>Cancel</Text>
-          </Button>
-        </Right>
+        <Right />
       </Header>
-			// <View style={styles.statusBarMargin}>
-			// 	<StatusBar
-      //   barStyle = "dark-content"
-      //   hidden = {false}
-      //   translucent = {true}
-			// 	backgroundColor = "#ADCBE0"
-      //   networkActivityIndicatorVisible = {true}
-      //   />
-			// 	<View style={styles.toolbar}>
-			// 		<Text style={styles.toolbarTitle}>
-			// 			{this.props.headerTitle}
-			// 		</Text>
-      //     <Button title=" Go Back" onPress={() => {
-      //       Actions.pop();
-      //     }} />
-			// 	</View>
-			// </View>
 		);
-	}
-}
+};
 
 const styles = {
 	toolbar: {
