@@ -87,8 +87,6 @@ class SignUp extends Component {
               >
                 Are you sure you want to cancel?
               </Confirm>
-
-
             </Content>
           </View>
         </Modal>
