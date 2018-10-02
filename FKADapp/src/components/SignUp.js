@@ -26,6 +26,7 @@ class SignUp extends Component {
         <View style={{backgroundColor: 'white', height: '100%'}}>
           <HeaderWithoutMenu headerTitle="SignUp" />
           <Content style={{margin: 20, marginTop: 0}}>
+
             <View style={rowInputViewStyle}>
               <InputV2
                 label='First Name' style={twoInputStyle}
