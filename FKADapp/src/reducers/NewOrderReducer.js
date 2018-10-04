@@ -28,10 +28,7 @@ const INITIAL_STATE = {
 		orderNumber: ''
 	},
 	timeAndPlace: {
-		day: {
-			today: false,
-			tomorrow: false
-		},
+		day: '',
 		time: '',
 		place: {
 			doorway: false,
@@ -89,11 +86,7 @@ export default (state = INITIAL_STATE, action) => {
 				...state,
 				timeAndPlace: {
 					...state.timeAndPlace,
-					day: {
-						...state.timeAndPlace.day,
-						today: action.payload.today,
-						tomorrow: action.payload.tomorrow
-					}
+					day: action.payload
 				}
 			};
 		case TIME_CHANGED:

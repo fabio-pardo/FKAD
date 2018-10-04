@@ -13,7 +13,6 @@ const DropDown = ({ label, options, onSelect }) => {
 				dropdownTextHighlightStyle={styles.optionSelectedStyle}
 				onSelect={onSelect}
 			/>
-			<Text style={styles.labelStyle}>&#8897;</Text>
 		</View>
 	);
 };
@@ -22,17 +21,9 @@ const styles = {
 	textStyle: {
 		fontSize: 18,
 		fontFamily: 'AppleGothic',
-		color: '#3982B6',
+		color: 'white',
 		backgroundColor: '#88B4D3',
-		padding: 3,
-		fontWeight: 'bold',
-		marginTop: 3
-	},
-	labelStyle: {
-		fontSize: 18,
-		fontFamily: 'AppleGothic',
-		color: '#88B4D3',
-		backgroundColor: '#3982B6',
+		borderRadius: 10,
 		padding: 3,
 		fontWeight: 'bold',
 		marginTop: 3

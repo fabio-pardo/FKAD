@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Container, Content, DatePicker } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
@@ -95,8 +96,8 @@ class TimeAndPlace extends Component {
 		);
 	}
 
-	onDayChange(today, tomorrow) {
-		this.props.dayChanged({ today, tomorrow });
+	onDayChange(value) {
+		this.props.dayChanged(value);
 	}
 
 	onTimeChange(idx, value) {
@@ -122,7 +123,7 @@ class TimeAndPlace extends Component {
 	isComplete() {
 		const { day, time, place } = this.props.timeAndPlace;
 		if (
-			((day.today && !day.tomorrow) || (!day.today && day.tomorrow)) &&
+			day &&
 			time &&
 			((place.doorway && !place.inside) ||
 				(!place.doorway && place.inside))
@@ -145,34 +146,30 @@ class TimeAndPlace extends Component {
 	render() {
 		const { day, time, place } = this.props.timeAndPlace;
 		return (
-			<View>
+			<Container>
 				<Header headerTitle="New Order" />
-				<View style={{ backgroundColor: 'white' }}>
+				<Content style={{ backgroundColor: 'white' }}>
 					<View style={styles.containerStyle}>
 						<Text style={styles.textStyle}>Time and Place:</Text>
-						<View style={{ marginTop: -5 }}>
-							<Text style={styles.textStyle}>Day</Text>
-							<View style={styles.todayTomorrowStyle}>
-								<CheckBoxInput
-									label="Today"
-									isChecked={day.today}
-									onClick={this.onDayChange.bind(
-										this,
-										(today = true),
-										(tomorrow = false)
-									)}
-								/>
-								<CheckBoxInput
-									label="Tomorrow"
-									isChecked={day.tomorrow}
-									onClick={this.onDayChange.bind(
-										this,
-										(today = false),
-										(tomorrow = true)
-									)}
+						<View style={{ marginTop: -10 }}>
+							<View style={{ marginBottom: 20 }}>
+								<Text style={styles.textStyle}>Day: </Text>
+								<DatePicker
+									defaultDate={new Date(2018, 4, 4)}
+									minimumDate={new Date(2018, 1, 1)}
+									maximumDate={new Date(2018, 12, 31)}
+									locale={'en'}
+									timeZoneOffsetInMinutes={undefined}
+									modalTransparent={false}
+									animationType={'fade'}
+									androidMode={'default'}
+									placeHolderText="Select date"
+									textStyle={styles.dateStyle}
+									placeHolderTextStyle={styles.dateStyle}
+									onDateChange={this.onDayChange.bind(this)}
 								/>
 							</View>
-							<Text style={styles.textStyle}>Time: </Text>
+							<Text style={styles.timeStyle}>Time: </Text>
 							<DropDown
 								label=" Select Time "
 								options={times}
@@ -181,7 +178,7 @@ class TimeAndPlace extends Component {
 							<Text style={styles.textStyle}>
 								Place Order At:{' '}
 							</Text>
-							<View style={styles.todayTomorrowStyle}>
+							<View style={styles.horizontalStyle}>
 								<CheckBoxInput
 									label="Doorway"
 									isChecked={place.doorway}
@@ -227,8 +224,8 @@ class TimeAndPlace extends Component {
 							</Button>
 						</View>
 					</View>
-				</View>
-			</View>
+				</Content>
+			</Container>
 		);
 	}
 }
@@ -245,16 +242,30 @@ const styles = {
 		fontFamily: 'AppleGothic',
 		color: '#3982B6'
 	},
-	threeInputsStyle: {
-		flexDirection: 'row',
-		justifyContent: 'space-between'
+	dateStyle: {
+		fontSize: 18,
+		fontFamily: 'AppleGothic',
+		color: 'white',
+		backgroundColor: '#88B4D3',
+		borderRadius: 10,
+		padding: 3,
+		fontWeight: 'bold',
+		margin: 10,
+		position: 'absolute'
+	},
+	timeStyle: {
+		marginTop: 30,
+		fontSize: 20,
+		fontFamily: 'AppleGothic',
+		color: '#3982B6',
+		marginBottom: 5
 	},
 	buttonStyle: {
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		marginTop: 30
 	},
-	todayTomorrowStyle: {
+	horizontalStyle: {
 		flexDirection: 'row',
 		justifyContent: 'flex-start'
 	},
@@ -271,15 +282,6 @@ const styles = {
 };
 
 const times = [
-	'12:00 am',
-	'1:00 am',
-	'2:00 am',
-	'3:00 am',
-	'4:00 am',
-	'5:00 am',
-	'6:00 am',
-	'7:00 am',
-	'8:00 am',
 	'9:00 am',
 	'10:00 am',
 	'11:00 am',
@@ -292,9 +294,7 @@ const times = [
 	'6:00 pm',
 	'7:00 pm',
 	'8:00 pm',
-	'9:00 pm',
-	'10:00 pm',
-	'11:00 pm'
+	'9:00 pm'
 ];
 
 const mapStateToProps = state => {
