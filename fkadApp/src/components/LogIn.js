@@ -13,7 +13,9 @@ class LogIn extends Component {
 
 	onPasswordChange(text) {
 		this.props.passwordChanged(text);
-		console.log('password: ' + this.props.password);
+		console.log(
+			'email: ' + this.props.email + '  password: ' + this.props.password
+		);
 	}
 
 	render() {

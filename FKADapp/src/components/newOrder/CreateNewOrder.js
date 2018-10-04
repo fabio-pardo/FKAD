@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { Container, Content } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
@@ -53,9 +54,9 @@ class CreateNewOrder extends Component {
 		const { storeName, address, orderNumber } = this.props.pickup;
 
 		return (
-			<View style={{ backgroundColor: 'white' }}>
+			<Container style={{ backgroundColor: 'white' }}>
 				<Header headerTitle="New Order" />
-				<View style={styles.containerStyle}>
+				<Content style={styles.containerStyle}>
 					<Text style={styles.textStyle}>Pick Up From:</Text>
 					<View style={{ marginTop: 15 }}>
 						<Input
@@ -121,8 +122,8 @@ class CreateNewOrder extends Component {
 							Next &#8827;&#8827;
 						</Button>
 					</View>
-				</View>
-			</View>
+				</Content>
+			</Container>
 		);
 	}
 }

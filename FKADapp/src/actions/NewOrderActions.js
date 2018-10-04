@@ -46,10 +46,10 @@ export const orderNumberChanged = text => {
 	};
 };
 
-export const dayChanged = ({ today, tomorrow }) => {
+export const dayChanged = text => {
 	return {
 		type: DAY_CHANGED,
-		payload: { today, tomorrow }
+		payload: text
 	};
 };
 
