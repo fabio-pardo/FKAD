@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
-import { View, Modal } from 'react-native';
+import { View, Modal, Text } from 'react-native';
 import { Content, Container } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+
+import {
+  nameChanged,
+  homeAddressChanged,
+  GMailChanged,
+  phoneChanged,
+  passwordChanged
+} from '../actions';
+
 import {
   HeaderWithoutMenu,
   InputV2,
@@ -11,8 +21,34 @@ import {
 
 
 class SignUp extends Component {
-  state={ showModal: false };
 
+  //this state determines to not show the Modal until true,
+  // and to not show error message until true for incomplete fields.
+  state={ showModal: false, error: false };
+
+  //the following methods are used when the input texts
+  //for each respectively changes
+  onNameChange(type, text) {
+    this.props.nameChanged({ type, text });
+  }
+
+  onGMailChange(text) {
+    this.props.GMailChanged(text);
+  }
+
+  onPhoneNumberChange(text) {
+    this.props.phoneChanged(text);
+  }
+
+  onHomeAddressChange(type, text) {
+    this.props.homeAddressChanged({ type, text });
+  }
+
+  onPasswordChange(text) {
+    this.props.passwordChanged(text);
+  }
+
+  //The following methods are for the modal
   onCancelAccept() {
     //Should sign out UID from AWS
     //Should return to main menu
@@ -29,7 +65,50 @@ class SignUp extends Component {
     this.setState({ showModal: visible });
   }
 
+  //method to determine if signup fields are filled. true - yes, false - no
+  signupFieldsComplete() {
+    const {
+      name,
+      GMail,
+      phoneNumber,
+      homeAddress,
+      password
+    } = this.props.signup;
+
+    //if name, gmail, phone and homeaddress exists and
+    //if the passwords == to one another then the fields are complete
+    if (
+      name.firstName &&
+      name.lastName &&
+      GMail &&
+      phoneNumber &&
+      homeAddress.street &&
+      homeAddress.city &&
+      homeAddress.state &&
+      homeAddress.zip &&
+      (password.mainPassword === password.confirmPassword)
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  //method used to tell the user that fields were not filled
+  renderError() {
+    if (this.state.error) {
+      return (
+        <Text
+          style={styles.errorStyle}
+        >
+          All Fields Must Be Completed
+        </Text>
+      );
+    }
+  }
+
   render() {
+    //refactoring styles
     const {
       singleInputStyle,
       twoInputStyle,
@@ -38,6 +117,14 @@ class SignUp extends Component {
     } = styles;
 
     const { visible } = this.props;
+
+    const {
+      name,
+      GMail,
+      phoneNumber,
+      homeAddress,
+      password,
+    } = this.props.signup;
 
     return (
       <Container>
@@ -53,32 +140,129 @@ class SignUp extends Component {
             />
             <Content style={{ margin: 20, marginTop: 0 }}>
               <View style={rowInputViewStyle}>
-                <InputV2 label="First Name" style={twoInputStyle} />
-                <InputV2 label="Last Name" style={twoInputStyle} />
+                <InputV2
+                  label="First Name"
+                  style={twoInputStyle}
+                  value={name.firstName}
+                  onChangeText={
+                    this.onNameChange.bind(
+                      this,
+                      (type = 'firstName')
+                    )
+                  }
+                />
+                <InputV2
+                  label="Last Name"
+                  style={twoInputStyle}
+                  value={name.lastName}
+                  onChangeText={
+                    this.onNameChange.bind(
+                      this,
+                      (type = 'lastName')
+                    )
+                  }
+                />
               </View>
               <View>
-                <InputV2 label="G-Mail" style={singleInputStyle} />
-                <InputV2 label="Phone Number" style={singleInputStyle} />
-                <InputV2 label="Street Address" style={singleInputStyle} />
+                <InputV2
+                  label="G-Mail"
+                  style={singleInputStyle}
+                  value={GMail}
+                  onChangeText={this.onGMailChange.bind(this)}
+                />
+                <InputV2
+                  label="Phone Number"
+                  style={singleInputStyle}
+                  value={phoneNumber}
+                  onChangeText={this.onPhoneNumberChange.bind(this)}
+                />
+                <InputV2
+                  label="Street Address"
+                  style={singleInputStyle}
+                  value={homeAddress.street}
+                  onChangeText={this.onHomeAddressChange.bind(
+                    this,
+                    (type = 'street')
+                    )
+                  }
+                />
               </View>
               <View style={rowInputViewStyle}>
-                <InputV2 label="City" style={threeInputStyle} />
-                <InputV2 label="State" style={threeInputStyle} />
-                <InputV2 label="Zip" style={threeInputStyle} />
+                <InputV2
+                  label="City"
+                  style={threeInputStyle}
+                  value={homeAddress.city}
+                  onChangeText={this.onHomeAddressChange.bind(
+                    this,
+                    (type = 'city')
+                    )
+                  }
+                />
+                <InputV2
+                  label="State"
+                  style={threeInputStyle}
+                  value={homeAddress.state}
+                  onChangeText={this.onHomeAddressChange.bind(
+                    this,
+                    (type = 'state')
+                    )
+                  }
+                />
+                <InputV2
+                  label="Zip"
+                  style={threeInputStyle}
+                  value={homeAddress.zip}
+                  onChangeText={this.onHomeAddressChange.bind(
+                    this,
+                    (type = 'zip')
+                    )
+                  }
+                />
               </View>
               <View>
-                <InputV2 label="Enter Password" style={singleInputStyle} />
-                <InputV2 label="Confirm Password" style={singleInputStyle} />
+                <InputV2
+                  label="Enter Password"
+                  style={singleInputStyle}
+                  value={password.mainPassword}
+                  onChangeText={this.onPasswordChange.bind(
+                    this,
+                    (type = 'mainPassword')
+                    )
+                  }
+                />
+                <InputV2
+                  label="Confirm Password"
+                  style={singleInputStyle}
+                  value={password.confirmPassword}
+                  onChangeText={this.onPasswordChange.bind(
+                    this,
+                    (type = 'confirmPassword')
+                    )
+                  }
+                />
               </View>
               <View style={rowInputViewStyle}>
+                {this.renderError()}
                 <Button
                   onPress={() => {
                     this.setState({
                       showModal: !this.state.showModal
                     });
                   }}
-                >Cancel</Button>
-                <Button>Confirm</Button>
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onPress={() => {
+                    if (this.signupFieldsComplete()) {
+                      this.setState({ error: false });
+                    } else {
+                      this.setState({ error: true });
+                    }
+                  }}
+                >
+                  SignUp
+                </Button>
               </View>
               <Confirm
                 visible={this.state.showModal}
@@ -136,7 +320,26 @@ const styles = {
     flex: 1,
     width: 100,
     alignSelf: 'stretch'
-  }
+  },
+  errorStyle: {
+		fontSize: 18,
+		fontFamily: 'AppleGothic',
+		color: '#B64F39',
+		textAlign: 'center'
+	}
 };
 
-export default SignUp;
+// export default SignUp;
+const mapStateToProps = state => {
+  return {
+    signup: state.newSignUp
+  };
+};
+
+export default connect(mapStateToProps, {
+  nameChanged,
+  homeAddressChanged,
+  GMailChanged,
+  phoneChanged,
+  passwordChanged
+})(SignUp);
