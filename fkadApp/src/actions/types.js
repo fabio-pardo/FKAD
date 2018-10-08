@@ -18,3 +18,10 @@ export const DROPPOFF_CLIENT_NAME = 'dropoff_client_name';
 export const DROPPOFF_ADDRESS = 'dropoff_address';
 export const DROPOFF_ADDRESS_CHANGED = 'dropoff_address_changed';
 export const SET_ORDER = 'set_order';
+
+export const NAME_CHANGED = 'name_changed';
+export const GMAIL_CHANGED = 'gmail_changed';
+export const PHONE_NUMBER_CHANGED = 'phone_number_changed';
+export const HOME_ADDRESS_CHANGED = 'home_address_changed';
+export const NEW_PASSWORD_CHANGED = 'new_password_changed';
+export const CREATE_NEW_USER = 'create_new_user';

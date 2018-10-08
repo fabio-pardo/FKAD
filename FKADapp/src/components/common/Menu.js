@@ -110,7 +110,7 @@ const styles = {
 		color: 'white',
 		padding: 5,
 		marginLeft: 5,
-		marginTop: Platform.OS == 'ios' ? 20 : 0
+		marginTop: Platform.OS === 'ios' ? 20 : 0
 	},
 	containerStyle: {
 		width: '50%',
@@ -118,7 +118,7 @@ const styles = {
 		backgroundColor: '#3982B6'
 	},
 	imageStyle: {
-		marginTop: Platform.OS == 'ios' ? 20 : 0,
+		marginTop: Platform.OS === 'ios' ? 20 : 0,
 		height: 55
 	}
 };

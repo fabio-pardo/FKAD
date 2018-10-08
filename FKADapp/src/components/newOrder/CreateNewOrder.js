@@ -34,8 +34,9 @@ class CreateNewOrder extends Component {
 			address.city &&
 			address.state &&
 			address.zipcode
-		)
+		) {
 			return true;
+		}
 		return false;
 	}
 
