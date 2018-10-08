@@ -33,7 +33,7 @@ export default (state = INITIAL_STATE, action) => {
         user: {
           ...state.user,
           name: {
-            ...state.name,
+            ...state.user.name,
             [action.payload.type]: action.payload.text
           }
         }
@@ -51,9 +51,10 @@ export default (state = INITIAL_STATE, action) => {
     case HOME_ADDRESS_CHANGED:
       return {
         ...state,
-        user: { ...state.user,
+        user: {
+          ...state.user,
           homeAddress: {
-            ...state.homeAddress,
+            ...state.user.homeAddress,
             [action.payload.type]: action.payload.text
           }
         }
