@@ -73,7 +73,7 @@ class SignUp extends Component {
       phoneNumber,
       homeAddress,
       password
-    } = this.props.signUp;
+    } = this.props.signup;
 
     //if name, gmail, phone and homeaddress exists and
     //if the passwords == to one another then the fields are complete
@@ -228,8 +228,8 @@ class SignUp extends Component {
                   }
                 />
               </View>
+              {this.renderError()}
               <View style={rowInputViewStyle}>
-                {this.renderError()}
                 <Button
                   onPress={() => {
                     this.setState({
