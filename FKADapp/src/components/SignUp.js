@@ -9,7 +9,7 @@ import {
   homeAddressChanged,
   GMailChanged,
   phoneChanged,
-  passwordChanged
+  newPasswordChanged
 } from '../actions';
 
 import {
@@ -45,7 +45,7 @@ class SignUp extends Component {
   }
 
   onPasswordChange(text) {
-    this.props.passwordChanged(text);
+    this.props.newPasswordChanged(text);
   }
 
   //The following methods are for the modal
@@ -73,7 +73,7 @@ class SignUp extends Component {
       phoneNumber,
       homeAddress,
       password
-    } = this.props.signup;
+    } = this.props.signUp;
 
     //if name, gmail, phone and homeaddress exists and
     //if the passwords == to one another then the fields are complete
@@ -86,7 +86,7 @@ class SignUp extends Component {
       homeAddress.city &&
       homeAddress.state &&
       homeAddress.zip &&
-      (password.mainPassword === password.confirmPassword)
+      password
     ) {
       return true;
     }
@@ -143,13 +143,13 @@ class SignUp extends Component {
                 <InputV2
                   label="First Name"
                   style={twoInputStyle}
-                  value={name.firstName}
                   onChangeText={
                     this.onNameChange.bind(
                       this,
                       (type = 'firstName')
                     )
                   }
+                  value={name.firstName}
                 />
                 <InputV2
                   label="Last Name"
@@ -223,21 +223,8 @@ class SignUp extends Component {
                 <InputV2
                   label="Enter Password"
                   style={singleInputStyle}
-                  value={password.mainPassword}
-                  onChangeText={this.onPasswordChange.bind(
-                    this,
-                    (type = 'mainPassword')
-                    )
-                  }
-                />
-                <InputV2
-                  label="Confirm Password"
-                  style={singleInputStyle}
-                  value={password.confirmPassword}
-                  onChangeText={this.onPasswordChange.bind(
-                    this,
-                    (type = 'confirmPassword')
-                    )
+                  value={password}
+                  onChangeText={this.onPasswordChange.bind(this)
                   }
                 />
               </View>
@@ -332,7 +319,7 @@ const styles = {
 // export default SignUp;
 const mapStateToProps = state => {
   return {
-    signup: state.newSignUp
+    signup: state.signUp.user
   };
 };
 
@@ -341,5 +328,5 @@ export default connect(mapStateToProps, {
   homeAddressChanged,
   GMailChanged,
   phoneChanged,
-  passwordChanged
+  newPasswordChanged
 })(SignUp);

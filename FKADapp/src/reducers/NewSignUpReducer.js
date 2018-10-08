@@ -8,19 +8,21 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  name: {
-    firstName: '',
-    lastName: '',
-  },
-  GMail: '',
-  phoneNumber: '',
-  homeAddress: {
-    street: '',
-    city: '',
-    state: '',
-    zip: ''
-  },
-  password: ''
+  user: {
+    name: {
+      firstName: '',
+      lastName: '',
+    },
+    GMail: '',
+    phoneNumber: '',
+    homeAddress: {
+      street: '',
+      city: '',
+      state: '',
+      zip: ''
+    },
+    password: ''
+  }
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -28,42 +30,38 @@ export default (state = INITIAL_STATE, action) => {
     case NAME_CHANGED:
       return {
         ...state,
-        name: {
-          ...state.name,
-          [action.payload.type]: action.payload.text
+        user: {
+          ...state.user,
+          name: {
+            ...state.name,
+            [action.payload.type]: action.payload.text
+          }
         }
       };
     case GMAIL_CHANGED:
       return {
         ...state,
-        GMAIL: {
-          ...state.GMail,
-          GMail: action.payload
-        }
+        user: { ...state.user, GMail: action.payload }
       };
     case PHONE_NUMBER_CHANGED:
       return {
         ...state,
-        phoneNumber: {
-          ...state.phoneNumber,
-          phoneNumber: action.payload
-        }
+        user: { ...state.user, phoneNumber: action.payload }
       };
     case HOME_ADDRESS_CHANGED:
       return {
         ...state,
-        homeAddress: {
-          ...state.homeAddress,
-          [action.payload.type]: action.payload.text
+        user: { ...state.user,
+          homeAddress: {
+            ...state.homeAddress,
+            [action.payload.type]: action.payload.text
+          }
         }
       };
     case NEW_PASSWORD_CHANGED:
       return {
         ...state,
-        password: {
-          ...state.password,
-          password: action.payload
-        }
+        user: { ...state.user, password: action.payload }
       };
     case CREATE_NEW_USER:
       return INITIAL_STATE;
