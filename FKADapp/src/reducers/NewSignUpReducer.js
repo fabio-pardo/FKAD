@@ -6,7 +6,8 @@ import {
   NEW_PASSWORD_CHANGED,
   NEW_WIFI_CHANGED,
   NEW_BOXID_CHANGED,
-  CREATE_NEW_USER
+  CREATE_NEW_USER,
+  CLEAR_SIGNUP
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -88,6 +89,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         user: { ...state.user, boxID: action.payload }
       };
+    case CLEAR_SIGNUP:
+      return INITIAL_STATE;
     case CREATE_NEW_USER:
       return INITIAL_STATE;
     default:

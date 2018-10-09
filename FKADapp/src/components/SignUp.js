@@ -11,7 +11,8 @@ import {
   phoneChanged,
   newPasswordChanged,
   newWiFiChanged,
-  newBoxIDChanged
+  newBoxIDChanged,
+  clearSignUp
 } from '../actions';
 
 import {
@@ -58,11 +59,16 @@ class SignUp extends Component {
     this.props.newWiFiChanged({ type, text });
   }
 
+  onClearSignUp() {
+    this.props.clearSignUp();
+  }
+
   //The following methods are for the modal
   onCancelAccept() {
     //Should sign out UID from AWS
     //Should return to main menu
     this.setState({ showModal: false });
+    this.onClearSignUp();
 
     Actions.pop();
     //BUG: Menu closes on logoutAccept but slowly, possibly fade bug
@@ -71,6 +77,7 @@ class SignUp extends Component {
   onCancelDecline() {
     this.setState({ showModal: false });
   }
+
 
   setModalVisible(visible) {
     this.setState({ showModal: visible });
@@ -370,5 +377,6 @@ export default connect(mapStateToProps, {
   phoneChanged,
   newPasswordChanged,
   newBoxIDChanged,
-  newWiFiChanged
+  newWiFiChanged,
+  clearSignUp
 })(SignUp);
