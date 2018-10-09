@@ -4,6 +4,8 @@ import {
   PHONE_NUMBER_CHANGED,
   HOME_ADDRESS_CHANGED,
   NEW_PASSWORD_CHANGED,
+  NEW_WIFI_CHANGED,
+  NEW_BOXID_CHANGED,
   CREATE_NEW_USER
 } from '../actions/types';
 
@@ -21,7 +23,12 @@ const INITIAL_STATE = {
       state: '',
       zip: ''
     },
-    password: ''
+    password: '',
+    boxID: '',
+    WiFi: {
+      wifiName: '',
+      wifiPassword: ''
+    }
   }
 };
 
@@ -63,6 +70,23 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         user: { ...state.user, password: action.payload }
+      };
+    case NEW_WIFI_CHANGED:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          WiFi: {
+            ...state.user.WiFi,
+            [action.payload.type]: action.payload.text
+          }
+        }
+      };
+    case NEW_BOXID_CHANGED:
+      console.log(action.payload);
+      return {
+        ...state,
+        user: { ...state.user, boxID: action.payload }
       };
     case CREATE_NEW_USER:
       return INITIAL_STATE;

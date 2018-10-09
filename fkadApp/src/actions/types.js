@@ -25,3 +25,5 @@ export const PHONE_NUMBER_CHANGED = 'phone_number_changed';
 export const HOME_ADDRESS_CHANGED = 'home_address_changed';
 export const NEW_PASSWORD_CHANGED = 'new_password_changed';
 export const CREATE_NEW_USER = 'create_new_user';
+export const NEW_WIFI_CHANGED = 'new_wifi_changed';
+export const NEW_BOXID_CHANGED = 'new_boxid_changed';

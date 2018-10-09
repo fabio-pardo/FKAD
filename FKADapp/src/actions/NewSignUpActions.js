@@ -6,7 +6,9 @@ import {
   PHONE_NUMBER_CHANGED,
   HOME_ADDRESS_CHANGED,
   NEW_PASSWORD_CHANGED,
-  CREATE_NEW_USER
+  CREATE_NEW_USER,
+  NEW_BOXID_CHANGED,
+  NEW_WIFI_CHANGED,
 } from './types';
 
 export const nameChanged = ({ type, text }) => {
@@ -41,6 +43,20 @@ export const newPasswordChanged = text => {
   return {
     type: NEW_PASSWORD_CHANGED,
     payload: text
+  };
+};
+
+export const newBoxIDChanged = text => {
+  return {
+    type: NEW_BOXID_CHANGED,
+    payload: text
+  };
+};
+
+export const newWiFiChanged = ({ type, text }) => {
+  return {
+    type: NEW_WIFI_CHANGED,
+    payload: { type, text }
   };
 };
 

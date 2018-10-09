@@ -9,7 +9,9 @@ import {
   homeAddressChanged,
   GMailChanged,
   phoneChanged,
-  newPasswordChanged
+  newPasswordChanged,
+  newWiFiChanged,
+  newBoxIDChanged
 } from '../actions';
 
 import {
@@ -82,7 +84,8 @@ class SignUp extends Component {
       phoneNumber,
       homeAddress,
       password,
-      WiFi
+      WiFi,
+      boxID
     } = this.props.signup;
 
     //if name, gmail, phone and homeaddress exists and
@@ -97,8 +100,9 @@ class SignUp extends Component {
       homeAddress.state &&
       homeAddress.zip &&
       password &&
-      WiFi.name &&
-      WiFi.password
+      WiFi.wifiName &&
+      WiFi.wifiPassword &&
+      boxID
     ) {
       return true;
     }
@@ -152,7 +156,7 @@ class SignUp extends Component {
             <HeaderWithoutMenu
               headerTitle="SignUp"
             />
-            <Content style={{ padding: 20, marginTop: 0 }}>
+            <Content style={{ paddingLeft: 20, paddingRight: 20, marginTop: 0 }}>
               <View style={rowInputViewStyle}>
                 <InputV2
                   label="First Name"
@@ -243,16 +247,16 @@ class SignUp extends Component {
                 <InputV2
                   label="Wi-Fi"
                   style={singleInputStyle}
-                  value={WiFi.name}
-                  onChangeText={this.onWifiChange.bind(
+                  value={WiFi.wifiName}
+                  onChangeText={this.onWiFiChange.bind(
                     this, (type = 'wifiName'))
                   }
                 />
                 <InputV2
                   label="Wi-Fi Password"
                   style={singleInputStyle}
-                  value={WiFi.password}
-                  onChangeText={this.onWifiChange.bind(
+                  value={WiFi.wifiPassword}
+                  onChangeText={this.onWiFiChange.bind(
                     this, (type = 'wifiPassword'))
                   }
                 />
@@ -365,5 +369,6 @@ export default connect(mapStateToProps, {
   GMailChanged,
   phoneChanged,
   newPasswordChanged,
-
+  newBoxIDChanged,
+  newWiFiChanged
 })(SignUp);
