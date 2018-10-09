@@ -48,11 +48,20 @@ class SignUp extends Component {
     this.props.newPasswordChanged(text);
   }
 
+  onBoxIDChange(text) {
+    this.props.newBoxIDChanged(text);
+  }
+
+  onWiFiChange(type, text) {
+    this.props.newWiFiChanged({ type, text });
+  }
+
   //The following methods are for the modal
   onCancelAccept() {
     //Should sign out UID from AWS
     //Should return to main menu
     this.setState({ showModal: false });
+
     Actions.pop();
     //BUG: Menu closes on logoutAccept but slowly, possibly fade bug
   }
@@ -72,7 +81,8 @@ class SignUp extends Component {
       GMail,
       phoneNumber,
       homeAddress,
-      password
+      password,
+      WiFi
     } = this.props.signup;
 
     //if name, gmail, phone and homeaddress exists and
@@ -86,7 +96,9 @@ class SignUp extends Component {
       homeAddress.city &&
       homeAddress.state &&
       homeAddress.zip &&
-      password
+      password &&
+      WiFi.name &&
+      WiFi.password
     ) {
       return true;
     }
@@ -124,6 +136,8 @@ class SignUp extends Component {
       phoneNumber,
       homeAddress,
       password,
+      boxID,
+      WiFi,
     } = this.props.signup;
 
     return (
@@ -138,7 +152,7 @@ class SignUp extends Component {
             <HeaderWithoutMenu
               headerTitle="SignUp"
             />
-            <Content style={{ margin: 20, marginTop: 0 }}>
+            <Content style={{ padding: 20, marginTop: 0 }}>
               <View style={rowInputViewStyle}>
                 <InputV2
                   label="First Name"
@@ -221,11 +235,33 @@ class SignUp extends Component {
               </View>
               <View>
                 <InputV2
-                  label="Enter Password"
+                  label="Box ID"
                   style={singleInputStyle}
-                  value={password}
-                  onChangeText={this.onPasswordChange.bind(this)
+                  value={boxID}
+                  onChangeText={this.onBoxIDChange.bind(this)}
+                />
+                <InputV2
+                  label="Wi-Fi"
+                  style={singleInputStyle}
+                  value={WiFi.name}
+                  onChangeText={this.onWifiChange.bind(
+                    this, (type = 'wifiName'))
                   }
+                />
+                <InputV2
+                  label="Wi-Fi Password"
+                  style={singleInputStyle}
+                  value={WiFi.password}
+                  onChangeText={this.onWifiChange.bind(
+                    this, (type = 'wifiPassword'))
+                  }
+                />
+                <InputV2
+                  label="Enter Desired Password"
+                  style={singleInputStyle}
+                  secureTextEntry
+                  value={password}
+                  onChangeText={this.onPasswordChange.bind(this)}
                 />
               </View>
               {this.renderError()}
@@ -328,5 +364,6 @@ export default connect(mapStateToProps, {
   homeAddressChanged,
   GMailChanged,
   phoneChanged,
-  newPasswordChanged
+  newPasswordChanged,
+
 })(SignUp);
