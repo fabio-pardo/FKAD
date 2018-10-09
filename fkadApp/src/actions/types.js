@@ -28,3 +28,5 @@ export const NEW_WIFI_CHANGED = 'new_wifi_changed';
 export const NEW_BOXID_CHANGED = 'new_boxid_changed';
 export const CLEAR_SIGNUP = 'clear_signup';
 export const CREATE_NEW_USER = 'create_new_user';
+export const NEW_WIFI_CHANGED = 'new_wifi_changed';
+export const NEW_BOXID_CHANGED = 'new_boxid_changed';
