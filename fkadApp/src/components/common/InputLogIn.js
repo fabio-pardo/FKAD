@@ -21,7 +21,7 @@ const InputLogIn = ({
 				style={inputStyle}
 				value={value}
 				onChangeText={onChangeText}
-				autoCapitalize='none'
+				autoCapitalize="none"
 			/>
 		</View>
 	);
@@ -33,6 +33,7 @@ const styles = {
 		fontFamily: 'AppleGothic',
 		paddingRight: 5,
 		paddingLeft: 5,
+		paddingBottom: 4,
 		fontSize: 17,
 		lineHeight: 23,
 		flex: 1,

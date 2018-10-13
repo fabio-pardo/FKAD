@@ -6,7 +6,9 @@ import OrderCard from './OrderCard';
 
 class MyOrdersList extends Component {
 	showOrder(orders) {
-		return orders.map(order => <OrderCard key={order.id} order={order} />);
+		return orders.map(order => (
+			<OrderCard key={order.id} order={order} user="customer" />
+		));
 	}
 
 	render() {

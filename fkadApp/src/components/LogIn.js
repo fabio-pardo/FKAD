@@ -80,7 +80,7 @@ const styles = {
 		alignSelf: 'center',
 		width: '80%',
 		height: '80%',
-		marginTop: 40
+		marginTop: 50
 	},
 	textStyle: {
 		fontSize: 24,

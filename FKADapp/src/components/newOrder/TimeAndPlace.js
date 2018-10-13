@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { View, Text } from 'react-native';
 import { Container, Content, DatePicker } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -12,15 +12,7 @@ import {
 	refrigerateChanged,
 	freezeChanged
 } from '../../actions';
-import {
-	Header,
-	Button,
-	Items,
-	Input,
-	InputThree,
-	CheckBoxInput,
-	DropDown
-} from '../common';
+import { Header, Button, Items, CheckBoxInput, DropDown } from '../common';
 
 class TimeAndPlace extends Component {
 	state = { error: false };
@@ -144,7 +136,7 @@ class TimeAndPlace extends Component {
 	}
 
 	render() {
-		const { day, time, place } = this.props.timeAndPlace;
+		const { place } = this.props.timeAndPlace;
 		return (
 			<Container>
 				<Header headerTitle="New Order" />

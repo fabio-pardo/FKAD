@@ -31,7 +31,7 @@ const userIsCustomer = user => {
 
 const Settings = ({ user }) => (
 	<View style={{ backgroundColor: '#ADCBE0', height: '100%' }}>
-		<Header headerTitle="Settings" />
+		<Header headerTitle="Settings" user={user} />
 		<TouchableOpacity
 			style={styles.boxStyle}
 			onPress={() => {
