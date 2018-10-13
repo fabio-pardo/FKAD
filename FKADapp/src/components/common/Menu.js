@@ -36,6 +36,7 @@ class Menu extends Component {
 				<TouchableOpacity
 					onPress={() => {
 						this.hideNavBar();
+						Actions.deliveries();
 					}}
 				>
 					<Text style={styles.textStyle}>Deliveries</Text>
@@ -43,6 +44,7 @@ class Menu extends Component {
 				<TouchableOpacity
 					onPress={() => {
 						this.hideNavBar();
+						Actions.settings({ user: 'driver' });
 					}}
 				>
 					<Text style={styles.textStyle}>Settings</Text>
@@ -73,7 +75,7 @@ class Menu extends Component {
 				<TouchableOpacity
 					onPress={() => {
 						this.hideNavBar();
-						Actions.settings();
+						Actions.settings({ user: 'customer' });
 					}}
 				>
 					<Text style={styles.textStyle}>Settings</Text>
