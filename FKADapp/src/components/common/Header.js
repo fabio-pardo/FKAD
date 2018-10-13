@@ -39,6 +39,7 @@ class Header extends Component {
 						onPress={() => {
 							this.setState({ showMenu: !this.state.showMenu });
 						}}
+						user={this.props.user}
 					/>
 				</View>
 			</View>
@@ -57,7 +58,7 @@ const styles = {
 		fontSize: 35,
 		fontFamily: 'AppleGothic',
 		textAlign: 'center',
-		paddingTop: 3,
+		paddingTop: 5,
 		flex: 1 //Step 3
 	},
 	statusBarMargin: {

@@ -30,6 +30,58 @@ class Menu extends Component {
 		this.props.onPress();
 	}
 
+	userIsDriver() {
+		return (
+			<View>
+				<TouchableOpacity
+					onPress={() => {
+						this.hideNavBar();
+					}}
+				>
+					<Text style={styles.textStyle}>Deliveries</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => {
+						this.hideNavBar();
+					}}
+				>
+					<Text style={styles.textStyle}>Settings</Text>
+				</TouchableOpacity>
+			</View>
+		);
+	}
+
+	userIsCustomer() {
+		return (
+			<View>
+				<TouchableOpacity
+					onPress={() => {
+						this.hideNavBar();
+						Actions.myOrdersList();
+					}}
+				>
+					<Text style={styles.textStyle}>My Orders</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => {
+						this.hideNavBar();
+						Actions.createNewOrder();
+					}}
+				>
+					<Text style={styles.textStyle}>New Order</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => {
+						this.hideNavBar();
+						Actions.settings();
+					}}
+				>
+					<Text style={styles.textStyle}>Settings</Text>
+				</TouchableOpacity>
+			</View>
+		);
+	}
+
 	render() {
 		const { onPress, visible } = this.props;
 
@@ -55,30 +107,11 @@ class Menu extends Component {
 								source={require('../../images/menuIcon.png')}
 							/>
 						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => {
-								this.hideNavBar();
-								Actions.myOrdersList();
-							}}
-						>
-							<Text style={styles.textStyle}>My Orders</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => {
-								this.hideNavBar();
-								Actions.createNewOrder();
-							}}
-						>
-							<Text style={styles.textStyle}>New Order</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => {
-								this.hideNavBar();
-								Actions.settings();
-							}}
-						>
-							<Text style={styles.textStyle}>Settings</Text>
-						</TouchableOpacity>
+
+						{this.props.user == 'driver'
+							? this.userIsDriver()
+							: this.userIsCustomer()}
+
 						<TouchableOpacity
 							onPress={() => {
 								this.setState({

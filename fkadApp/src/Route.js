@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Actions, Stack, Scene } from 'react-native-router-flux';
 import LogIn from './components/LogIn';
-import SignUp from './components/SignUp'
+import SignUp from './components/SignUp';
 import Dashboard from './components/Dashboard';
 import CreateNewOrder from './components/newOrder/CreateNewOrder';
 import TimeAndPlace from './components/newOrder/TimeAndPlace';
@@ -16,6 +16,9 @@ import PersonalInfoEdit from './components/settings/PersonalInfoEdit';
 import KeyBox from './components/settings/KeyBox';
 import KeyBoxEdit from './components/settings/KeyBoxEdit';
 import Notifications from './components/settings/Notifications';
+import Deliveries from './components/driver/deliveries/Deliveries';
+import ActiveDeliveries from './components/driver/deliveries/ActiveDeliveries';
+import PreviousDeliveries from './components/driver/deliveries/PreviousDeliveries';
 
 const RouterComponent = () => {
 	return (
@@ -61,6 +64,21 @@ const RouterComponent = () => {
 						<Scene key="keyBox" component={KeyBox} />
 						<Scene key="keyBoxEdit" component={KeyBoxEdit} />
 						<Scene key="notifications" component={Notifications} />
+					</Stack>
+					<Stack key="driver" hideNavBar>
+						<Scene
+							key="deliveries"
+							component={Deliveries}
+							initial
+						/>
+						<Scene
+							key="activeDeliveries"
+							component={ActiveDeliveries}
+						/>
+						<Scene
+							key="previousDeliveries"
+							component={PreviousDeliveries}
+						/>
 					</Stack>
 				</Stack>
 			</Stack>
