@@ -14,7 +14,7 @@ const INITIAL_STATE = {
   user: {
     name: {
       firstName: '',
-      lastName: '',
+      lastName: ''
     },
     GMail: '',
     phoneNumber: '',
@@ -84,7 +84,6 @@ export default (state = INITIAL_STATE, action) => {
         }
       };
     case NEW_BOXID_CHANGED:
-      console.log(action.payload);
       return {
         ...state,
         user: { ...state.user, boxID: action.payload }
@@ -95,6 +94,5 @@ export default (state = INITIAL_STATE, action) => {
       return INITIAL_STATE;
     default:
       return state;
-
   }
 };
