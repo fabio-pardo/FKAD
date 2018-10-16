@@ -35,7 +35,7 @@ const Settings = ({ user }) => (
 		<TouchableOpacity
 			style={styles.boxStyle}
 			onPress={() => {
-				Actions.personalInfo();
+				Actions.personalInfo({ user });
 			}}
 		>
 			<Text style={styles.textStyle}>Personal Information</Text>
