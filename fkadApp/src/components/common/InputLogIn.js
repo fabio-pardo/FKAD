@@ -33,7 +33,7 @@ const styles = {
 		fontFamily: 'AppleGothic',
 		paddingRight: 5,
 		paddingLeft: 5,
-		paddingBottom: 5,
+		paddingBottom: 4,
 		fontSize: 17,
 		flex: 1,
 		alignSelf: 'stretch'

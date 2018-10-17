@@ -3,7 +3,6 @@ import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import { Header, Button } from '../common';
-import OrderCard from './OrderCard';
 
 class ViewOrder extends Component {
 	placeOrder() {

@@ -5,6 +5,17 @@ import { Actions } from 'react-native-router-flux';
 import { Header, Button } from '../common';
 
 class PersonalInfo extends Component {
+	isCustomer(user) {
+		if (user === 'customer') {
+			return (
+				<Text style={styles.subtitleStyle}>
+					Address: 123 Street, City, St, 123456
+				</Text>
+			);
+		}
+		return;
+	}
+
 	render() {
 		return (
 			<View>
@@ -21,9 +32,7 @@ class PersonalInfo extends Component {
 					<Text style={styles.subtitleStyle}>
 						Phone: 123-456-7890
 					</Text>
-					<Text style={styles.subtitleStyle}>
-						Address: 123 Street, City, St, 123456
-					</Text>
+					{this.isCustomer(this.props.user)}
 					<View style={styles.buttonStyle}>
 						<Button
 							onPress={() => {

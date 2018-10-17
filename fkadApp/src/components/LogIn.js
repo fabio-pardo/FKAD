@@ -61,6 +61,13 @@ class LogIn extends Component {
 						>
 							Sign Up
 						</Button>
+						<Button
+							onPress={() => {
+								Actions.deliveries();
+							}}
+						>
+							Driver Log In
+						</Button>
 					</View>
 				</View>
 			</View>
@@ -80,7 +87,7 @@ const styles = {
 		alignSelf: 'center',
 		width: '80%',
 		height: '80%',
-		marginTop: 40
+		marginTop: 50
 	},
 	textStyle: {
 		fontSize: 24,

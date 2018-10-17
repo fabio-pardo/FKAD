@@ -14,8 +14,7 @@ import {
   newBoxIDChanged,
   clearSignUp,
   createNewUser,
-  getUser,
-  clearSignUp
+  getUser
 } from '../actions';
 
 import {
@@ -378,6 +377,5 @@ export default connect(mapStateToProps, {
   newWiFiChanged,
   clearSignUp,
   createNewUser,
-  getUser,
-  clearSignUp
+  getUser
 })(SignUp);
