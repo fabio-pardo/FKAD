@@ -12,22 +12,25 @@ import {
   newPasswordChanged,
   newWiFiChanged,
   newBoxIDChanged,
+  clearSignUp,
+  createNewUser,
+  getUser,
   clearSignUp
 } from '../actions';
 
 import {
   HeaderWithoutMenu,
-  InputV2,
+  Input,
+  InputTwo,
+  InputThree,
   Button,
   Confirm
 } from './common';
 
-
 class SignUp extends Component {
-
   //this state determines to not show the Modal until true,
   // and to not show error message until true for incomplete fields.
-  state={ showModal: false, error: false };
+  state = { showModal: false, error: false };
 
   //the following methods are used when the input texts
   //for each respectively changes
@@ -78,6 +81,11 @@ class SignUp extends Component {
     this.setState({ showModal: false });
   }
 
+  onCreateNewUser() {
+    this.setState({ error: false });
+    console.log(this.props.signup);
+    this.props.createNewUser(this.props.signup);
+  }
 
   setModalVisible(visible) {
     this.setState({ showModal: visible });
@@ -121,11 +129,7 @@ class SignUp extends Component {
   renderError() {
     if (this.state.error) {
       return (
-        <Text
-          style={styles.errorStyle}
-        >
-          All Fields Must Be Completed
-        </Text>
+        <Text style={styles.errorStyle}>All Fields Must Be Completed</Text>
       );
     }
   }
@@ -148,7 +152,7 @@ class SignUp extends Component {
       homeAddress,
       password,
       boxID,
-      WiFi,
+      WiFi
     } = this.props.signup;
 
     return (
@@ -160,114 +164,108 @@ class SignUp extends Component {
           onRequestClose={() => {}}
         >
           <View style={{ backgroundColor: 'white', height: '100%' }}>
-            <HeaderWithoutMenu
-              headerTitle="SignUp"
-            />
-            <Content style={{ paddingLeft: 20, paddingRight: 20, marginTop: 0 }}>
+            <HeaderWithoutMenu headerTitle="SignUp" />
+            <Content
+              style={{ paddingLeft: 20, paddingRight: 20, marginTop: 0 }}
+            >
               <View style={rowInputViewStyle}>
-                <InputV2
+                <InputTwo
                   label="First Name"
                   style={twoInputStyle}
-                  onChangeText={
-                    this.onNameChange.bind(
-                      this,
-                      (type = 'firstName')
-                    )
-                  }
+                  onChangeText={this.onNameChange.bind(
+                    this,
+                    (type = 'firstName')
+                  )}
                   value={name.firstName}
                 />
-                <InputV2
+                <InputTwo
                   label="Last Name"
                   style={twoInputStyle}
                   value={name.lastName}
-                  onChangeText={
-                    this.onNameChange.bind(
-                      this,
-                      (type = 'lastName')
-                    )
-                  }
+                  onChangeText={this.onNameChange.bind(
+                    this,
+                    (type = 'lastName')
+                  )}
                 />
               </View>
               <View>
-                <InputV2
+                <Input
                   label="G-Mail"
                   style={singleInputStyle}
                   value={GMail}
                   onChangeText={this.onGMailChange.bind(this)}
                 />
-                <InputV2
+                <Input
                   label="Phone Number"
                   style={singleInputStyle}
                   value={phoneNumber}
                   onChangeText={this.onPhoneNumberChange.bind(this)}
                 />
-                <InputV2
+                <Input
                   label="Street Address"
                   style={singleInputStyle}
                   value={homeAddress.street}
                   onChangeText={this.onHomeAddressChange.bind(
                     this,
                     (type = 'street')
-                    )
-                  }
+                  )}
                 />
               </View>
               <View style={rowInputViewStyle}>
-                <InputV2
+                <InputThree
                   label="City"
                   style={threeInputStyle}
                   value={homeAddress.city}
                   onChangeText={this.onHomeAddressChange.bind(
                     this,
                     (type = 'city')
-                    )
-                  }
+                  )}
                 />
-                <InputV2
+                <InputThree
                   label="State"
                   style={threeInputStyle}
                   value={homeAddress.state}
                   onChangeText={this.onHomeAddressChange.bind(
                     this,
                     (type = 'state')
-                    )
-                  }
+                  )}
                 />
-                <InputV2
+                <InputThree
                   label="Zip"
                   style={threeInputStyle}
                   value={homeAddress.zip}
                   onChangeText={this.onHomeAddressChange.bind(
                     this,
                     (type = 'zip')
-                    )
-                  }
+                  )}
                 />
               </View>
               <View>
-                <InputV2
+                <Input
                   label="Box ID"
                   style={singleInputStyle}
                   value={boxID}
                   onChangeText={this.onBoxIDChange.bind(this)}
                 />
-                <InputV2
+                <Input
                   label="Wi-Fi"
                   style={singleInputStyle}
                   value={WiFi.wifiName}
                   onChangeText={this.onWiFiChange.bind(
-                    this, (type = 'wifiName'))
-                  }
+                    this,
+                    (type = 'wifiName')
+                  )}
                 />
-                <InputV2
+                <Input
                   label="Wi-Fi Password"
                   style={singleInputStyle}
                   value={WiFi.wifiPassword}
                   onChangeText={this.onWiFiChange.bind(
-                    this, (type = 'wifiPassword'))
-                  }
+                    this,
+                    (type = 'wifiPassword')
+                  )}
                 />
-                <InputV2
+                <Input
                   label="Enter Desired Password"
                   style={singleInputStyle}
                   secureTextEntry
@@ -289,7 +287,7 @@ class SignUp extends Component {
                 <Button
                   onPress={() => {
                     if (this.signupFieldsComplete()) {
-                      this.setState({ error: false });
+                      this.onCreateNewUser();
                     } else {
                       this.setState({ error: true });
                     }
@@ -356,11 +354,11 @@ const styles = {
     alignSelf: 'stretch'
   },
   errorStyle: {
-		fontSize: 18,
-		fontFamily: 'AppleGothic',
-		color: '#B64F39',
-		textAlign: 'center'
-	}
+    fontSize: 18,
+    fontFamily: 'AppleGothic',
+    color: '#B64F39',
+    textAlign: 'center'
+  }
 };
 
 // export default SignUp;
@@ -378,5 +376,8 @@ export default connect(mapStateToProps, {
   newPasswordChanged,
   newBoxIDChanged,
   newWiFiChanged,
+  clearSignUp,
+  createNewUser,
+  getUser,
   clearSignUp
 })(SignUp);

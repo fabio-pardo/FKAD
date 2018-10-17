@@ -35,7 +35,6 @@ const styles = {
 		paddingLeft: 5,
 		paddingBottom: 4,
 		fontSize: 17,
-		lineHeight: 23,
 		flex: 1,
 		alignSelf: 'stretch'
 	},
