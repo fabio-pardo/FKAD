@@ -7,9 +7,10 @@ import {
   PHONE_NUMBER_CHANGED,
   HOME_ADDRESS_CHANGED,
   NEW_PASSWORD_CHANGED,
-  CREATE_NEW_USER,
   NEW_BOXID_CHANGED,
-  NEW_WIFI_CHANGED
+  NEW_WIFI_CHANGED,
+  CLEAR_SIGNUP,
+  CREATE_NEW_USER,
 } from './types';
 
 export const nameChanged = ({ type, text }) => {
@@ -92,8 +93,13 @@ export const createNewUser = input => {
           type: CREATE_NEW_USER
         });
       });
+
+export const clearSignUp = () => {
+  return {
+    type: CLEAR_SIGNUP
   };
 };
+
 
 // export const getUser = email => {
 //   return dispatch => {
