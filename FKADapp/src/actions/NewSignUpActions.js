@@ -93,13 +93,14 @@ export const createNewUser = input => {
           type: CREATE_NEW_USER
         });
       });
+  };
+};
 
 export const clearSignUp = () => {
   return {
     type: CLEAR_SIGNUP
   };
 };
-
 
 // export const getUser = email => {
 //   return dispatch => {

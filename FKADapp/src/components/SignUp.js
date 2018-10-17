@@ -376,7 +376,7 @@ export default connect(mapStateToProps, {
   newPasswordChanged,
   newBoxIDChanged,
   newWiFiChanged,
-  clearSignUp
+  clearSignUp,
   createNewUser,
   getUser,
   clearSignUp
