@@ -12,6 +12,7 @@ import {
   newPasswordChanged,
   newWiFiChanged,
   newBoxIDChanged,
+  clearSignUp,
   createNewUser,
   getUser,
   clearSignUp
@@ -375,6 +376,7 @@ export default connect(mapStateToProps, {
   newPasswordChanged,
   newBoxIDChanged,
   newWiFiChanged,
+  clearSignUp
   createNewUser,
   getUser,
   clearSignUp
