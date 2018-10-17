@@ -14,18 +14,6 @@ class Notifications extends Component {
 					<View style={{ margin: 4 }}>
 						<View style={styles.horizontalStyle}>
 							<Text style={styles.subtitleStyle}>
-								Notify me when order is approved or cancel
-							</Text>
-							<CheckBoxInput isChecked={false} />
-						</View>
-						<View style={styles.horizontalStyle}>
-							<Text style={styles.subtitleStyle}>
-								Notify me when order changes status
-							</Text>
-							<CheckBoxInput isChecked={false} />
-						</View>
-						<View style={styles.horizontalStyle}>
-							<Text style={styles.subtitleStyle}>
 								Notify me when driver goes inside the house
 							</Text>
 							<CheckBoxInput isChecked={false} />

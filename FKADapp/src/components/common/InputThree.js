@@ -12,16 +12,15 @@ const InputThree = ({
 	return (
 		<View style={containerStyle}>
 			<Text style={labelStyle}>{label}</Text>
-			<View>
-				<TextInput
-					secureTextEntry={secureTextEntry}
-					placeholder={placeholder}
-					autoCorrect={false}
-					style={inputStyle}
-					value={value}
-					onChangeText={onChangeText}
-				/>
-			</View>
+			<TextInput
+				secureTextEntry={secureTextEntry}
+				placeholder={placeholder}
+				autoCorrect={false}
+				style={inputStyle}
+				value={value}
+				onChangeText={onChangeText}
+				autoCapitalize="none"
+			/>
 		</View>
 	);
 };
@@ -32,28 +31,25 @@ const styles = {
 		fontFamily: 'AppleGothic',
 		paddingRight: 5,
 		paddingLeft: 5,
-		paddingBottom: 4,
+		paddingBottom: 5,
 		fontSize: 17,
 		flex: 1,
-		alignSelf: 'stretch',
-		flexDirection: 'column',
-		justifyContent: 'flex-end'
+		alignSelf: 'stretch'
 	},
 	labelStyle: {
-		color: '#3982B6',
-		fontFamily: 'AppleGothic',
 		fontSize: 18,
 		marginTop: -25,
-		flex: 1
+		flex: 1,
+		color: '#3982B6',
+		fontFamily: 'AppleGothic'
 	},
 	containerStyle: {
 		height: 35,
 		backgroundColor: '#ADCBE0',
-		borderRadius: 1,
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'flex-start',
-		marginTop: 20,
+		marginTop: 30,
 		marginBottom: 10,
 		width: '31%'
 	}

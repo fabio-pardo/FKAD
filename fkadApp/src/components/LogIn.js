@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { InputLogIn, Button } from './common';
-import { emailChanged, passwordChanged } from '../actions';
 import { Actions } from 'react-native-router-flux';
+import { InputLogIn, Button } from './common';
+import { emailChanged, passwordChanged, loginUser } from '../actions';
 
 class LogIn extends Component {
 	onEmailChange(text) {
@@ -16,6 +16,10 @@ class LogIn extends Component {
 		console.log(
 			'email: ' + this.props.email + '  password: ' + this.props.password
 		);
+	}
+
+	onUserLogin() {
+		this.props.loginUser(this.props.email, this.props.password);
 	}
 
 	render() {
@@ -42,7 +46,10 @@ class LogIn extends Component {
 						/>
 						<Button
 							onPress={() => {
-								Actions.myOrders();
+								this.onUserLogin();
+								// if (1 + 3 === 2) {
+								// 	Actions.myOrders();
+								// }
 							}}
 						>
 							Log In
@@ -84,9 +91,10 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-	return { email: state.auth.email, password: state.auth.password };
+	return {
+		email: state.auth.email,
+		password: state.auth.password
+	};
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged })(
-	LogIn
-);
+export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LogIn);
