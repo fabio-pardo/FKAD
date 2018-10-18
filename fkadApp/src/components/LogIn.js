@@ -8,14 +8,10 @@ import { emailChanged, passwordChanged, loginUser } from '../actions';
 class LogIn extends Component {
 	onEmailChange(text) {
 		this.props.emailChanged(text);
-		console.log('email: ' + this.props.email);
 	}
 
 	onPasswordChange(text) {
 		this.props.passwordChanged(text);
-		console.log(
-			'email: ' + this.props.email + '  password: ' + this.props.password
-		);
 	}
 
 	onUserLogin() {

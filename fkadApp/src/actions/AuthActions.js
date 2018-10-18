@@ -19,24 +19,58 @@ export const passwordChanged = text => {
 
 export const loginUser = (email, password) => {
 	return dispatch => {
-		console.log(email, password);
 		axios
-			.get(
-				`https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev2/FKADFunc/userapi/${email}`,
+			.get(`https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/loginapi/${email}`,
+			{
+				'Content-Type': 'application/json',
+				Accept: 'application/json'
+			}
+		).then(response => {
+			console.log(response)
+			if (response.data.type === 'user') {
+				console.log(response.data.type);
+				axios.get(`https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/userapi/${email}`,
+					{
+						'Content-Type': 'application/json',
+						Accept: 'application/json'
+					}
+				).then(res => {
+					console.log(res);
+					if (checkPassword(password, res.data.password)) {
+						dispatch({
+							type: LOGIN_USER
+						});
+						Actions.myOrders();
+					}
+				}).catch(err => {
+					console.log(err);
+				});
+			} else {
+				axios.get(`https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/driverapi/${email}`,
 				{
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        }
-			).then(response => {
-				// if(input === response.data.email-ID)
-				console.log(response.data.password);
-				console.log(response.data);
-				if (password === response.data.password) {
-					dispatch({
-						type: LOGIN_USER
-					});
-					Actions.myOrders();
+					'Content-Type': 'application/json',
+					Accept: 'application/json'
 				}
-			});
+				).then(res => {
+					if (checkPassword(password, res.password)) {
+						dispatch({
+
+						});
+					Actions.deliveries();
+					}
+				});
+			}
+		})
+		.catch(err => {
+			console.log(err);
+		});
 	};
+};
+
+const checkPassword = (password, dataPassword) => {
+	if (password === dataPassword) {
+		return true;
+	}
+
+	return false;
 };
