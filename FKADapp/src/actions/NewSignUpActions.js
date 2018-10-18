@@ -66,9 +66,9 @@ export const createNewUser = input => {
   return dispatch => {
     axios
       .post(
-        'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev2/FKADFunc/userapi',
+        'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/userapi',
         {
-          'email-ID': input.GMail,
+          email: input.GMail,
           firstName: input.name.firstName,
           lastName: input.name.lastName,
           phoneNumber: input.phoneNumber,
@@ -86,12 +86,24 @@ export const createNewUser = input => {
           Accept: 'application/json'
         }
       )
-      .then(response => {
-        console.log(response);
+      .then(() => {
         Actions.pop();
         dispatch({
           type: CREATE_NEW_USER
         });
+      })
+      .then(() => {
+        axios.post(
+          'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/loginapi',
+          {
+            email: input.GMail,
+            type: 'user'
+          },
+          {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          }
+        );
       });
   };
 };
