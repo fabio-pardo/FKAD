@@ -18,6 +18,16 @@ class LogIn extends Component {
 		this.props.loginUser(this.props.email, this.props.password);
 	}
 
+	onErrorChange() {
+		if (this.props.error) {
+			return (
+				<Text style={styles.errorStyle}>Invalid Email or Password</Text>
+			);
+		} else if (this.props.passwordError) {
+			return <Text style={styles.errorStyle}>Invalid Password</Text>;
+		}
+	}
+
 	render() {
 		return (
 			<View style={{ backgroundColor: 'white', height: '100%' }}>
@@ -40,12 +50,10 @@ class LogIn extends Component {
 							onChangeText={this.onPasswordChange.bind(this)}
 							value={this.props.password}
 						/>
+						{this.onErrorChange()}
 						<Button
 							onPress={() => {
 								this.onUserLogin();
-								// if (1 + 3 === 2) {
-								// 	Actions.myOrders();
-								// }
 							}}
 						>
 							Log In
@@ -56,13 +64,6 @@ class LogIn extends Component {
 							}}
 						>
 							Sign Up
-						</Button>
-						<Button
-							onPress={() => {
-								Actions.deliveries();
-							}}
-						>
-							Driver Log In
 						</Button>
 					</View>
 				</View>
@@ -90,14 +91,25 @@ const styles = {
 		fontFamily: 'AppleGothic',
 		color: '#3982B6',
 		alignSelf: 'center'
+	},
+	errorStyle: {
+		fontSize: 18,
+		fontFamily: 'AppleGothic',
+		color: '#B64F39',
+		textAlign: 'center'
 	}
 };
 
-const mapStateToProps = state => {
-	return {
-		email: state.auth.email,
-		password: state.auth.password
-	};
-};
+const mapStateToProps = state => ({
+	email: state.auth.email,
+	password: state.auth.password,
+	passwordError: state.auth.passwordError,
+	error: state.auth.error,
+	user: state.user
+});
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LogIn);
+export default connect(mapStateToProps, {
+	emailChanged,
+	passwordChanged,
+	loginUser
+})(LogIn);
