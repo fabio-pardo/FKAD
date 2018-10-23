@@ -1,4 +1,8 @@
-import { LOGIN_DRIVER } from '../actions/types';
+import {
+	LOGIN_DRIVER,
+	DRIVER_NAME_CHANGED,
+	DRIVER_EMAIL_PHONE_CHANGED
+} from '../actions/types';
 
 const INITIAL_STATE = {
 	driver: false,
@@ -28,6 +32,19 @@ export default (state = INITIAL_STATE, action) => {
 				password: action.payload.password,
 				orders: action.payload.orders,
 				fingerPrintID: action.payload.fingerPrintID
+			};
+		case DRIVER_NAME_CHANGED:
+			return {
+				...state,
+				name: {
+					...state.name,
+					[action.payload.type]: action.payload.text
+				}
+			};
+		case DRIVER_EMAIL_PHONE_CHANGED:
+			return {
+				...state,
+				[action.payload.type]: action.payload.text
 			};
 		default:
 			return state;
