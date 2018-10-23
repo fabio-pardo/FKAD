@@ -5,7 +5,12 @@ export const LOGIN_USER_FAIL = 'login_user_fail';
 export const LOGIN_PASSWORD_FAIL = 'login_user_password_fail';
 
 export const LOGIN_USER = 'login_user';
+export const USER_NAME_CHANGED = 'user_name_changed';
+export const USER_EMAIL_PHONE_CHANGED = 'user_email_phone_changed';
+export const USER_ADDRESS_CHANGED = 'user_address_changed';
 export const LOGIN_DRIVER = 'login_driver';
+export const DRIVER_NAME_CHANGED = 'driver_name_changed';
+export const DRIVER_EMAIL_PHONE_CHANGED = 'driver_email_phone_changed';
 
 export const STORE_NAME = 'store_name';
 export const ADDRESS_CHANGED = 'address_changed';

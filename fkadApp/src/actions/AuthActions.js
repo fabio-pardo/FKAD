@@ -75,7 +75,7 @@ export const loginUser = (email, password) => {
 							if (checkPassword(password, res.data.password)) {
 								dispatch({
 									type: LOGIN_DRIVER,
-									payload: res
+									payload: res.data
 								});
 								Actions.deliveries();
 							} else {

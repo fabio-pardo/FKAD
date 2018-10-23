@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
 import { Header, Button } from '../common';
 
 class PersonalInfo extends Component {
-	isCustomer(user) {
-		if (user === 'customer') {
+	isCustomer() {
+		const { user, homeAddress } = this.props.user;
+		if (user) {
 			return (
 				<Text style={styles.subtitleStyle}>
-					Address: 123 Street, City, St, 123456
+					Address: {homeAddress.street}, {homeAddress.city},{' '}
+					{homeAddress.state}, {homeAddress.zipcode}
 				</Text>
 			);
 		}
@@ -17,22 +20,34 @@ class PersonalInfo extends Component {
 	}
 
 	render() {
+		const { driver, user } = this.props;
 		return (
 			<View>
 				<Header headerTitle="Settings" />
 				<View style={styles.containerStyle}>
 					<Text style={styles.titleStyle}>Personal Information</Text>
 					<View>
-						<Text style={styles.subtitleStyle}>First Name:</Text>
-						<Text style={styles.subtitleStyle}>Last Name:</Text>
+						<Text style={styles.subtitleStyle}>
+							First Name:{' '}
+							{driver.driver
+								? driver.name.firstName
+								: user.name.firstName}
+						</Text>
+						<Text style={styles.subtitleStyle}>
+							Last Name:{' '}
+							{driver.driver
+								? driver.name.lastName
+								: user.name.lastName}
+						</Text>
 					</View>
 					<Text style={styles.subtitleStyle}>
-						Email: account@mail.com
+						Email: {driver.driver ? driver.email : user.email}
 					</Text>
 					<Text style={styles.subtitleStyle}>
-						Phone: 123-456-7890
+						Phone:{' '}
+						{driver.driver ? driver.phoneNumber : user.phoneNumber}
 					</Text>
-					{this.isCustomer(this.props.user)}
+					{this.isCustomer()}
 					<View style={styles.buttonStyle}>
 						<Button
 							onPress={() => {
@@ -80,4 +95,9 @@ const styles = {
 	}
 };
 
-export default PersonalInfo;
+const mapStateToProps = state => ({
+	driver: state.driver,
+	user: state.user
+});
+
+export default connect(mapStateToProps, {})(PersonalInfo);

@@ -1,4 +1,9 @@
-import { LOGIN_USER } from '../actions/types';
+import {
+	LOGIN_USER,
+	USER_NAME_CHANGED,
+	USER_EMAIL_PHONE_CHANGED,
+	USER_ADDRESS_CHANGED
+} from '../actions/types';
 
 const INITIAL_STATE = {
 	user: false,
@@ -45,6 +50,27 @@ export default (state = INITIAL_STATE, action) => {
 				WiFi: {
 					wifiName: action.payload.wifiName,
 					wifiPassword: action.payload.wifiPassword
+				}
+			};
+		case USER_NAME_CHANGED:
+			return {
+				...state,
+				name: {
+					...state.name,
+					[action.payload.type]: action.payload.text
+				}
+			};
+		case USER_EMAIL_PHONE_CHANGED:
+			return {
+				...state,
+				[action.payload.type]: action.payload.text
+			};
+		case USER_ADDRESS_CHANGED:
+			return {
+				...state,
+				homeAddress: {
+					...state.homeAddress,
+					[action.payload.type]: action.payload.text
 				}
 			};
 		default:
