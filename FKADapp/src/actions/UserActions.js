@@ -42,8 +42,16 @@ export const onCancelUsersChanges = email => {
 	};
 };
 
+//Not working!!
 export const onSaveUserChages = user => {
 	return dispatch => {
+		console.log(user.email);
+		console.log(user.name.firstName);
+		console.log(user.name.lastName);
+		console.log(user.phoneNumber);
+		console.log(user.homeAddress.street);
+		console.log(user.homeAddress.city);
+		console.log(user.homeAddress.state);
 		axios
 			.post(
 				'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/userapi',
@@ -55,7 +63,7 @@ export const onSaveUserChages = user => {
 					street: user.homeAddress.street,
 					city: user.homeAddress.city,
 					state: user.homeAddress.state,
-					zipcode: user.homeAddress.zip,
+					zipcode: user.homeAddress.zipcode,
 					password: user.password,
 					boxID: user.boxID,
 					wifiName: user.WiFi.wifiName,

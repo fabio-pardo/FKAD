@@ -26,6 +26,7 @@ export const passwordChanged = text => {
 
 export const loginUser = (email, password) => {
 	return dispatch => {
+		console.log('Get table with type of user');
 		axios
 			.get(
 				`https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/loginapi/${email}`,
@@ -36,6 +37,7 @@ export const loginUser = (email, password) => {
 			)
 			.then(response => {
 				if (response.data.type === 'user') {
+					console.log('is user');
 					axios
 						.get(
 							`https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/userapi/${email}`,
@@ -45,6 +47,7 @@ export const loginUser = (email, password) => {
 							}
 						)
 						.then(res => {
+							console.log('checking password');
 							if (checkPassword(password, res.data.password)) {
 								dispatch({
 									type: LOGIN_USER,
@@ -63,6 +66,7 @@ export const loginUser = (email, password) => {
 							});
 						});
 				} else if (response.data.type === 'driver') {
+					console.log('is driver');
 					axios
 						.get(
 							`https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/driverapi/${email}`,
@@ -72,6 +76,7 @@ export const loginUser = (email, password) => {
 							}
 						)
 						.then(res => {
+							console.log('checking password');
 							if (checkPassword(password, res.data.password)) {
 								dispatch({
 									type: LOGIN_DRIVER,

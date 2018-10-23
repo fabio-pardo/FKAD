@@ -8,22 +8,22 @@ import {
 const INITIAL_STATE = {
 	user: false,
 	name: {
-		firstName: '',
-		lastName: ''
+		firstName: ' ',
+		lastName: ' '
 	},
-	email: '',
-	phoneNumber: '',
+	email: ' ',
+	phoneNumber: ' ',
 	homeAddress: {
-		street: '',
-		city: '',
-		state: '',
-		zipcode: ''
+		street: ' ',
+		city: ' ',
+		state: ' ',
+		zipcode: ' '
 	},
-	password: '',
-	boxID: '',
+	password: ' ',
+	boxID: ' ',
 	WiFi: {
-		wifiName: '',
-		wifiPassword: ''
+		wifiName: ' ',
+		wifiPassword: ' '
 	}
 };
 

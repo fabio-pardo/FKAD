@@ -7,14 +7,14 @@ import {
 const INITIAL_STATE = {
 	driver: false,
 	name: {
-		firstName: '',
-		lastName: ''
+		firstName: ' ',
+		lastName: ' '
 	},
-	email: '',
-	phoneNumber: '',
-	password: '',
+	email: ' ',
+	phoneNumber: ' ',
+	password: ' ',
 	orders: [],
-	fingerPrintID: ''
+	fingerPrintID: ' '
 };
 
 export default (state = INITIAL_STATE, action) => {
