@@ -61,7 +61,7 @@ class CreateNewOrder extends Component {
 					<Text style={styles.textStyle}>Pick Up From:</Text>
 					<View style={{ marginTop: 15 }}>
 						<Input
-							label="Grocery Place Name"
+							label="Store Name"
 							onChangeText={this.onStoreChange.bind(this)}
 							value={storeName}
 						/>

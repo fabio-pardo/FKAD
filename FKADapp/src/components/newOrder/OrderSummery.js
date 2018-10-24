@@ -35,8 +35,9 @@ class OrderSummery extends Component {
 						Items in the Refrigerator:
 					</Text>
 					<View style={{ marginLeft: 15 }}>
-						<Text style={styles.textStyle}>- Item 1</Text>
-						<Text style={styles.textStyle}>- Item 2</Text>
+						{place.refrigerate.items.map(item => (
+							<Text style={styles.textStyle}>{item}</Text>
+						))}
 					</View>
 				</View>
 			);
@@ -57,8 +58,9 @@ class OrderSummery extends Component {
 						Items in the Refrigerator:
 					</Text>
 					<View style={{ marginLeft: 15 }}>
-						<Text style={styles.textStyle}>- Item 1</Text>
-						<Text style={styles.textStyle}>- Item 2</Text>
+						{place.freeze.items.map(item => (
+							<Text style={styles.textStyle}>{item}</Text>
+						))}
 					</View>
 				</View>
 			);
@@ -117,10 +119,7 @@ class OrderSummery extends Component {
 						<View style={styles.dayAndTimeStyle}>
 							<View style={{ marginRight: 10 }}>
 								<Text style={styles.textStyle}>
-									Day:{' '}
-									{timeAndPlace.day.tomorrow
-										? 'Tomorrow'
-										: 'Today'}
+									Day: {timeAndPlace.day}
 								</Text>
 							</View>
 							<Text style={styles.textStyle}>
@@ -151,7 +150,7 @@ class OrderSummery extends Component {
 							{dropoff.address.street},
 						</Text>
 						<Text style={styles.textStyle}>
-							{dropoff.address.city}, {dropoff.address.state},
+							{dropoff.address.city}, {dropoff.address.state},{' '}
 							{dropoff.address.zipcode}
 						</Text>
 					</View>

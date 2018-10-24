@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 
-const Item = ({ value, onChangeInput }) => {
+const Item = ({ value, onChangeInput, onDelete }) => {
 	return (
 		<View style={styles.constainerStyle}>
 			<View style={styles.inputContainerStyle}>
@@ -12,7 +12,10 @@ const Item = ({ value, onChangeInput }) => {
 					onChangeText={onChangeInput}
 				/>
 			</View>
-			<TouchableOpacity style={styles.touchContainerStyle}>
+			<TouchableOpacity
+				style={styles.touchContainerStyle}
+				onPress={onDelete}
+			>
 				<Text style={styles.touchStyle}> - </Text>
 			</TouchableOpacity>
 		</View>
@@ -21,7 +24,8 @@ const Item = ({ value, onChangeInput }) => {
 
 const styles = {
 	constainerStyle: {
-		margin: 3,
+		margin: 8,
+		marginRight: 20,
 		flexDirection: 'row',
 		justifyContent: 'flex-start'
 	},
@@ -55,4 +59,4 @@ const styles = {
 	}
 };
 
-export default Item;
+export { Item };
