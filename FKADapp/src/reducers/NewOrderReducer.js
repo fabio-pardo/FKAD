@@ -1,5 +1,4 @@
 import {
-	REFRIGERATE_ITEMS_CHANGE,
 	STORE_NAME,
 	ADDRESS_CHANGED,
 	ORDER_NUMBER_CHANGED,
@@ -8,7 +7,13 @@ import {
 	PLACE_CHANGED,
 	KITCHEN_CHANGED,
 	REFRIGERATE_CHANGED,
+	REF_ITEM_CHANGE,
+	REF_ITEM_DELETE,
+	ADD_REF_ITEM,
 	FREEZE_CHANGED,
+	FREEZE_ITEM_CHANGE,
+	FREEZE_ITEM_DELETE,
+	ADD_FREEZE_ITEM,
 	DROPPOFF_CLIENT,
 	DROPPOFF_CLIENT_NAME,
 	DROPPOFF_ADDRESS,
@@ -36,11 +41,11 @@ const INITIAL_STATE = {
 			kitchen: false,
 			refrigerate: {
 				state: false,
-				items: []
+				items: ['Item']
 			},
 			freeze: {
 				state: false,
-				items: []
+				items: ['Item']
 			}
 		}
 	},
@@ -173,6 +178,57 @@ export default (state = INITIAL_STATE, action) => {
 					}
 				}
 			};
+		case REF_ITEM_CHANGE:
+			return {
+				...state,
+				timeAndPlace: {
+					...state.timeAndPlace,
+					place: {
+						...state.timeAndPlace.place,
+						refrigerate: {
+							...state.timeAndPlace.place.refrigerate,
+							items: updateItems(
+								state.timeAndPlace.place.refrigerate.items,
+								action.payload
+							)
+						}
+					}
+				}
+			};
+		case ADD_REF_ITEM:
+			return {
+				...state,
+				timeAndPlace: {
+					...state.timeAndPlace,
+					place: {
+						...state.timeAndPlace.place,
+						refrigerate: {
+							...state.timeAndPlace.place.refrigerate,
+							items: [
+								...state.timeAndPlace.place.refrigerate.items,
+								'Item'
+							]
+						}
+					}
+				}
+			};
+		case REF_ITEM_DELETE:
+			return {
+				...state,
+				timeAndPlace: {
+					...state.timeAndPlace,
+					place: {
+						...state.timeAndPlace.place,
+						refrigerate: {
+							...state.timeAndPlace.place.refrigerate,
+							items: deleteItem(
+								state.timeAndPlace.place.refrigerate.items,
+								action.payload
+							)
+						}
+					}
+				}
+			};
 		case FREEZE_CHANGED:
 			return {
 				...state,
@@ -187,6 +243,57 @@ export default (state = INITIAL_STATE, action) => {
 					}
 				}
 			};
+		case FREEZE_ITEM_CHANGE:
+			return {
+				...state,
+				timeAndPlace: {
+					...state.timeAndPlace,
+					place: {
+						...state.timeAndPlace.place,
+						freeze: {
+							...state.timeAndPlace.place.freeze,
+							items: updateItems(
+								state.timeAndPlace.place.freeze.items,
+								action.payload
+							)
+						}
+					}
+				}
+			};
+		case FREEZE_ITEM_DELETE:
+			return {
+				...state,
+				timeAndPlace: {
+					...state.timeAndPlace,
+					place: {
+						...state.timeAndPlace.place,
+						freeze: {
+							...state.timeAndPlace.place.freeze,
+							items: deleteItem(
+								state.timeAndPlace.place.freeze.items,
+								action.payload
+							)
+						}
+					}
+				}
+			};
+		case ADD_FREEZE_ITEM:
+			return {
+				...state,
+				timeAndPlace: {
+					...state.timeAndPlace,
+					place: {
+						...state.timeAndPlace.place,
+						freeze: {
+							...state.timeAndPlace.place.freeze,
+							items: [
+								...state.timeAndPlace.place.freeze.items,
+								'Item'
+							]
+						}
+					}
+				}
+			};
 		case DROPPOFF_CLIENT:
 			if (!state.dropoff.clientIsAccountOwner) {
 				return {
@@ -195,8 +302,8 @@ export default (state = INITIAL_STATE, action) => {
 						...state.dropoff,
 						clientIsAccountOwner: !state.dropoff
 							.clientIsAccountOwner,
-						clientName: 'Account Name',
-						clientLastName: 'Account LastName'
+						clientName: action.payload.firstName,
+						clientLastName: action.payload.lastName
 					}
 				};
 			}
@@ -227,10 +334,10 @@ export default (state = INITIAL_STATE, action) => {
 							...state.dropoff.address,
 							useAccountAddress: !state.dropoff.address
 								.useAccountAddress,
-							street: 'Account Street',
-							city: 'Account City',
-							state: 'Account State',
-							zipcode: 'Account Zipcode'
+							street: action.payload.street,
+							city: action.payload.city,
+							state: action.payload.state,
+							zipcode: action.payload.zipcode
 						}
 					}
 				};
@@ -262,9 +369,26 @@ export default (state = INITIAL_STATE, action) => {
 				}
 			};
 		case SET_ORDER:
-			//send new order to database and initialize new order state
 			return INITIAL_STATE;
 		default:
 			return state;
 	}
+};
+
+const updateItems = (items, newitem) => {
+	const updatedItems = items.map((item, index) => {
+		if (index === newitem.id) {
+			return newitem.value;
+		}
+		return item;
+	});
+	return updatedItems;
+};
+
+const deleteItem = (items, id) => {
+	const updatedItems = [];
+	for (let i = 0; i < items.length; i++) {
+		if (i !== id) updatedItems.push(items[i]);
+	}
+	return updatedItems.length > 0 ? updatedItems : ['Item'];
 };

@@ -106,7 +106,8 @@ class DropOff extends Component {
 	}
 
 	onClientChange() {
-		this.props.dropoffClientChanged();
+		const { firstName, lastName } = this.props.user.name;
+		this.props.dropoffClientChanged({ firstName, lastName });
 	}
 
 	onNameAndLastChanged(type, text) {
@@ -114,7 +115,8 @@ class DropOff extends Component {
 	}
 
 	onAddressChange() {
-		this.props.dropoffAddressChanged();
+		const { street, city, state, zipcode } = this.props.user.homeAddress;
+		this.props.dropoffAddressChanged({ street, city, state, zipcode });
 	}
 
 	onAddressInfoChange(type, text) {
@@ -233,7 +235,8 @@ const styles = {
 
 const mapStateToProps = state => {
 	return {
-		dropoff: state.newOrder.dropoff
+		dropoff: state.newOrder.dropoff,
+		user: state.user
 	};
 };
 

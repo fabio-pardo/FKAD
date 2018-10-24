@@ -8,6 +8,7 @@ export * from './InputTwo';
 export * from './CheckBoxInput';
 export * from './DropDown';
 export * from './Items';
+export * from './Item';
 export * from './CardSection';
 export * from './Confirm';
 export * from './InputV2';

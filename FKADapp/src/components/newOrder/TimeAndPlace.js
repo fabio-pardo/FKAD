@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Container, Content, DatePicker } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -10,9 +10,15 @@ import {
 	placeChanged,
 	inKitchenChanged,
 	refrigerateChanged,
-	freezeChanged
+	refItemChanged,
+	refrigerateAddItem,
+	refItemDeleted,
+	freezeChanged,
+	freezeItemDeleted,
+	freezeAddItem,
+	freezeItemChanged
 } from '../../actions';
-import { Header, Button, Items, CheckBoxInput, DropDown } from '../common';
+import { Header, Button, Item, CheckBoxInput, DropDown } from '../common';
 
 class TimeAndPlace extends Component {
 	state = { error: false };
@@ -67,7 +73,31 @@ class TimeAndPlace extends Component {
 	RefrigerateItems() {
 		const { refrigerate } = this.props.timeAndPlace.place;
 		if (refrigerate.state) {
-			return this.addItem();
+			return (
+				<View>
+					{refrigerate.items.map((item, index) => (
+						<Item
+							key={index}
+							value={item}
+							onChangeInput={this.onChangeRefItem.bind(
+								this,
+								(id = index)
+							)}
+							onDelete={this.onDeleteRefItem.bind(
+								this,
+								(id = index)
+							)}
+						/>
+					))}
+					<TouchableOpacity
+						onPress={() => {
+							this.props.refrigerateAddItem();
+						}}
+					>
+						<Text style={styles.addStyle}>Add</Text>
+					</TouchableOpacity>
+				</View>
+			);
 		}
 		return;
 	}
@@ -75,7 +105,32 @@ class TimeAndPlace extends Component {
 	FreezeItems() {
 		const { freeze } = this.props.timeAndPlace.place;
 		if (freeze.state) {
-			return this.addItem();
+			return (
+				<View>
+					{freeze.items.map((item, index) => (
+						<Item
+							key={index}
+							value={item}
+							onChangeInput={this.onChangeFreezeItem.bind(
+								this,
+								(id = index)
+							)}
+							onDelete={this.onDeleteFreezeItem.bind(
+								this,
+								(id = index)
+							)}
+						/>
+					))}
+					<TouchableOpacity
+						onPress={() => {
+							console.log('pressed add item');
+							this.props.freezeAddItem();
+						}}
+					>
+						<Text style={styles.addStyle}>Add</Text>
+					</TouchableOpacity>
+				</View>
+			);
 		}
 		return;
 	}
@@ -83,13 +138,21 @@ class TimeAndPlace extends Component {
 	addItem() {
 		return (
 			<View style={{ margin: 5, marginRight: 20 }}>
-				<Items />
+				<Item />
 			</View>
 		);
 	}
 
 	onDayChange(value) {
-		this.props.dayChanged(value);
+		const date = new Date(value);
+		const formatted =
+			date.getMonth() +
+			1 +
+			'.' +
+			date.getDate() +
+			'.' +
+			date.getFullYear();
+		this.props.dayChanged(formatted);
 	}
 
 	onTimeChange(idx, value) {
@@ -108,8 +171,24 @@ class TimeAndPlace extends Component {
 		this.props.refrigerateChanged();
 	}
 
+	onChangeRefItem(id, value) {
+		this.props.refItemChanged({ id, value });
+	}
+
+	onDeleteRefItem(id) {
+		this.props.refItemDeleted(id);
+	}
+
 	onFreezeChange() {
 		this.props.freezeChanged();
+	}
+
+	onChangeFreezeItem(id, value) {
+		this.props.freezeItemChanged({ id, value });
+	}
+
+	onDeleteFreezeItem(id) {
+		this.props.freezeItemDeleted(id);
 	}
 
 	isComplete() {
@@ -270,6 +349,12 @@ const styles = {
 		fontFamily: 'AppleGothic',
 		color: '#B64F39',
 		textAlign: 'center'
+	},
+	addStyle: {
+		fontSize: 15,
+		fontFamily: 'AppleGothic',
+		color: '#3982B6',
+		textDecorationLine: 'underline'
 	}
 };
 
@@ -301,5 +386,11 @@ export default connect(mapStateToProps, {
 	placeChanged,
 	inKitchenChanged,
 	refrigerateChanged,
-	freezeChanged
+	refrigerateAddItem,
+	freezeChanged,
+	refItemDeleted,
+	refItemChanged,
+	freezeItemDeleted,
+	freezeItemChanged,
+	freezeAddItem
 })(TimeAndPlace);
