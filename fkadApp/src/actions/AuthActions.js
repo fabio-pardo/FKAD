@@ -45,6 +45,8 @@ export const loginUser = (email, password) => {
 							}
 						)
 						.then(res => {
+							console.log(password);
+							console.log(res.data.street);
 							if (checkPassword(password, res.data.password)) {
 								dispatch({
 									type: LOGIN_USER,

@@ -2,7 +2,9 @@ import {
 	LOGIN_USER,
 	USER_NAME_CHANGED,
 	USER_EMAIL_PHONE_CHANGED,
-	USER_ADDRESS_CHANGED
+	USER_ADDRESS_CHANGED,
+	ADD_ORDER_NUMBER,
+	DELETE_ORDER_NUMBER
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,12 +26,14 @@ const INITIAL_STATE = {
 	WiFi: {
 		wifiName: ' ',
 		wifiPassword: ' '
-	}
+	},
+	order: []
 };
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case LOGIN_USER:
+			console.log(action.payload.orders);
 			return {
 				...state,
 				user: true,
@@ -50,7 +54,8 @@ export default (state = INITIAL_STATE, action) => {
 				WiFi: {
 					wifiName: action.payload.wifiName,
 					wifiPassword: action.payload.wifiPassword
-				}
+				},
+				order: action.payload.orders
 			};
 		case USER_NAME_CHANGED:
 			return {
@@ -73,7 +78,36 @@ export default (state = INITIAL_STATE, action) => {
 					[action.payload.type]: action.payload.text
 				}
 			};
+		case ADD_ORDER_NUMBER:
+			return {
+				...state,
+				order: newOrderArray(
+					action.payload.order,
+					action.payload.orderNumber
+				)
+			};
+		case DELETE_ORDER_NUMBER:
+			return {
+				...state,
+				order: deleteOrderInArray(
+					action.payload.order,
+					action.payload.orderNumber
+				)
+			};
 		default:
 			return state;
 	}
+};
+
+const newOrderArray = (order, orderNumber) => {
+	if (typeof order === 'string') return [orderNumber];
+	return [...order, orderNumber];
+};
+
+const deleteOrderInArray = (order, orderNumber) => {
+	const updatedOrde = [];
+	for (let i = 0; i < order.length; i++) {
+		if (order[i] !== orderNumber) updatedOrde.push(order[i]);
+	}
+	return updatedOrde.length > 0 ? updatedOrde : [];
 };

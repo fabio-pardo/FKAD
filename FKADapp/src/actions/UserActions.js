@@ -5,7 +5,9 @@ import {
 	USER_NAME_CHANGED,
 	USER_EMAIL_PHONE_CHANGED,
 	USER_ADDRESS_CHANGED,
-	LOGIN_USER
+	LOGIN_USER,
+	ADD_ORDER_NUMBER,
+	DELETE_ORDER_NUMBER
 } from './types';
 
 export const onUserNameChanged = ({ type, text }) => ({
@@ -39,6 +41,20 @@ export const onCancelUsersChanges = email => {
 					payload: res.data
 				});
 			});
+	};
+};
+
+export const addOrder = ({ order, orderNumber }) => {
+	return {
+		type: ADD_ORDER_NUMBER,
+		payload: { order, orderNumber }
+	};
+};
+
+export const deleteOrder = ({ order, orderNumber }) => {
+	return {
+		type: DELETE_ORDER_NUMBER,
+		payload: { order, orderNumber }
 	};
 };
 

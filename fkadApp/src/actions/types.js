@@ -31,6 +31,8 @@ export const DROPPOFF_CLIENT = 'dropoff_client';
 export const DROPPOFF_CLIENT_NAME = 'dropoff_client_name';
 export const DROPPOFF_ADDRESS = 'dropoff_address';
 export const DROPOFF_ADDRESS_CHANGED = 'dropoff_address_changed';
+export const ADD_ORDER_NUMBER = 'add_order_number';
+export const DELETE_ORDER_NUMBER = 'delete_order_number';
 export const SET_ORDER = 'set_order';
 
 export const NAME_CHANGED = 'name_changed';

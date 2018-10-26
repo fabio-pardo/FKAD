@@ -79,7 +79,8 @@ export const createNewUser = input => {
           password: input.password,
           boxID: input.boxID,
           wifiName: input.WiFi.wifiName,
-          wifiPassword: input.WiFi.wifiPassword
+          wifiPassword: input.WiFi.wifiPassword,
+          orders: []
         },
         {
           'Content-Type': 'application/json',
