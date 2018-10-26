@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Modal } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
-import { setOrder } from '../../actions';
+import { addOrder, deleteOrder, setOrder, clearNewOrder } from '../../actions';
 
-import { Header, Button } from '../common';
+import { Header, Button, Confirm } from '../common';
 
 class OrderSummery extends Component {
+	state = { showModal: false, visible: false };
 	isInside() {
 		const { place } = this.props.timeAndPlace;
 		if (place.inside && !place.kitchen) {
@@ -68,15 +69,34 @@ class OrderSummery extends Component {
 		return <Text style={styles.textStyle}>Items in the Freezer: none</Text>;
 	}
 
-	onSetOrder() {
-		this.props.setOrder();
+	onAddOrder() {
+		const { order } = this.props.user;
+		const { orderNumber } = this.props.newOrder.pickup;
+		this.setState({ showModal: true });
+		this.props.addOrder({ order, orderNumber });
+	}
+
+	onSetOrderAccept() {
+		const { newOrder, user } = this.props;
+		this.props.setOrder({ newOrder, user });
+		this.setState({ showModal: false });
 		Actions.congratulations();
+	}
+
+	onSetOrderDecline() {
+		const { order } = this.props.user;
+		const { orderNumber } = this.props.newOrder.pickup;
+		this.setState({ showModal: false });
+		this.props.deleteOrder({ order, orderNumber });
+		this.props.clearNewOrder();
+		Actions.createNewOrder();
 	}
 
 	render() {
 		const { pickup, timeAndPlace, dropoff } = this.props;
 		return (
 			<View style={{ backgroundColor: 'white' }}>
+				{console.log(this.props.user)}
 				<Header headerTitle="New Order" />
 				<View style={styles.containerStyle}>
 					<Text style={styles.titleStyle}>Order Summery:</Text>
@@ -162,11 +182,18 @@ class OrderSummery extends Component {
 						>
 							&#8826;&#8826; Back
 						</Button>
-						<Button onPress={this.onSetOrder.bind(this)}>
-							Set Order
+						<Button onPress={this.onAddOrder.bind(this)}>
+							Send Order
 						</Button>
 					</View>
 				</View>
+				<Confirm
+					visible={this.state.showModal}
+					onAccept={this.onSetOrderAccept.bind(this)}
+					onDecline={this.onSetOrderDecline.bind(this)}
+				>
+					Are You Sure You Want To Send Order?
+				</Confirm>
 			</View>
 		);
 	}
@@ -216,10 +243,12 @@ const styles = {
 
 const mapStateToProps = state => {
 	return {
+		newOrder: state.newOrder,
 		pickup: state.newOrder.pickup,
 		timeAndPlace: state.newOrder.timeAndPlace,
-		dropoff: state.newOrder.dropoff
+		dropoff: state.newOrder.dropoff,
+		user: state.user
 	};
 };
 
-export default connect(mapStateToProps, { setOrder })(OrderSummery);
+export default connect(mapStateToProps, { addOrder, deleteOrder, setOrder, clearNewOrder })(OrderSummery);

@@ -29,7 +29,11 @@ const RouterComponent = () => (
 			</Stack>
 			<Stack key="main" hideNavBar>
 				<Stack key="newOrder" hideNavBar>
-					<Scene key="createNewOrder" component={CreateNewOrder} />
+					<Scene
+						key="createNewOrder"
+						component={CreateNewOrder}
+						initial
+					/>
 					<Scene key="timeAndPlace" component={TimeAndPlace} />
 					<Scene key="dropOff" component={DropOff} />
 					<Scene key="orderSummery" component={OrderSummery} />

@@ -22,6 +22,7 @@ import {
 	DROPPOFF_CLIENT_NAME,
 	DROPPOFF_ADDRESS,
 	DROPOFF_ADDRESS_CHANGED,
+	ADD_ORDER_NUMBER,
 	SET_ORDER
 } from './types';
 
@@ -154,42 +155,40 @@ export const dropoffAddressChanged = ({ street, city, state, zipcode }) => {
 	};
 };
 
-export const dropoffAddressInfoChanged = ({ type, text }) => {
-	return {
-		type: DROPOFF_ADDRESS_CHANGED,
-		payload: { type, text }
-	};
-};
+export const dropoffAddressInfoChanged = ({ type, text }) => ({
+	type: DROPOFF_ADDRESS_CHANGED,
+	payload: { type, text }
+});
 
-export const setOrder = () => {
+export const setOrder = ({ newOrder, user }) => {
 	return dispatch => {
 		axios
 			.post(
 				'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/orderapi',
 				{
-					storeName: 'storeName',
-					storeStreet: 'address.street',
-					storeCity: 'address.city',
-					storeState: 'address.state',
-					storeZipcode: 'address.zipcode',
-					orderNumber: 'orderNumber',
-					day: 'day',
-					time: 'time',
-					doorway: 'place.doorway',
-					inside: 'place.inside',
-					kitchen: 'place.kitchen',
-					refrigerateState: 'refrigerate.state',
-					refrigerateItems: 'refrigerate.items',
-					freezeState: 'freeze.state',
-					freezeItems: 'freeze.items',
-					clientIsAccountOwner: 'clientIsAccountOwner',
-					clientName: 'clientName',
-					clientLastName: 'clientLastName',
-					useAccountAddress: 'address.useAccountAddress',
-					clientStreet: 'address.street',
-					clientCity: 'address.city',
-					clientState: 'address.state',
-					clientZipcode: 'address.zipcode',
+					storeName: newOrder.pickup.storeName,
+					storeStreet: newOrder.pickup.address.street,
+					storeCity: newOrder.pickup.address.city,
+					storeState: newOrder.pickup.address.state,
+					storeZipcode: newOrder.pickup.address.zipcode,
+					orderNumber: newOrder.pickup.orderNumber,
+					day: newOrder.timeAndPlace.day,
+					time: newOrder.timeAndPlace.time,
+					doorway: newOrder.timeAndPlace.place.doorway,
+					inside: newOrder.timeAndPlace.place.inside,
+					kitchen: newOrder.timeAndPlace.place.kitchen,
+					refrigerateState:
+						newOrder.timeAndPlace.place.refrigerate.state,
+					refrigerateItems:
+						newOrder.timeAndPlace.place.refrigerate.items,
+					freezeState: newOrder.timeAndPlace.place.freeze.state,
+					freezeItems: newOrder.timeAndPlace.place.freeze.items,
+					clientName: newOrder.dropoff.clientName,
+					clientLastName: newOrder.dropoff.clientLastName,
+					clientStreet: newOrder.dropoff.address.street,
+					clientCity: newOrder.dropoff.address.city,
+					clientState: newOrder.dropoff.address.state,
+					clientZipcode: newOrder.dropoff.address.zipcode,
 					status: 'pending'
 				},
 				{
@@ -197,7 +196,37 @@ export const setOrder = () => {
 					Accept: 'application/json'
 				}
 			)
-			.then(res => {
+			.then(() => {
+				console.log('user.password: ');
+				console.log(user.password);
+				axios
+					.post(
+						'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/userapi',
+						{
+							email: user.email,
+							firstName: 'Ani',
+							lastName: 'Gomez',
+							phoneNumber: '42789',
+							street: '1996 Street',
+							city: 'city',
+							state: 'State',
+							zipcode: '114',
+							password: user.password,
+							boxID: 'B1idMf6iz',
+							wifiName: 'wifiName',
+							wifiPassword: 'password',
+							orders: user.order
+						},
+						{
+							'Content-Type': 'application/json',
+							Accept: 'application/json'
+						}
+					)
+					.then(res => {
+						console.log(res);
+					});
+			})
+			.then(() => {
 				dispatch({
 					type: SET_ORDER
 				});
@@ -207,3 +236,7 @@ export const setOrder = () => {
 			});
 	};
 };
+
+export const clearNewOrder = () => ({
+	type: SET_ORDER
+});

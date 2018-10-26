@@ -29,7 +29,8 @@ const INITIAL_STATE = {
     WiFi: {
       wifiName: '',
       wifiPassword: ''
-    }
+    },
+    order: []
   }
 };
 
