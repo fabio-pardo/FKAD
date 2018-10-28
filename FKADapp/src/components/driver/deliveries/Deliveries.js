@@ -7,7 +7,15 @@ import { Header } from '../../common';
 const Deliveries = () => {
 	return (
 		<View style={{ backgroundColor: '#ADCBE0', height: '100%' }}>
-			<Header headerTitle="Deliveries" user='driver'/>
+			<Header headerTitle="Deliveries" user='driver' />
+			<TouchableOpacity
+				style={styles.boxStyle}
+				onPress={() => {
+					Actions.pendingDeliveries();
+				}}
+			>
+				<Text style={styles.textStyle}>Pending Deliveries</Text>
+			</TouchableOpacity>
 			<TouchableOpacity
 				style={styles.boxStyle}
 				onPress={() => {
