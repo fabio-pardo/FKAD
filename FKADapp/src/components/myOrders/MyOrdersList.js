@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content } from 'native-base';
-
 import { Header, Text } from '../common';
-
+import { getOrders } from '../../actions';
 import OrderCard from './OrderCard';
 
 class MyOrdersList extends Component {
+  
 	showOrder() {
 		const { active, pending, complete } = this.props.orders;
 		//this.props.getOrders();
