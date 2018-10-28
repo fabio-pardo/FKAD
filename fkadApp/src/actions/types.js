@@ -46,3 +46,4 @@ export const CLEAR_SIGNUP = 'clear_signup';
 export const CREATE_NEW_USER = 'create_new_user';
 
 export const GET_ORDERS = 'get_orders';
+export const GET_ALL_ORDERS = 'get_all_orders';

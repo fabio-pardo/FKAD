@@ -23,8 +23,12 @@ class ViewDelivery extends Component {
 	}
 
 	acceptDelivery(status) {
-		if (status === 'Pending') return <Button>Accept Delivery</Button>;
+		if (status === 'Pending') return <Button onPress={() => { this.accept(); }}>Accept Delivery</Button>;
 		return;
+	}
+
+	accept() {
+		console.log('Delivery was accepted.')
 	}
 
 	render() {
@@ -96,4 +100,9 @@ const styles = {
 	}
 };
 
+// const mapStateToProps = state => {
+// 	return {
+// 		pending:
+// 	}
+// }
 export default ViewDelivery;

@@ -1,4 +1,5 @@
-import { GET_ORDERS } from '../actions/types';
+import { GET_ORDERS, GET_ALL_ORDERS } from '../actions/types';
+import { getAllOrders } from '../actions';
 
 const INITIAL_STATE = {
 	pending: [],
@@ -15,6 +16,11 @@ export default (state = INITIAL_STATE, action) => {
 				active: addActiveOrder(state.active, action.payload),
 				complete: addCompleteOrder(state.complete, action.payload)
 			};
+		case GET_ALL_ORDERS:
+			return {
+				...state,
+				pending: addAllPendingOrders(state.pending, action.payload),
+			};
 		default:
 			return state;
 	}
@@ -23,6 +29,13 @@ export default (state = INITIAL_STATE, action) => {
 const addPendingOrder = (pending, order) => {
 	if (order.status === 'pending') {
 		return [...pending, order];
+	}
+	return pending;
+};
+
+const addAllPendingOrders = (pending, orders) => {
+	if (orders.status === 'pending') {
+		return [...pending, orders];
 	}
 	return pending;
 };
@@ -40,4 +53,3 @@ const addCompleteOrder = (complete, order) => {
 	}
 	return complete;
 };
-
