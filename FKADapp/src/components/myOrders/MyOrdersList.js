@@ -3,8 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content } from 'native-base';
 
-import { Header, Text } from '../common';
-
+import { Header } from '../common';
 import OrderCard from './OrderCard';
 
 class MyOrdersList extends Component {
@@ -62,3 +61,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {})(MyOrdersList);
+
