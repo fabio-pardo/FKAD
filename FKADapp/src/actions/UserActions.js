@@ -83,7 +83,8 @@ export const onSaveUserChages = user => {
 					password: user.password,
 					boxID: user.boxID,
 					wifiName: user.WiFi.wifiName,
-					wifiPassword: user.WiFi.wifiPassword
+					wifiPassword: user.WiFi.wifiPassword,
+					orders: user.order
 				},
 				{
 					'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
+import { getOrders } from './OrdersActions';
 
 import {
 	REFRIGERATE_ITEMS_CHANGE,
@@ -225,6 +226,7 @@ export const setOrder = ({ newOrder, user }) => {
 					});
 			})
 			.then(() => {
+				dispatch(getOrders(newOrder.pickup.orderNumber));
 				dispatch({
 					type: SET_ORDER
 				});

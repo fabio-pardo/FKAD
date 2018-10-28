@@ -9,11 +9,11 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case GET_ORDERS:
-			console.log('payload:');
-			console.log(action.payload);
 			return {
 				...state,
-				pending: addPendingOrder(state.pending, action.payload)
+				pending: addPendingOrder(state.pending, action.payload),
+				active: addActiveOrder(state.active, action.payload),
+				complete: addCompleteOrder(state.complete, action.payload)
 			};
 		default:
 			return state;
@@ -25,4 +25,18 @@ const addPendingOrder = (pending, order) => {
 		return [...pending, order];
 	}
 	return pending;
+};
+
+const addActiveOrder = (active, order) => {
+	if (order.status === 'active') {
+		return [...active, order];
+	}
+	return active;
+};
+
+const addCompleteOrder = (complete, order) => {
+	if (order.status === 'complete') {
+		return [...complete, order];
+	}
+	return complete;
 };
