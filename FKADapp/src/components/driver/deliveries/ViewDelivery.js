@@ -22,10 +22,15 @@ class ViewDelivery extends Component {
 		return;
 	}
 
+	acceptDelivery(status) {
+		if (status === 'Pending') return <Button>Accept Delivery</Button>;
+		return;
+	}
+
 	render() {
 		return (
 			<View style={{ backgroundColor: 'white' }}>
-				<Header headerTitle="Deliveries" />
+				<Header headerTitle="Deliveries" user='driver' />
 				<View style={styles.containerStyle}>
 					<View style={{ marginTop: 5 }}>
 						<Text style={styles.titleStyle}>Pick Up</Text>
@@ -56,6 +61,7 @@ class ViewDelivery extends Component {
 							Back
 						</Button>
 						{this.watchVideo(this.props.status)}
+						{this.acceptDelivery(this.props.status)}
 					</View>
 				</View>
 			</View>
