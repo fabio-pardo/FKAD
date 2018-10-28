@@ -8,7 +8,9 @@ const OrderCard = ({ order, user }) => {
 		<View
 			style={{
 				backgroundColor:
-					order.status == 'On Time' ? '#D5E5F0' : 'white',
+					order.status == 'pending' || order.status == 'active'
+						? '#D5E5F0'
+						: 'white',
 				padding: 15,
 				paddingLeft: 20,
 				borderBottomColor: '#88B4D3',

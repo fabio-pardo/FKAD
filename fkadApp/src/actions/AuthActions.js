@@ -1,5 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
+import { getOrders } from './OrdersActions';
 
 import {
 	EMAIL_CHANGED,
@@ -45,13 +46,16 @@ export const loginUser = (email, password) => {
 							}
 						)
 						.then(res => {
-							console.log(password);
-							console.log(res.data.street);
 							if (checkPassword(password, res.data.password)) {
 								dispatch({
 									type: LOGIN_USER,
 									payload: res.data
 								});
+
+								const orders = res.data.orders;
+								for (let i = 0; i < orders.length; i++) {
+									dispatch(getOrders(orders[i]));
+								}
 								Actions.myOrders();
 							} else {
 								dispatch({
