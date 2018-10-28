@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Header, Button, Input, InputThree } from '../common';
+import { View } from 'react-native';
+import { connect } from 'react-redux';
 
+import { Header, Text } from '../common';
+import { getOrders } from '../../actions';
 import OrderCard from './OrderCard';
 
 class MyOrdersList extends Component {
 	showOrder(orders) {
+		//this.props.getOrders();
+		console.log(this.props.orders);
 		return orders.map(order => (
 			<OrderCard key={order.id} order={order} user="customer" />
 		));
@@ -51,4 +55,8 @@ const orders = [
 	}
 ];
 
-export default MyOrdersList;
+const mapStateToProps = state => ({
+	orders: state.orders
+});
+
+export default connect(mapStateToProps, { getOrders })(MyOrdersList);

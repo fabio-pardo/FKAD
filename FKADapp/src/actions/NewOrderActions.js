@@ -197,24 +197,22 @@ export const setOrder = ({ newOrder, user }) => {
 				}
 			)
 			.then(() => {
-				console.log('user.password: ');
-				console.log(user.password);
 				axios
 					.post(
 						'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/userapi',
 						{
 							email: user.email,
-							firstName: 'Ani',
-							lastName: 'Gomez',
-							phoneNumber: '42789',
-							street: '1996 Street',
-							city: 'city',
-							state: 'State',
-							zipcode: '114',
+							firstName: user.name.firstName,
+							lastName: user.name.lastName,
+							phoneNumber: user.phoneNumber,
+							street: user.homeAddress.street,
+							city: user.homeAddress.city,
+							state: user.homeAddress.state,
+							zipcode: user.homeAddress.zipcode,
 							password: user.password,
-							boxID: 'B1idMf6iz',
-							wifiName: 'wifiName',
-							wifiPassword: 'password',
+							boxID: user.boxID,
+							wifiName: user.WiFi.wifiName,
+							wifiPassword: user.WiFi.wifiPassword,
 							orders: user.order
 						},
 						{
