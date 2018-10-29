@@ -1,37 +1,79 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 import { Header, Button } from '../../common';
 
 class ViewDelivery extends Component {
-	placeOrder() {
-		return (
-			<View style={{ marginTop: 7 }}>
-				<Text style={styles.subtitleStyle}>Place Order: Inside</Text>
-				<Text style={styles.subtitleStyle}>
-					Items in the Refrigerator:
-				</Text>
-				<Text style={styles.subtitleStyle}>Items in the Freezer:</Text>
-			</View>
-		);
+
+
+	onActive() {
+		// this.props.changeOrderStatusActive();
 	}
 
+	acceptDelivery(status) {
+		if (status === 'pending') {
+			return <Button onPress={() => { this.onActive(); }}>Accept Delivery</Button>;
+		}
+		return;
+	}
 	watchVideo(status) {
 		if (status === 'Complete') return <Button>Watch Video</Button>;
 		return;
 	}
+	placeOrder() {
+		let placeInside;
+		let refrigeratorItems = '';
+		let freezerItems = '';
+		if (this.props.inside === 'true') {
+			placeInside = 'Inside';
+		} else {
+			placeInside = 'Doorfront';
+		}
+
+		if (placeInside === 'Doorfront') {
+			refrigeratorItems = 'N/A';
+			freezerItems = 'N/A';
+		} else {
+			for (let i = 0; i < this.props.refrigerateItems.length; i++) {
+				if (i === this.props.refrigerateItems.length - 1) {
+					refrigeratorItems += this.props.refrigerateItems[i];
+				} else {
+					refrigeratorItems = refrigeratorItems + this.props.refrigerateItems[i] + ', ';
+				}
+			}
+			for (let i = 0; i < this.props.freezeItems.length; i++) {
+				if (i === this.props.freezeItems.length - 1) {
+					freezerItems += this.props.freezeItems[i];
+				} else {
+					freezerItems = freezerItems + this.props.freezeItems[i] + ',';
+				}
+			}
+		}
+
+		return (
+			<View style={{ marginTop: 7 }}>
+				<Text style={styles.subtitleStyle}>Place Order: {placeInside}</Text>
+				<Text style={styles.subtitleStyle}>
+					Items in the Refrigerator: {refrigeratorItems}
+				</Text>
+				<Text style={styles.subtitleStyle}>Items in the Freezer: {freezerItems}</Text>
+			</View>
+		);
+	}
 
 	render() {
+
 		return (
 			<View style={{ backgroundColor: 'white' }}>
-				<Header headerTitle="Deliveries" />
+				<Header headerTitle="Deliveries" user='driver' />
 				<View style={styles.containerStyle}>
 					<View style={{ marginTop: 5 }}>
 						<Text style={styles.titleStyle}>Pick Up</Text>
-						<Text style={styles.subtitleStyle}>Store Name</Text>
+						<Text style={styles.subtitleStyle}>From: {this.props.storeName}</Text>
 						<Text style={styles.subtitleStyle}>
-							Store Street, City, State, Zipcode
+							{this.props.storeStreet}, {this.props.storeCity}, {this.props.storeState}, {this.props.storeZipcode}
 						</Text>
 						<Text style={styles.subtitleStyle}>
 							{this.props.day} at {this.props.time}
@@ -40,10 +82,10 @@ class ViewDelivery extends Component {
 					<View style={{ marginTop: 7 }}>
 						<Text style={styles.titleStyle}>Drop-Off</Text>
 						<Text style={styles.subtitleStyle}>
-							Home Street, City, State, Zipcode
+							{this.props.clientStreet}, {this.props.clientCity}, {this.props.clientState}, {this.props.clientZipcode}
 						</Text>
 						<Text style={styles.subtitleStyle}>
-							{this.props.day} {this.props.time}
+							{this.props.day} at {this.props.time}
 						</Text>
 						{this.placeOrder()}
 					</View>
@@ -56,6 +98,7 @@ class ViewDelivery extends Component {
 							Back
 						</Button>
 						{this.watchVideo(this.props.status)}
+						{this.acceptDelivery(this.props.status)}
 					</View>
 				</View>
 			</View>
@@ -90,4 +133,8 @@ const styles = {
 	}
 };
 
-export default ViewDelivery;
+const mapStateToProps = state => ({
+	pending: state.orders.pending
+});
+
+export default connect(mapStateToProps, {})(ViewDelivery);

@@ -18,7 +18,7 @@ const OrderCard = ({ order, user }) => {
 				elevation: 1
 			}}
 		>
-			<Text style={styles.textStyle}>Order {order.orderNumber}</Text>
+			<Text style={styles.textStyle}>Order #: {order.orderNumber}</Text>
 			<View style={{ marginTop: 15, marginBottom: 10 }}>
 				<Text style={styles.textStyle}>Day: {order.day}</Text>
 				<Text style={styles.textStyle}>Time: {order.time}</Text>
