@@ -21,10 +21,9 @@ export default (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				pending: addAllPendingOrder(state.pending, action.payload),
-				active: addAllActiveOrders(state.active, action.payload),
-				complete: addAllCompleteOrders(state.complete, action.payload)
+				// active: addAllActiveOrders(state.active, action.payload),
+				// complete: addAllCompleteOrders(state.complete, action.payload)
 			};
-
 		default:
 			return state;
 	}

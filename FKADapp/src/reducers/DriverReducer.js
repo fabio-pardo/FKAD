@@ -1,7 +1,9 @@
 import {
 	LOGIN_DRIVER,
 	DRIVER_NAME_CHANGED,
-	DRIVER_EMAIL_PHONE_CHANGED
+	DRIVER_EMAIL_PHONE_CHANGED,
+	ADD_ORDER_TO_DRIVER,
+	REMOVE_LAST_ORDER_FROM_DRIVER
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -46,7 +48,25 @@ export default (state = INITIAL_STATE, action) => {
 				...state,
 				[action.payload.type]: action.payload.text
 			};
+		case ADD_ORDER_TO_DRIVER:
+			return {
+				...state,
+				orders: [...state.orders, action.payload]
+			};
+			case REMOVE_LAST_ORDER_FROM_DRIVER:
+				return {
+					...state,
+					orders: removeLastOrderID(action.payload)
+				};
 		default:
 			return state;
 	}
+};
+
+const removeLastOrderID = (orders) => {
+	const newOrderArray = [];
+	for (let i = 0; i < orders.length - 1; i++) {
+		newOrderArray.push(orders[i]);
+	}
+	return newOrderArray;
 };

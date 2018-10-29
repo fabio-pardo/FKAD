@@ -34,6 +34,7 @@ const styles = {
 
 const mapStateToProps = state => ({
 	pending: state.orders.pending,
+	driver: state.driver
 });
 
-export default connect(mapStateToProps, {})(PendingDeliveries);
+export default connect(mapStateToProps, { })(PendingDeliveries);

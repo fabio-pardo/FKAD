@@ -2,22 +2,37 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import {
+	changeOrderStatusActive,
+	addOrderNumberToDriverArr,
+	removeLastOrderNumFromDriverArr
+} from '../../../actions';
 
-import { Header, Button } from '../../common';
+import { Header, Button, Confirm } from '../../common';
 
 class ViewDelivery extends Component {
+	state = { showModal: false, visible: false };
 
 
 	onActive() {
-		// this.props.changeOrderStatusActive();
+		const { firstName, lastName } = this.props.driver.name;
+		const { email } = this.props.driver;
+		const driver = this.props.driver;
+		const order = this.props;
+		this.props.changeOrderStatusActive({ order, firstName, lastName, email, driver });
 	}
 
 	acceptDelivery(status) {
+		const order = this.props;
 		if (status === 'pending') {
-			return <Button onPress={() => { this.onActive(); }}>Accept Delivery</Button>;
+			return <Button onPress={() => {
+				this.setState({ showModal: true });
+				this.props.addOrderNumberToDriverArr(order);
+			}}>Accept Delivery</Button>;
 		}
 		return;
 	}
+
 	watchVideo(status) {
 		if (status === 'complete') return <Button>Watch Video</Button>;
 		return;
@@ -63,10 +78,24 @@ class ViewDelivery extends Component {
 		);
 	}
 
+	onOrderAccept() {
+		console.log('accept');
+		this.setState({ showModal: false });
+		this.onActive();
+		Actions.deliveries();
+	}
+
+	onOrderDecline() {
+		console.log('decline')
+		this.setState({ showModal: false });
+		this.props.removeLastOrderNumFromDriverArr(this.props.driver);
+	}
+
 	render() {
 		return (
 			<View style={{ backgroundColor: 'white' }}>
 				<Header headerTitle="Deliveries" user='driver' />
+				{console.log(this.props.driver)}
 				<View style={styles.containerStyle}>
 					<View style={{ marginTop: 5 }}>
 						<Text style={styles.titleStyle}>Pick Up</Text>
@@ -98,6 +127,13 @@ class ViewDelivery extends Component {
 						</Button>
 						{this.watchVideo(this.props.status)}
 						{this.acceptDelivery(this.props.status)}
+						<Confirm
+							visible={this.state.showModal}
+							onAccept={this.onOrderAccept.bind(this)}
+							onDecline={this.onOrderDecline.bind(this)}
+						>
+							Are You Sure You'd Like To Accept This Job?
+						</Confirm>
 					</View>
 				</View>
 			</View>
@@ -133,7 +169,13 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
-	pending: state.orders.pending
+	pending: state.orders.pending,
+	orders: state.orders,
+	driver: state.driver
 });
 
-export default connect(mapStateToProps, {})(ViewDelivery);
+export default connect(mapStateToProps, {
+	changeOrderStatusActive,
+	addOrderNumberToDriverArr,
+	removeLastOrderNumFromDriverArr
+})(ViewDelivery);
