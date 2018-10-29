@@ -19,7 +19,7 @@ class ViewDelivery extends Component {
 		return;
 	}
 	watchVideo(status) {
-		if (status === 'Complete') return <Button>Watch Video</Button>;
+		if (status === 'complete') return <Button>Watch Video</Button>;
 		return;
 	}
 	placeOrder() {
@@ -64,7 +64,6 @@ class ViewDelivery extends Component {
 	}
 
 	render() {
-
 		return (
 			<View style={{ backgroundColor: 'white' }}>
 				<Header headerTitle="Deliveries" user='driver' />
