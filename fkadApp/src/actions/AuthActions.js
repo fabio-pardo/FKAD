@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
-import { getOrders } from './OrdersActions';
+import { getOrders, getAllOrders } from './OrdersActions';
 
 import {
 	EMAIL_CHANGED,
@@ -83,6 +83,7 @@ export const loginUser = (email, password) => {
 									type: LOGIN_DRIVER,
 									payload: res.data
 								});
+								dispatch(getAllOrders());
 								Actions.deliveries();
 							} else {
 								dispatch({
