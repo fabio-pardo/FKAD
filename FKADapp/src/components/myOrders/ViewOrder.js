@@ -6,41 +6,107 @@ import { Header, Button } from '../common';
 
 class ViewOrder extends Component {
 	placeOrder() {
+		if (this.props.inside === 'true') {
+			return (
+				<View style={{ marginTop: 3 }}>
+					<Text style={styles.subtitleStyle}>
+						Place Order: Inside
+					</Text>
+					{this.props.kitchen === 'true' ? this.inKitchen() : ''}
+				</View>
+			);
+		}
 		return (
 			<View style={{ marginTop: 3 }}>
-				<Text style={styles.subtitleStyle}>Place Order: Inside</Text>
-				<Text style={styles.subtitleStyle}>
-					Items in the Refrigerator:
-				</Text>
-				<Text style={styles.subtitleStyle}>Items in the Freezer:</Text>
+				<Text style={styles.subtitleStyle}>Place Order: Doorway</Text>
 			</View>
 		);
 	}
+
+	inKitchen() {
+		return (
+			<View>
+				{this.props.refrigerateState === 'true' ? (
+					<View>
+						<Text style={styles.subtitleStyle}>
+							Items in the Refrigerator:
+						</Text>
+						<View style={styles.verticalStyle}>
+							{this.props.refrigerateItems.map((item, index) => (
+								<Text key={index} style={styles.textStyle}>
+									-{' '}
+									{item.charAt(0).toUpperCase() +
+										item.slice(1)}
+								</Text>
+							))}
+						</View>
+					</View>
+				) : (
+					<Text style={styles.subtitleStyle}>
+						Items in the Refrigerator: None
+					</Text>
+				)}
+				{this.props.freezeState === 'true' ? (
+					<View>
+						<Text style={styles.subtitleStyle}>
+							Items in the Freezer:
+						</Text>
+						<View style={styles.verticalStyle}>
+							{this.props.freezeItems.map((item, index) => (
+								<Text key={index} style={styles.textStyle}>
+									-{' '}
+									{item.charAt(0).toUpperCase() +
+										item.slice(1)}
+								</Text>
+							))}
+						</View>
+					</View>
+				) : (
+					<Text style={styles.subtitleStyle}>
+						Items in the Freezer: None
+					</Text>
+				)}
+			</View>
+		);
+	}
+
+	hasDriver() {
+		if (this.props.status !== 'pending') {
+			return (
+				<View style={{ marginTop: 5 }}>
+					<Text style={styles.titleStyle}>
+						Driver: {this.props.driverFirst} {this.props.driverLast}
+					</Text>
+				</View>
+			);
+		}
+		return;
+	}
+
 	render() {
 		return (
 			<View style={{ backgroundColor: 'white' }}>
 				<Header headerTitle="My Orders" />
 				<View style={styles.containerStyle}>
+					{console.log(this.props)}
 					<Text style={styles.statusStyle}>
-						Order Status: {this.props.status}
+						Order Status:{' '}
+						{this.props.status.charAt(0).toUpperCase() +
+							this.props.status.slice(1)}
 					</Text>
 					<View style={{ margin: 5 }}>
-						<View style={{ marginTop: 5 }}>
-							<Text style={styles.titleStyle}>
-								Driver: Name LastName
-							</Text>
-						</View>
+						{this.hasDriver()}
 						<View style={{ marginTop: 5 }}>
 							<Text style={styles.titleStyle}>Pick Up</Text>
 							<View>
 								<Text style={styles.subtitleStyle}>
-									Store Name
+									{this.props.storeName}
 								</Text>
 								<Text style={styles.subtitleStyle}>
-									Store Street, City, State, Zipcode
-								</Text>
-								<Text style={styles.subtitleStyle}>
-									{this.props.day} {this.props.time}
+									{this.props.storeStreet},{' '}
+									{this.props.storeCity},{' '}
+									{this.props.storeState},{' '}
+									{this.props.storeZipcode}
 								</Text>
 							</View>
 						</View>
@@ -48,10 +114,14 @@ class ViewOrder extends Component {
 							<Text style={styles.titleStyle}>Drop-Off</Text>
 							<View style={{ marginTop: 3 }}>
 								<Text style={styles.subtitleStyle}>
-									Owner Name
+									{this.props.clientName}{' '}
+									{this.props.clientLastName}
 								</Text>
 								<Text style={styles.subtitleStyle}>
-									Home Street, City, State, Zipcode
+									{this.props.clientStreet},{' '}
+									{this.props.clientCity},{' '}
+									{this.props.clientState},{' '}
+									{this.props.clientZipcode}
 								</Text>
 								<Text style={styles.subtitleStyle}>
 									{this.props.day} {this.props.time}
@@ -100,6 +170,15 @@ const styles = {
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		marginTop: 30
+	},
+	textStyle: {
+		fontSize: 15,
+		fontFamily: 'AppleGothic',
+		color: '#3982B6'
+	},
+	verticalStyle: {
+		flexDirection: 'column',
+		marginLeft: 5
 	}
 };
 
