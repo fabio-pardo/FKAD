@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import { Header } from '../../common';
 
 const Deliveries = () => {
+	
 	return (
 		<View style={{ backgroundColor: '#ADCBE0', height: '100%' }}>
 			<Header headerTitle="Deliveries" user='driver' />

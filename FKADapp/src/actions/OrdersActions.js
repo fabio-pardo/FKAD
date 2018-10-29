@@ -1,7 +1,7 @@
 //import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
-import { GET_ORDERS, GET_ALL_ORDERS } from './types';
+import { GET_ORDERS, GET_ALL_ORDERS, ADD_ORDER_TO_DRIVER, REMOVE_LAST_ORDER_FROM_DRIVER } from './types';
 
 export const getOrders = id => {
 	return dispatch => {
@@ -14,6 +14,7 @@ export const getOrders = id => {
 				}
 			)
 			.then(res => {
+				// console.log(res);
 				dispatch({
 					type: GET_ORDERS,
 					payload: res.data
@@ -22,7 +23,7 @@ export const getOrders = id => {
 	};
 };
 
-export const getAllOrders = () => {
+export const getAllOrders = (orders) => {
 	return dispatch => {
 		axios.get(
 			'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/orderapi',
@@ -37,49 +38,86 @@ export const getAllOrders = () => {
 				type: GET_ALL_ORDERS,
 				payload: res.data
 			});
+		})
+		.then(() => {
+			for (let i = 0; i < orders.length; i++) {
+				dispatch(
+					getOrders(orders[i])
+				);
+			}
 		});
 	};
 };
 
-export const changeOrderStatusActive = (order) => {
+export const changeOrderStatusActive = ({ order, firstName, lastName, email, driver }) => {
 	return dispatch => {
 		axios.post(
 			'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/orderapi',
 			{
-				storeName: order.pickup.storeName,
-				storeStreet: order.pickup.address.street,
-				storeCity: order.pickup.address.city,
-				storeState: order.pickup.address.state,
-				storeZipcode: order.pickup.address.zipcode,
-				orderNumber: order.pickup.orderNumber,
-				day: order.timeAndPlace.day,
-				time: order.timeAndPlace.time,
-				doorway: order.timeAndPlace.place.doorway,
-				inside: order.timeAndPlace.place.inside,
-				kitchen: order.timeAndPlace.place.kitchen,
-				refrigerateState:
-					order.timeAndPlace.place.refrigerate.state,
-				refrigerateItems:
-					order.timeAndPlace.place.refrigerate.items,
-				freezeState: order.timeAndPlace.place.freeze.state,
-				freezeItems: order.timeAndPlace.place.freeze.items,
-				clientName: order.dropoff.clientName,
-				clientLastName: order.dropoff.clientLastName,
-				clientStreet: order.dropoff.address.street,
-				clientCity: order.dropoff.address.city,
-				clientState: order.dropoff.address.state,
-				clientZipcode: order.dropoff.address.zipcode,
-				status: 'active'
+				storeName: order.storeName,
+				storeStreet: order.storeStreet,
+				storeCity: order.storeCity,
+				storeState: order.storeState,
+				storeZipcode: order.storeZipcode,
+				orderNumber: order.orderNumber,
+				day: order.day,
+				time: order.time,
+				doorway: order.doorway,
+				inside: order.inside,
+				kitchen: order.kitchen,
+				refrigerateState: order.refrigerateState,
+				refrigerateItems: order.refrigerateItems,
+				freezeState: order.freezeState,
+				freezeItems: order.freezeItems,
+				clientName: order.clientName,
+				clientLastName: order.clientLastName,
+				clientStreet: order.clientStreet,
+				clientCity: order.clientCity,
+				clientState: order.clientState,
+				clientZipcode: order.clientZipcode,
+				status: 'active',
+				driverEmail: email,
+				driverFirst: firstName,
+				driverLast: lastName
 			},
 			{
 				'Content-Type': 'application/json',
 				Accept: 'application/json'
 			}
-		);
+		).then(() => {
+			console.log(driver);
+			axios.post(
+				'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/driverapi',
+				{
+					'email-ID': driver.email,
+					fingerPrintID: driver.fingerPrintID,
+					firstName: driver.name.firstName,
+					lastName: driver.name.lastName,
+					orders: driver.orders,
+					password: driver.password,
+					phoneNumber: driver.phoneNumber
+				},
+				{
+					'Content-Type': 'application/json',
+					Accept: 'application/json'
+				}
+			).then(res => {
+				console.log(res);
+			})
+		});
 	};
 };
-// export const clearOrders = () => {
-// 	return {
-// 		type: CLEAR_ORDERS
-// 	};
-// };
+
+export const addOrderNumberToDriverArr = (order) => {
+	return {
+		type: ADD_ORDER_TO_DRIVER,
+		payload: order.orderNumber
+	};
+};
+
+export const removeLastOrderNumFromDriverArr = (driver) => {
+	return {
+		type: REMOVE_LAST_ORDER_FROM_DRIVER,
+		payload: driver.orders
+	};
+};
