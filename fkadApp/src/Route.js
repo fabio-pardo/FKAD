@@ -18,6 +18,7 @@ import Notifications from './components/settings/Notifications';
 import Deliveries from './components/driver/deliveries/Deliveries';
 import ActiveDeliveries from './components/driver/deliveries/ActiveDeliveries';
 import PreviousDeliveries from './components/driver/deliveries/PreviousDeliveries';
+import PendingDeliveries from './components/driver/deliveries/PendingDeliveries';
 import ViewDelivery from './components/driver/deliveries/ViewDelivery';
 
 const RouterComponent = () => (
@@ -60,6 +61,10 @@ const RouterComponent = () => (
 				</Stack>
 				<Stack key="driver" hideNavBar>
 					<Scene key="deliveries" component={Deliveries} initial />
+					<Scene
+						key="pendingDeliveries"
+						component={PendingDeliveries}
+					/>
 					<Scene
 						key="activeDeliveries"
 						component={ActiveDeliveries}

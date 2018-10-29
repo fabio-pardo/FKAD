@@ -6,7 +6,7 @@ import { Header } from '../../common';
 
 import OrderCard from '../../myOrders/OrderCard';
 
-class ActiveDeliveries extends Component {
+class PendingDeliveries extends Component {
 	showDeliveries(deliveries) {
 		return deliveries.map((delivery, index) => (
 			<OrderCard key={index} order={delivery} user="driver" />
@@ -16,9 +16,9 @@ class ActiveDeliveries extends Component {
 	render() {
 		return (
 			<Container>
-				<Header headerTitle="Active Deliveries" user="driver" />
+				<Header headerTitle="Pending Deliveries" user="driver" />
 				<Content style={styles.containerStyle}>
-					{this.showDeliveries(this.props.active)}
+					{this.showDeliveries(this.props.pending)}
 				</Content>
 			</Container>
 		);
@@ -33,7 +33,7 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
-	active: state.orders.active
+	pending: state.orders.pending,
 });
 
-export default connect(mapStateToProps, {})(ActiveDeliveries);
+export default connect(mapStateToProps, {})(PendingDeliveries);
