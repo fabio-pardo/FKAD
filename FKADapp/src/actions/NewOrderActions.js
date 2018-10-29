@@ -190,7 +190,10 @@ export const setOrder = ({ newOrder, user }) => {
 					clientCity: newOrder.dropoff.address.city,
 					clientState: newOrder.dropoff.address.state,
 					clientZipcode: newOrder.dropoff.address.zipcode,
-					status: 'pending'
+					status: 'pending',
+					driverEmail: 'pending',
+					driverFirst: 'pending',
+					driverLast: 'pending'
 				},
 				{
 					'Content-Type': 'application/json',
@@ -232,6 +235,7 @@ export const setOrder = ({ newOrder, user }) => {
 				});
 			})
 			.catch(err => {
+				console.log('ERROR POSTING ORDER');
 				console.log(err);
 			});
 	};

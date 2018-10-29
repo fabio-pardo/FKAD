@@ -36,8 +36,10 @@ class OrderSummery extends Component {
 						Items in the Refrigerator:
 					</Text>
 					<View style={{ marginLeft: 15 }}>
-						{place.refrigerate.items.map(item => (
-							<Text style={styles.textStyle}>{item}</Text>
+						{place.refrigerate.items.map((item, index) => (
+							<Text key={index} style={styles.textStyle}>
+								{item}
+							</Text>
 						))}
 					</View>
 				</View>
@@ -59,8 +61,10 @@ class OrderSummery extends Component {
 						Items in the Refrigerator:
 					</Text>
 					<View style={{ marginLeft: 15 }}>
-						{place.freeze.items.map(item => (
-							<Text style={styles.textStyle}>{item}</Text>
+						{place.freeze.items.map((item, index) => (
+							<Text key={index} style={styles.textStyle}>
+								{item}
+							</Text>
 						))}
 					</View>
 				</View>
@@ -251,4 +255,9 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, { addOrder, deleteOrder, setOrder, clearNewOrder })(OrderSummery);
+export default connect(mapStateToProps, {
+	addOrder,
+	deleteOrder,
+	setOrder,
+	clearNewOrder
+})(OrderSummery);
