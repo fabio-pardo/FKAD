@@ -1,7 +1,12 @@
 //import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
-import { GET_ORDERS, GET_ALL_ORDERS, ADD_ORDER_TO_DRIVER, REMOVE_LAST_ORDER_FROM_DRIVER } from './types';
+import {
+	GET_ORDERS,
+	GET_ALL_ORDERS,
+	ADD_ORDER_TO_DRIVER,
+	REMOVE_LAST_ORDER_FROM_DRIVER
+} from './types';
 
 export const getOrders = id => {
 	return dispatch => {
@@ -23,9 +28,9 @@ export const getOrders = id => {
 	};
 };
 
-export const getAllOrders = (orders) => {
-	return dispatch => {
-		axios.get(
+export const getAllOrders = orders => dispatch => {
+	axios
+		.get(
 			'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/orderapi',
 			{
 				'Content-Type': 'application/json',
@@ -41,17 +46,20 @@ export const getAllOrders = (orders) => {
 		})
 		.then(() => {
 			for (let i = 0; i < orders.length; i++) {
-				dispatch(
-					getOrders(orders[i])
-				);
+				dispatch(getOrders(orders[i]));
 			}
 		});
-	};
 };
 
-export const changeOrderStatusActive = ({ order, firstName, lastName, email, driver }) => {
-	return dispatch => {
-		axios.post(
+export const changeOrderStatusActive = ({
+	order,
+	firstName,
+	lastName,
+	email,
+	driver
+}) => () => {
+	axios
+		.post(
 			'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/orderapi',
 			{
 				storeName: order.storeName,
@@ -84,40 +92,41 @@ export const changeOrderStatusActive = ({ order, firstName, lastName, email, dri
 				'Content-Type': 'application/json',
 				Accept: 'application/json'
 			}
-		).then(() => {
-			console.log(driver);
-			axios.post(
-				'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/driverapi',
-				{
-					'email-ID': driver.email,
-					fingerPrintID: driver.fingerPrintID,
-					firstName: driver.name.firstName,
-					lastName: driver.name.lastName,
-					orders: driver.orders,
-					password: driver.password,
-					phoneNumber: driver.phoneNumber
-				},
-				{
-					'Content-Type': 'application/json',
-					Accept: 'application/json'
-				}
-			).then(res => {
-				console.log(res);
-			})
+		)
+		.then(() => {
+			axios
+				.post(
+					'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/driverapi',
+					{
+						email: driver.email,
+						fingerPrintID: driver.fingerPrintID,
+						firstName: driver.name.firstName,
+						lastName: driver.name.lastName,
+						orders: driver.orders,
+						password: driver.password,
+						phoneNumber: driver.phoneNumber
+					},
+					{
+						'Content-Type': 'application/json',
+						Accept: 'application/json'
+					}
+				)
+				.then(res => {
+					console.log(res);
+				});
 		});
-	};
 };
 
-export const addOrderNumberToDriverArr = (order) => {
+export const addOrderNumberToDriverArr = orderNumber => {
 	return {
 		type: ADD_ORDER_TO_DRIVER,
-		payload: order.orderNumber
+		payload: orderNumber
 	};
 };
 
-export const removeLastOrderNumFromDriverArr = (driver) => {
+export const removeLastOrderNumFromDriverArr = orderNumber => {
 	return {
 		type: REMOVE_LAST_ORDER_FROM_DRIVER,
-		payload: driver.orders
+		payload: orderNumber
 	};
 };

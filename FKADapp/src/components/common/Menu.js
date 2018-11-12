@@ -111,10 +111,8 @@ class Menu extends Component {
 							/>
 							<View
 								style={{
-									flex: 1,
 									backgroundColor: '#3982B6',
 									justifyContent: 'center',
-									marginTop: 10,
 									width: 56
 								}}
 							>

@@ -53,20 +53,20 @@ export default (state = INITIAL_STATE, action) => {
 				...state,
 				orders: [...state.orders, action.payload]
 			};
-			case REMOVE_LAST_ORDER_FROM_DRIVER:
-				return {
-					...state,
-					orders: removeLastOrderID(action.payload)
-				};
+		case REMOVE_LAST_ORDER_FROM_DRIVER:
+			return {
+				...state,
+				orders: removeLastOrderID(state.orders, action.payload)
+			};
 		default:
 			return state;
 	}
 };
 
-const removeLastOrderID = (orders) => {
+const removeLastOrderID = (orders, orderNumber) => {
 	const newOrderArray = [];
-	for (let i = 0; i < orders.length - 1; i++) {
-		newOrderArray.push(orders[i]);
+	for (let i = 0; i < orders.length; i++) {
+		if (orders[i] != orderNumber) newOrderArray.push(orders[i]);
 	}
 	return newOrderArray;
 };
