@@ -83,7 +83,7 @@ export const loginUser = (email, password) => {
 									type: LOGIN_DRIVER,
 									payload: res.data
 								});
-								dispatch(getAllOrders());
+								// dispatch(getAllOrders(res.data.orders));
 								Actions.deliveries();
 							} else {
 								dispatch({
