@@ -94,23 +94,38 @@ class Menu extends Component {
 				animationType="fade"
 				onRequestClose={() => {}}
 			>
+				<StatusBar
+					hidden={false}
+					translucent
+					networkActivityIndicatorVisible
+				/>
 				<TouchableOpacity onPress={onPress}>
 					<View style={styles.containerStyle}>
 						<TouchableOpacity onPress={onPress}>
 							<StatusBar
 								barStyle="dark-content"
 								hidden={false}
-								translucent={true}
+								translucent
 								backgroundColor="#ADCBE0"
-								networkActivityIndicatorVisible={true}
+								networkActivityIndicatorVisible
 							/>
-							<Image
-								style={styles.imageStyle}
-								source={require('../../images/menuIcon.png')}
-							/>
+							<View
+								style={{
+									flex: 1,
+									backgroundColor: '#3982B6',
+									justifyContent: 'center',
+									marginTop: 10,
+									width: 56
+								}}
+							>
+								<Image
+									style={styles.imageStyle}
+									source={require('../../images/menuIcon.png')}
+								/>
+							</View>
 						</TouchableOpacity>
 
-						{this.props.user == 'driver'
+						{this.props.user === 'driver'
 							? this.userIsDriver()
 							: this.userIsCustomer()}
 
@@ -154,7 +169,7 @@ const styles = {
 	},
 	imageStyle: {
 		marginTop: Platform.OS === 'ios' ? 20 : 0,
-		height: 55
+		width: 56
 	}
 };
 

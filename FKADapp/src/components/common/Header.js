@@ -17,8 +17,8 @@ class Header extends Component {
 			<View style={styles.statusBarMargin}>
 				<StatusBar
 					hidden={false}
-					translucent={true}
-					networkActivityIndicatorVisible={true}
+					translucent
+					networkActivityIndicatorVisible
 				/>
 				<View style={styles.toolbar}>
 					<TouchableOpacity
@@ -26,10 +26,19 @@ class Header extends Component {
 							this.setState({ showMenu: !this.state.showMenu });
 						}}
 					>
-						<Image
-							style={{ height: 55 }}
-							source={require('../../images/menuIcon.png')}
-						/>
+						<View
+							style={{
+								flex: 1,
+								backgroundColor: '#3982B6',
+								justifyContent: 'center',
+								width: 56
+							}}
+						>
+							<Image
+								style={{ width: 56 }}
+								source={require('../../images/menuIcon.png')}
+							/>
+						</View>
 					</TouchableOpacity>
 					<Text style={styles.toolbarTitle}>
 						{this.props.headerTitle}
@@ -49,12 +58,12 @@ class Header extends Component {
 
 const styles = {
 	toolbar: {
-		backgroundColor: 'white',
 		flexDirection: 'row' //Step 1
 	},
 	toolbarTitle: {
 		width: '80%',
 		color: '#3982B6',
+		backgroundColor: 'white',
 		fontSize: 35,
 		fontFamily: 'AppleGothic',
 		textAlign: 'center',
