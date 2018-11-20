@@ -11,7 +11,6 @@ class Deliveries extends Component {
 		return (
 			<View style={{ backgroundColor: '#ADCBE0', height: '100%' }}>
 				<Header headerTitle="Deliveries" user="driver" />
-				{console.log(this.props.driver.orders)}
 				<TouchableOpacity
 					style={styles.boxStyle}
 					onPress={() => {

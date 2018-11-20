@@ -66,7 +66,7 @@ export default (state = INITIAL_STATE, action) => {
 const removeLastOrderID = (orders, orderNumber) => {
 	const newOrderArray = [];
 	for (let i = 0; i < orders.length; i++) {
-		if (orders[i] != orderNumber) newOrderArray.push(orders[i]);
+		if (orders[i] !== orderNumber) newOrderArray.push(orders[i]);
 	}
 	return newOrderArray;
 };

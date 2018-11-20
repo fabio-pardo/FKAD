@@ -19,7 +19,12 @@ class ActiveDeliveries extends Component {
 			);
 		}
 		return deliveries.map((delivery, index) => (
-			<OrderCard key={index} order={delivery} user="driver" />
+			<OrderCard
+				key={index}
+				order={delivery}
+				user="driver"
+				activeID={index}
+			/>
 		));
 	}
 

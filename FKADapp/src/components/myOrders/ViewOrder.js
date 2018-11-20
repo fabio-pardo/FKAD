@@ -138,7 +138,15 @@ class ViewOrder extends Component {
 						>
 							Back
 						</Button>
-						<Button>Watch Video</Button>
+						<Button
+							onPress={() => {
+								//watch vide using this.props.url
+								console.log('watching video');
+								console.log(this.props.url);
+							}}
+						>
+							Watch Video
+						</Button>
 					</View>
 				</View>
 			</View>

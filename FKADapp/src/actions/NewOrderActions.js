@@ -167,6 +167,8 @@ export const setOrder = ({ newOrder, user }) => {
 			.post(
 				'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/orderapi',
 				{
+					url: 'pending',
+					lockBox: user.boxID,
 					storeName: newOrder.pickup.storeName,
 					storeStreet: newOrder.pickup.address.street,
 					storeCity: newOrder.pickup.address.city,

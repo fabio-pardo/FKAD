@@ -1,4 +1,9 @@
-import { GET_ORDERS, GET_ALL_ORDERS } from '../actions/types';
+import {
+	GET_ORDERS,
+	GET_ORDERS_USER,
+	GET_ALL_ORDERS,
+	AT_THE_DOOR
+} from '../actions/types';
 
 const INITIAL_STATE = {
 	pending: [],
@@ -14,12 +19,24 @@ export default (state = INITIAL_STATE, action) => {
 				active: addActiveOrder(state.active, action.payload),
 				complete: addCompleteOrder(state.complete, action.payload)
 			};
+		case GET_ORDERS_USER:
+			return {
+				...state,
+				active: addActiveOrder(state.active, action.payload),
+				complete: addCompleteOrder(state.complete, action.payload),
+				pending: addPendingOrder(state.pending, action.payload)
+			};
 		case GET_ALL_ORDERS:
 			return {
 				...state,
 				pending: addAllPendingOrder(action.payload),
 				active: [],
 				complete: []
+			};
+		case AT_THE_DOOR:
+			return {
+				...state,
+				active: changeAtDoor(state.active, action.payload)
 			};
 		default:
 			return state;
@@ -38,6 +55,7 @@ const addAllPendingOrder = orders => {
 
 const addActiveOrder = (active, order) => {
 	if (order.status === 'active') {
+		order.atDoor = false;
 		return [...active, order];
 	}
 	return active;
@@ -48,4 +66,16 @@ const addCompleteOrder = (complete, order) => {
 		return [...complete, order];
 	}
 	return complete;
+};
+
+const addPendingOrder = (pending, order) => {
+	if (order.status === 'pending') {
+		return [...pending, order];
+	}
+	return pending;
+};
+
+const changeAtDoor = (active, id) => {
+	active[id].atDoor = true;
+	return [...active];
 };
