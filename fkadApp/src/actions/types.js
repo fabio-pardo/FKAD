@@ -46,5 +46,9 @@ export const CLEAR_SIGNUP = 'clear_signup';
 export const CREATE_NEW_USER = 'create_new_user';
 
 export const GET_ORDERS = 'get_orders';
+export const GET_ORDERS_USER = 'get_orders_user';
 export const GET_ALL_ORDERS = 'get_all_orders';
 export const CHANGE_PENDING_TO_ACTIVE = 'change_pending_to_active';
+export const ADD_ORDER_TO_DRIVER = 'add_order_to_driver';
+export const REMOVE_LAST_ORDER_FROM_DRIVER = 'remove_last_order_from_driver';
+export const AT_THE_DOOR = 'at_the_door';

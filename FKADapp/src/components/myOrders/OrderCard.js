@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { Button } from '../common';
 import { Actions } from 'react-native-router-flux';
 
-const OrderCard = ({ order, user }) => {
+const OrderCard = ({ order, user, activeID }) => {
 	return (
 		<View
 			style={{
@@ -27,7 +27,9 @@ const OrderCard = ({ order, user }) => {
 			<Button
 				onPress={() => {
 					if (user === 'customer') Actions.viewOrder(order);
-					if (user === 'driver') Actions.viewDelivery(order);
+					if (user === 'driver') {
+						Actions.viewDelivery({ order, activeID });
+					}
 				}}
 			>
 				View

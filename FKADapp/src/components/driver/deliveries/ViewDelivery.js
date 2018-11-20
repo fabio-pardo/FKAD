@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import {
 	changeOrderStatusActive,
+	changeOrderStatusComplete,
 	addOrderNumberToDriverArr,
-	removeLastOrderNumFromDriverArr
+	removeLastOrderNumFromDriverArr,
+	atTheDoorChange
 } from '../../../actions';
 
 import { Header, Button, Confirm } from '../../common';
@@ -13,22 +15,126 @@ import { Header, Button, Confirm } from '../../common';
 class ViewDelivery extends Component {
 	state = { showModal: false, visible: false };
 
-
 	onActive() {
 		const { firstName, lastName } = this.props.driver.name;
 		const { email } = this.props.driver;
 		const driver = this.props.driver;
-		const order = this.props;
-		this.props.changeOrderStatusActive({ order, firstName, lastName, email, driver });
+		const order = this.props.order;
+
+		this.props.changeOrderStatusActive({
+			order,
+			firstName,
+			lastName,
+			email,
+			driver
+		});
+	}
+
+	placeOrder() {
+		const { order } = this.props;
+		let placeInside;
+		let refrigeratorItems = '';
+		let freezerItems = '';
+		if (order.inside === 'true') {
+			placeInside = 'Inside';
+		} else {
+			placeInside = 'Front Door';
+		}
+
+		if (placeInside === 'Front Door') {
+			refrigeratorItems = 'N/A';
+			freezerItems = 'N/A';
+		} else {
+			for (let i = 0; i < order.refrigerateItems.length; i++) {
+				if (i === order.refrigerateItems.length - 1) {
+					refrigeratorItems += order.refrigerateItems[i];
+				} else {
+					refrigeratorItems =
+						refrigeratorItems + order.refrigerateItems[i] + ', ';
+				}
+			}
+			for (let i = 0; i < order.freezeItems.length; i++) {
+				if (i === order.freezeItems.length - 1) {
+					freezerItems += order.freezeItems[i];
+				} else {
+					freezerItems = freezerItems + order.freezeItems[i] + ',';
+				}
+			}
+		}
+
+		return (
+			<View style={{ marginTop: 7 }}>
+				<Text style={styles.subtitleStyle}>
+					Place Order: {placeInside}
+				</Text>
+				<Text style={styles.subtitleStyle}>
+					Items in the Refrigerator: {refrigeratorItems}
+				</Text>
+				<Text style={styles.subtitleStyle}>
+					Items in the Freezer: {freezerItems}
+				</Text>
+			</View>
+		);
+	}
+
+	onOrderAccept() {
+		this.setState({ showModal: false });
+		this.onActive();
+		Actions.deliveries();
+	}
+
+	onOrderDecline() {
+		this.setState({ showModal: false });
+		this.props.removeLastOrderNumFromDriverArr(
+			this.props.order.orderNumber
+		);
+		Actions.pop();
 	}
 
 	acceptDelivery(status) {
-		const order = this.props;
+		const { orderNumber } = this.props.order;
 		if (status === 'pending') {
-			return <Button onPress={() => {
-				this.setState({ showModal: true });
-				this.props.addOrderNumberToDriverArr(order);
-			}}>Accept Delivery</Button>;
+			return (
+				<Button
+					onPress={() => {
+						this.setState({ showModal: true });
+						this.props.addOrderNumberToDriverArr(orderNumber);
+					}}
+				>
+					Accept Delivery
+				</Button>
+			);
+		}
+		return;
+	}
+
+	atTheDoor(status, atDoor, activeID, lockBox, fingerPrintID, orderID) {
+		if (status === 'active' && !atDoor) {
+			return (
+				<Button
+					onPress={() => {
+						this.props.atTheDoorChange({
+							activeID,
+							fingerPrintID,
+							lockBox,
+							orderID
+						});
+					}}
+				>
+					Arrive to Home
+				</Button>
+			);
+		}
+		if (status === 'active' && atDoor) {
+			return (
+				<Button
+					onPress={() => {
+						this.props.changeOrderStatusComplete(this.props.order);
+					}}
+				>
+					Finish Order
+				</Button>
+			);
 		}
 		return;
 	}
@@ -37,83 +143,34 @@ class ViewDelivery extends Component {
 		if (status === 'complete') return <Button>Watch Video</Button>;
 		return;
 	}
-	placeOrder() {
-		let placeInside;
-		let refrigeratorItems = '';
-		let freezerItems = '';
-		if (this.props.inside === 'true') {
-			placeInside = 'Inside';
-		} else {
-			placeInside = 'Doorfront';
-		}
-
-		if (placeInside === 'Doorfront') {
-			refrigeratorItems = 'N/A';
-			freezerItems = 'N/A';
-		} else {
-			for (let i = 0; i < this.props.refrigerateItems.length; i++) {
-				if (i === this.props.refrigerateItems.length - 1) {
-					refrigeratorItems += this.props.refrigerateItems[i];
-				} else {
-					refrigeratorItems = refrigeratorItems + this.props.refrigerateItems[i] + ', ';
-				}
-			}
-			for (let i = 0; i < this.props.freezeItems.length; i++) {
-				if (i === this.props.freezeItems.length - 1) {
-					freezerItems += this.props.freezeItems[i];
-				} else {
-					freezerItems = freezerItems + this.props.freezeItems[i] + ',';
-				}
-			}
-		}
-
-		return (
-			<View style={{ marginTop: 7 }}>
-				<Text style={styles.subtitleStyle}>Place Order: {placeInside}</Text>
-				<Text style={styles.subtitleStyle}>
-					Items in the Refrigerator: {refrigeratorItems}
-				</Text>
-				<Text style={styles.subtitleStyle}>Items in the Freezer: {freezerItems}</Text>
-			</View>
-		);
-	}
-
-	onOrderAccept() {
-		console.log('accept');
-		this.setState({ showModal: false });
-		this.onActive();
-		Actions.deliveries();
-	}
-
-	onOrderDecline() {
-		console.log('decline')
-		this.setState({ showModal: false });
-		this.props.removeLastOrderNumFromDriverArr(this.props.driver);
-	}
 
 	render() {
+		const { order, driver } = this.props;
 		return (
 			<View style={{ backgroundColor: 'white' }}>
-				<Header headerTitle="Deliveries" user='driver' />
-				{console.log(this.props.driver)}
+				<Header headerTitle="Deliveries" user="driver" />
 				<View style={styles.containerStyle}>
 					<View style={{ marginTop: 5 }}>
 						<Text style={styles.titleStyle}>Pick Up</Text>
-						<Text style={styles.subtitleStyle}>From: {this.props.storeName}</Text>
 						<Text style={styles.subtitleStyle}>
-							{this.props.storeStreet}, {this.props.storeCity}, {this.props.storeState}, {this.props.storeZipcode}
+							From: {order.storeName}
 						</Text>
 						<Text style={styles.subtitleStyle}>
-							{this.props.day} at {this.props.time}
+							{order.storeStreet}, {order.storeCity},{' '}
+							{order.storeState}, {order.storeZipcode}
+						</Text>
+						<Text style={styles.subtitleStyle}>
+							{order.day} at {order.time}
 						</Text>
 					</View>
 					<View style={{ marginTop: 7 }}>
 						<Text style={styles.titleStyle}>Drop-Off</Text>
 						<Text style={styles.subtitleStyle}>
-							{this.props.clientStreet}, {this.props.clientCity}, {this.props.clientState}, {this.props.clientZipcode}
+							{order.clientStreet}, {order.clientCity},{' '}
+							{order.clientState}, {order.clientZipcode}
 						</Text>
 						<Text style={styles.subtitleStyle}>
-							{this.props.day} at {this.props.time}
+							{order.day} at {order.time}
 						</Text>
 						{this.placeOrder()}
 					</View>
@@ -125,8 +182,16 @@ class ViewDelivery extends Component {
 						>
 							Back
 						</Button>
-						{this.watchVideo(this.props.status)}
-						{this.acceptDelivery(this.props.status)}
+						{this.atTheDoor(
+							order.status,
+							order.atDoor,
+							this.props.activeID,
+							order.lockBox,
+							driver.fingerPrintID,
+							order.orderNumber
+						)}
+						{this.watchVideo(order.status)}
+						{this.acceptDelivery(order.status)}
 						<Confirm
 							visible={this.state.showModal}
 							onAccept={this.onOrderAccept.bind(this)}
@@ -176,6 +241,8 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
 	changeOrderStatusActive,
+	changeOrderStatusComplete,
 	addOrderNumberToDriverArr,
-	removeLastOrderNumFromDriverArr
+	removeLastOrderNumFromDriverArr,
+	atTheDoorChange
 })(ViewDelivery);

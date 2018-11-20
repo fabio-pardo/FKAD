@@ -9,22 +9,49 @@ import { Header, Button, Confirm } from '../common';
 
 class OrderSummery extends Component {
 	state = { showModal: false, visible: false };
-	isInside() {
+
+	onAddOrder() {
+		const { order } = this.props.user;
+		const { orderNumber } = this.props.newOrder.pickup;
+		this.setState({ showModal: true });
+		this.props.addOrder({ order, orderNumber });
+	}
+
+	onSetOrderAccept() {
+		const { newOrder, user } = this.props;
+		this.props.setOrder({ newOrder, user });
+		this.setState({ showModal: false });
+		Actions.congratulations();
+	}
+
+	onSetOrderDecline() {
+		const { order } = this.props.user;
+		const { orderNumber } = this.props.newOrder.pickup;
+		this.setState({ showModal: false });
+		this.props.deleteOrder({ order, orderNumber });
+		this.props.clearNewOrder();
+		Actions.createNewOrder();
+	}
+
+	inFreezer() {
 		const { place } = this.props.timeAndPlace;
-		if (place.inside && !place.kitchen) {
-			return (
-				<Text style={styles.textStyle}>Items in the kitchen: none</Text>
-			);
-		} else if (place.inside && place.kitchen) {
+		if (place.freeze.state) {
 			return (
 				<View>
-					<Text style={styles.textStyle}>Items in the Kitchen</Text>
-					{this.inRefrigerator()}
-					{this.inFreezer()}
+					<Text style={styles.textStyle}>
+						Items in the Refrigerator:
+					</Text>
+					<View style={{ marginLeft: 15 }}>
+						{place.freeze.items.map((item, index) => (
+							<Text key={index} style={styles.textStyle}>
+								{item}
+							</Text>
+						))}
+					</View>
 				</View>
 			);
 		}
-		return;
+		return <Text style={styles.textStyle}>Items in the Freezer: none</Text>;
 	}
 
 	inRefrigerator() {
@@ -52,48 +79,22 @@ class OrderSummery extends Component {
 		);
 	}
 
-	inFreezer() {
+	isInside() {
 		const { place } = this.props.timeAndPlace;
-		if (place.freeze.state) {
+		if (place.inside && !place.kitchen) {
+			return (
+				<Text style={styles.textStyle}>Items in the kitchen: none</Text>
+			);
+		} else if (place.inside && place.kitchen) {
 			return (
 				<View>
-					<Text style={styles.textStyle}>
-						Items in the Refrigerator:
-					</Text>
-					<View style={{ marginLeft: 15 }}>
-						{place.freeze.items.map((item, index) => (
-							<Text key={index} style={styles.textStyle}>
-								{item}
-							</Text>
-						))}
-					</View>
+					<Text style={styles.textStyle}>Items in the Kitchen</Text>
+					{this.inRefrigerator()}
+					{this.inFreezer()}
 				</View>
 			);
 		}
-		return <Text style={styles.textStyle}>Items in the Freezer: none</Text>;
-	}
-
-	onAddOrder() {
-		const { order } = this.props.user;
-		const { orderNumber } = this.props.newOrder.pickup;
-		this.setState({ showModal: true });
-		this.props.addOrder({ order, orderNumber });
-	}
-
-	onSetOrderAccept() {
-		const { newOrder, user } = this.props;
-		this.props.setOrder({ newOrder, user });
-		this.setState({ showModal: false });
-		Actions.congratulations();
-	}
-
-	onSetOrderDecline() {
-		const { order } = this.props.user;
-		const { orderNumber } = this.props.newOrder.pickup;
-		this.setState({ showModal: false });
-		this.props.deleteOrder({ order, orderNumber });
-		this.props.clearNewOrder();
-		Actions.createNewOrder();
+		return;
 	}
 
 	render() {
