@@ -107,7 +107,7 @@ class ViewDelivery extends Component {
 		}
 		return;
 	}
-
+  
 	atTheDoor(status, atDoor, activeID, lockBox, fingerPrintID, orderID) {
 		if (status === 'active' && !atDoor) {
 			return (
@@ -138,7 +138,7 @@ class ViewDelivery extends Component {
 		}
 		return;
 	}
-
+  
 	watchVideo(status) {
 		if (status === 'complete') return <Button>Watch Video</Button>;
 		return;
