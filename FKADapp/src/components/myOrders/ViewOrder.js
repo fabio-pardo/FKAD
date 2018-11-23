@@ -143,6 +143,7 @@ class ViewOrder extends Component {
 								//watch vide using this.props.url
 								console.log('watching video');
 								console.log(this.props.url);
+								Actions.watchYouTubeVideo();
 							}}
 						>
 							Watch Video
