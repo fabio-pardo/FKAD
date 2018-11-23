@@ -20,6 +20,7 @@ import ActiveDeliveries from './components/driver/deliveries/ActiveDeliveries';
 import PreviousDeliveries from './components/driver/deliveries/PreviousDeliveries';
 import PendingDeliveries from './components/driver/deliveries/PendingDeliveries';
 import ViewDelivery from './components/driver/deliveries/ViewDelivery';
+import WatchYouTubeVideo from './components/watchYouTubeVideo';
 
 const RouterComponent = () => (
 	<Router>
@@ -47,6 +48,7 @@ const RouterComponent = () => (
 						initial
 					/>
 					<Scene key="viewOrder" component={ViewOrder} />
+					<Scene key="watchYouTubeVideo" component={WatchYouTubeVideo} />
 				</Stack>
 				<Stack key="settings" hideNavBar>
 					<Scene key="settingsList" component={Settings} initial />
@@ -74,6 +76,7 @@ const RouterComponent = () => (
 						component={PreviousDeliveries}
 					/>
 					<Scene key="viewDelivery" component={ViewDelivery} />
+					<Scene key="watchYouTubeVideo" component={WatchYouTubeVideo} />
 				</Stack>
 			</Stack>
 		</Stack>
