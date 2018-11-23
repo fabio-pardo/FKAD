@@ -14,7 +14,7 @@ import {
 import YouTube, { YouTubeStandaloneIOS, YouTubeStandaloneAndroid } from 'react-native-youtube';
 import { Actions } from 'react-native-router-flux';
 
-export default class WatchYouTubeVideo extends Component {
+class WatchYouTubeVideo extends Component {
   state = {
     isReady: false,
     status: null,
@@ -350,3 +350,5 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 });
+
+export default WatchYouTubeVideo;
