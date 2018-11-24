@@ -30,6 +30,7 @@ class WatchYouTubeVideo extends Component {
   };
 
   render() {
+    const url = this.props.data;
     return (
       <ScrollView
         style={styles.container}
@@ -53,7 +54,7 @@ class WatchYouTubeVideo extends Component {
             // Un-comment one of videoId / videoIds / playlist.
             // You can also edit these props while Hot-Loading in development mode to see how
             // it affects the loaded native module
-            videoId="PBbj_NMQ_8U"
+            videoId={url}
             // videoIds={['HcXNPI-IPPM', 'XXlZfc1TrD0', 'czcjU1w-c6k', 'uMK0prafzw0']}
             // playlistId="PLF797E961509B4EB5"
             play={this.state.isPlaying}
