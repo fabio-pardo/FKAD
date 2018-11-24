@@ -143,7 +143,7 @@ class ViewDelivery extends Component {
 		if (status === 'complete') return <Button onPress={() => {
 			console.log(this.props.order.url);
 			if (this.props.order.url !== '' && this.props.order.url !== 'pending' && this.props.order.url !== 'active') {
-				Actions.watchYouTubeVideo();
+				Actions.watchYouTubeVideo(this.props.order.url);
 			}
 		}}>Watch Video</Button>;
 		return;
