@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import YouTube, { YouTubeStandaloneIOS, YouTubeStandaloneAndroid } from 'react-native-youtube';
 import { Actions } from 'react-native-router-flux';
+import {  } from './common';
 
 class WatchYouTubeVideo extends Component {
   state = {
@@ -39,11 +40,7 @@ class WatchYouTubeVideo extends Component {
           if (this.state.containerWidth !== width) this.setState({ containerWidth: width });
         }}
       >
-        <Text style={styles.welcome}>{'<YouTube /> component for\n React Native.'}</Text>
-        <Text style={styles.instructions}>
-          http://github.com/inProgress-team/react-native-youtube
-        </Text>
-
+        <View style={{ marginTop: 50 }} />
         {this.state.containerMounted && (
           <YouTube
             ref={component => {
@@ -75,7 +72,7 @@ class WatchYouTubeVideo extends Component {
         )}
 
         {/* Playing / Looping */}
-        <View style={styles.buttonGroup}>
+        {/*<View style={styles.buttonGroup}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.setState(s => ({ isPlaying: !s.isPlaying }))}
@@ -92,10 +89,10 @@ class WatchYouTubeVideo extends Component {
               {this.state.isLooping ? 'Looping' : 'Not Looping'}
             </Text>
           </TouchableOpacity>
-        </View>
+        </View>*/}
 
         {/* Previous / Next video */}
-        <View style={styles.buttonGroup}>
+        {/*<View style={styles.buttonGroup}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => this._youTubeRef && this._youTubeRef.previousVideo()}
@@ -111,7 +108,7 @@ class WatchYouTubeVideo extends Component {
         </View>
 
         {/* Go To Specific time in played video with seekTo() */}
-        <View style={styles.buttonGroup}>
+        {/*<View style={styles.buttonGroup}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => this._youTubeRef && this._youTubeRef.seekTo(15)}
@@ -133,7 +130,7 @@ class WatchYouTubeVideo extends Component {
         </View>
 
         {/* Play specific video in a videoIds array by index */}
-        {this._youTubeRef &&
+        {/*{this._youTubeRef &&
           this._youTubeRef.props.videoIds &&
           Array.isArray(this._youTubeRef.props.videoIds) && (
             <View style={styles.buttonGroup}>
@@ -150,7 +147,7 @@ class WatchYouTubeVideo extends Component {
           )}
 
         {/* Get current played video's position index when playing videoIds (and playlist in iOS) */}
-        <View style={styles.buttonGroup}>
+        {/*<View style={styles.buttonGroup}>
           <TouchableOpacity
             style={styles.button}
             onPress={() =>
@@ -166,7 +163,7 @@ class WatchYouTubeVideo extends Component {
         </View>
 
         {/* Fullscreen */}
-        {!this.state.fullscreen && (
+        {/*{!this.state.fullscreen && (
           <View style={styles.buttonGroup}>
             <TouchableOpacity
               style={styles.button}
@@ -175,7 +172,7 @@ class WatchYouTubeVideo extends Component {
               <Text style={styles.buttonText}>Set Fullscreen</Text>
             </TouchableOpacity>
           </View>
-        )}
+        )}*/}
 
         <View style={styles.buttonGroup}>
           <TouchableOpacity
@@ -187,7 +184,7 @@ class WatchYouTubeVideo extends Component {
         </View>
 
         {/* Update Progress & Duration (Android) */}
-        {Platform.OS === 'android' && (
+        {/*{Platform.OS === 'android' && (
           <View style={styles.buttonGroup}>
             <TouchableOpacity
               style={styles.button}
@@ -209,7 +206,7 @@ class WatchYouTubeVideo extends Component {
         )}
 
         {/* Standalone Player (iOS) */}
-        {Platform.OS === 'ios' &&
+        {/*{Platform.OS === 'ios' &&
           YouTubeStandaloneIOS && (
             <View style={styles.buttonGroup}>
               <TouchableOpacity
@@ -226,7 +223,7 @@ class WatchYouTubeVideo extends Component {
           )}
 
         {/* Standalone Player (Android) */}
-        {Platform.OS === 'android' &&
+        {/*{Platform.OS === 'android' &&
           YouTubeStandaloneAndroid && (
             <View style={styles.buttonGroup}>
               <TouchableOpacity
@@ -283,7 +280,7 @@ class WatchYouTubeVideo extends Component {
           )}
 
         {/* Reload iFrame for updated props (Only needed for iOS) */}
-        {Platform.OS === 'ios' && (
+        {/*{Platform.OS === 'ios' && (
           <View style={styles.buttonGroup}>
             <TouchableOpacity
               style={styles.button}
@@ -301,7 +298,7 @@ class WatchYouTubeVideo extends Component {
         <Text style={styles.instructions}>Quality: {this.state.quality}</Text>
 
         {/* Show Progress */}
-        <Text style={styles.instructions}>
+        {/*<Text style={styles.instructions}>
           Progress: {Math.trunc(this.state.currentTime)}s ({Math.trunc(this.state.duration / 60)}:{Math.trunc(
             this.state.duration % 60,
           )}s)
@@ -310,7 +307,7 @@ class WatchYouTubeVideo extends Component {
 
         <Text style={styles.instructions}>
           {this.state.error ? 'Error: ' + this.state.error : ''}
-        </Text>
+        </Text>*/}
       </ScrollView>
     );
   }
