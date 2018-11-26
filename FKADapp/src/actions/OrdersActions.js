@@ -139,51 +139,6 @@ export const changeOrderStatusActive = ({
 		});
 };
 
-export const changeOrderStatusComplete = order => {
-	return dispatch => {
-		axios
-			.post(
-				'https://vul31mqje4.execute-api.us-east-1.amazonaws.com/dev3/FKADFunc/orderapi',
-				{
-					url: order.url,
-					lockBox: order.lockBox,
-					storeName: order.storeName,
-					storeStreet: order.storeStreet,
-					storeCity: order.storeCity,
-					storeState: order.storeState,
-					storeZipcode: order.storeZipcode,
-					orderNumber: order.orderNumber,
-					day: order.day,
-					time: order.time,
-					doorway: order.doorway,
-					inside: order.inside,
-					kitchen: order.kitchen,
-					refrigerateState: order.refrigerateState,
-					refrigerateItems: order.refrigerateItems,
-					freezeState: order.freezeState,
-					freezeItems: order.freezeItems,
-					clientName: order.clientName,
-					clientLastName: order.clientLastName,
-					clientStreet: order.clientStreet,
-					clientCity: order.clientCity,
-					clientState: order.clientState,
-					clientZipcode: order.clientZipcode,
-					status: 'complete',
-					driverEmail: order.driverEmail,
-					driverFirst: order.driverFirst,
-					driverLast: order.driverLast
-				},
-				{
-					'Content-Type': 'application/json',
-					Accept: 'application/json'
-				}
-			)
-			.then(() => {
-				Actions.deliveries();
-			});
-	};
-};
-
 export const addOrderNumberToDriverArr = orderNumber => {
 	return {
 		type: ADD_ORDER_TO_DRIVER,

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import {
 	changeOrderStatusActive,
-	changeOrderStatusComplete,
 	addOrderNumberToDriverArr,
 	removeLastOrderNumFromDriverArr,
 	atTheDoorChange
@@ -129,7 +128,7 @@ class ViewDelivery extends Component {
 			return (
 				<Button
 					onPress={() => {
-						this.props.changeOrderStatusComplete(this.props.order);
+						Actions.deliveries();
 					}}
 				>
 					Finish Order
@@ -140,12 +139,23 @@ class ViewDelivery extends Component {
 	}
 
 	watchVideo(status) {
-		if (status === 'complete') return <Button onPress={() => {
-			console.log(this.props.order.url);
-			if (this.props.order.url !== '' && this.props.order.url !== 'pending' && this.props.order.url !== 'active') {
-				Actions.watchYouTubeVideo(this.props.order.url);
-			}
-		}}>Watch Video</Button>;
+		if (status === 'complete')
+			return (
+				<Button
+					onPress={() => {
+						console.log(this.props.order.url);
+						if (
+							this.props.order.url !== '' &&
+							this.props.order.url !== 'pending' &&
+							this.props.order.url !== 'active'
+						) {
+							Actions.watchYouTubeVideo(this.props.order.url);
+						}
+					}}
+				>
+					Watch Video
+				</Button>
+			);
 		return;
 	}
 
@@ -246,7 +256,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
 	changeOrderStatusActive,
-	changeOrderStatusComplete,
 	addOrderNumberToDriverArr,
 	removeLastOrderNumFromDriverArr,
 	atTheDoorChange
