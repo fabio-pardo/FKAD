@@ -226,8 +226,8 @@ class TimeAndPlace extends Component {
 							<View style={{ marginBottom: 20 }}>
 								<Text style={styles.textStyle}>Day: </Text>
 								<DatePicker
-									defaultDate={new Date(2018, 4, 4)}
-									minimumDate={new Date(2018, 1, 1)}
+									defaultDate={new Date(2018, 10, 27)}
+									minimumDate={new Date(2018, 10, 27)}
 									maximumDate={new Date(2018, 12, 31)}
 									locale={'en'}
 									timeZoneOffsetInMinutes={undefined}
