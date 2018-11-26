@@ -12,17 +12,23 @@ const InputLogIn = ({
 	const { inputStyle, labelStyle, containerStyle } = styles;
 
 	return (
-		<View style={containerStyle}>
+		<View
+			style={{
+				marginBottom: 5
+			}}
+		>
 			<Text style={labelStyle}>{label}</Text>
-			<TextInput
-				secureTextEntry={secureTextEntry}
-				placeholder={placeholder}
-				autoCorrect={false}
-				style={inputStyle}
-				value={value}
-				onChangeText={onChangeText}
-				autoCapitalize="none"
-			/>
+			<View style={containerStyle}>
+				<TextInput
+					secureTextEntry={secureTextEntry}
+					placeholder={placeholder}
+					autoCorrect={false}
+					style={inputStyle}
+					value={value}
+					onChangeText={onChangeText}
+					autoCapitalize="none"
+				/>
+			</View>
 		</View>
 	);
 };
@@ -33,15 +39,13 @@ const styles = {
 		fontFamily: 'AppleGothic',
 		paddingRight: 5,
 		paddingLeft: 5,
-		paddingBottom: 4,
+		paddingBottom: 5,
+		paddingTop: 5,
 		fontSize: 17,
-		flex: 1,
 		alignSelf: 'stretch'
 	},
 	labelStyle: {
 		fontSize: 18,
-		marginTop: -25,
-		flex: 1,
 		color: '#3982B6',
 		fontFamily: 'AppleGothic'
 	},
@@ -53,9 +57,7 @@ const styles = {
 		borderColor: '#3982B6',
 		flexDirection: 'column',
 		justifyContent: 'center',
-		alignItems: 'flex-start',
-		marginTop: 30,
-		marginBottom: 10
+		alignItems: 'flex-start'
 	}
 };
 
