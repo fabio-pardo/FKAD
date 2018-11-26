@@ -25,7 +25,7 @@ class WatchYouTubeVideo extends Component {
     isLooping: true,
     duration: 0,
     currentTime: 0,
-    fullscreen: false,
+    fullscreen: true,
     containerMounted: false,
     containerWidth: null,
   };
